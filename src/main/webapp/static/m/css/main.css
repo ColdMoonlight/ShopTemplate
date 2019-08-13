@@ -1337,6 +1337,17 @@ a:focus {
 	background-color: #fff;
 }
 
+.cart-footer .show-t-num {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1em 3em;
+}
+
+.cart-footer .show-t-num-text {
+	margin-right: 1em;
+}
+
 .cart-footer .show-t-price {
 	display: flex;
 	justify-content: space-between;
@@ -1355,7 +1366,7 @@ a:focus {
 }
 
 .cart-footer .btn {
-	font-size:12px;
+	font-size:22px;
 	padding: .25em;
 	margin-right: .5em;
 }
