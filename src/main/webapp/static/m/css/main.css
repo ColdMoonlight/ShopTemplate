@@ -294,7 +294,7 @@ a:focus {
 
 /* without data info */
 .without-data {
-	padding: 36px;
+	padding: 8px 36px;
 	text-align: center;
 	font-style: italic;
 	font-size: 14px;
@@ -531,8 +531,9 @@ a:focus {
 }
 
 .sys-title {
+	display: flex;
+	justify-content: flex-end;
 	padding: .5em;
-	text-align: right;
 	border-bottom: 1px solid #ccc;
 }
 
@@ -1366,8 +1367,8 @@ a:focus {
 }
 
 .cart-footer .btn {
-	font-size:22px;
-	padding: .25em;
+	font-size: 18px;
+	padding: .25em .5em;
 	margin-right: .5em;
 }
 
@@ -1638,27 +1639,38 @@ a:focus {
 }
 
 .order-cal {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+	padding: 1em;
   background-color: #fff;
 }
 
-.order-cal .total-price {
-  font-size: 12px;
-  margin-right: 1em;
+.order-cal .cal-price {
+	margin-bottom: 1em;
 }
 
-.order-cal .total-price>span:nth-last-of-type(1) {
-  font-size: 14px;
-  color: #ff1671;
+.order-cal .cal-price-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: .25em;
+}
+
+.order-cal .cal-price-item>span {
+	width: 3em;
+}
+.order-cal .cal-price-item .cal-price-text {
+	font-size: 16px;
+	text-align: left;
+}
+.order-cal .cal-price-item .cal-price-num {
+	margin-left: 2em;
+	font-size: 14px;
+	color: #ff1671;
+	text-align: right;
 }
 
 .order-cal .btn {
-  padding: 1em;
-  font-size: 14px;
-  color: #fff;
-  background-color: #ff1671;
+	text-align: center;
+	padding: .5em;
 }
 
 
@@ -1714,7 +1726,7 @@ a:focus {
 }
 
 .coupons .input-group>input {
-  min-width: 160px;
+  min-width: 240px;
   padding: .25em 1em;
 	border-left-color:#ccc;
 }

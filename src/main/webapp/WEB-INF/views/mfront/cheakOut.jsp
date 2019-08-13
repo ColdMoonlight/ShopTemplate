@@ -69,8 +69,8 @@
 				<div class="list-group">
 					<li class="list-group-item">
 						<div class="group-title"><span>Choose Coupons</span> <span class="price-info"></span><i
-								class="icon right"></i></div>
-						<div class="group-details coupons"></div>
+								class="icon bottom"></i></div>
+						<div class="group-details coupons active"></div>
 					</li>
 					<li class="list-group-item">
 						<div class="group-title"><span>PAYMENT METHOD</span> <i class="icon bottom"></i></div>
@@ -86,19 +86,33 @@
 						</div>
 					</li>
 					<li class="list-group-item">
-						<div class="group-title"><span>Buyer messages</span> <i class="icon right"></i></div>
-						<div class="group-details customer-message">
+						<div class="group-title"><span>Buyer messages</span> <i class="icon bottom"></i></div>
+						<div class="group-details customer-message active">
 							<textarea placeholder="Buyer message"></textarea>
 						</div>
 					</li>
 				</div>
 
 				<div class="order-cal bd-t">
-					<div class="total-price">
-						<span>Total:</span>
-						<span class="text">$0</span>
+					<div class="cal-price">
+						<div class="cal-price-item c-prototal">
+							<span class="cal-price-text">prototal:</span>
+							<span class="cal-price-num"></span>
+						</div>
+						<div class="cal-price-item c-shipping">
+							<span class="cal-price-text">shipping:</span>
+							<span class="cal-price-num"></span>
+						</div>
+						<div class="cal-price-item c-coupon">
+							<span class="cal-price-text">coupon:</span>
+							<span class="cal-price-num">-$0</span>
+						</div>
+						<div class="cal-price-item c-subtotal">
+							<span class="cal-price-text">subtotal:</span>
+							<span class="cal-price-num"></span>
+						</div>
 					</div>
-					<div class="btn place-order">Place Order</div>
+					<div class="btn btn-black place-order">Place Order</div>
 				</div>
 			</div>
 		</div>
@@ -450,6 +464,10 @@
 		var totalPrice = 0;
 		var resDataMoney = 0; // 邮费
 		var totalPriceText = $('.total-price').find('.text');
+		var subtotalPriceText = $('.cal-price-item.c-subtotal').find('.cal-price-num');
+		var prototalPriceText = $('.cal-price-item.c-prototal').find('.cal-price-num');
+		var shippingPriceText = $('.cal-price-item.c-shipping').find('.cal-price-num');
+		var couponPriceText = $('.cal-price-item.c-coupon').find('.cal-price-num');
 		var couponId;
 		var couponCode = '';
 		var addressId;
@@ -498,11 +516,15 @@
 					renderAddressDetail(addressBox, resDataAddress);
 					$('.address-id').val(resDataAddress.addressId);
 					$('.shipping').find('span').text(resDataAddress.addressCountry + ' of $' + resDataMoney);
+					shippingPriceText.text('$' + resDataMoney)
 				} else {
 					renderAddressAdd(addressBox);
 					$('.shipping').find('span').text('Please add the shipping address first');
+					shippingPriceText.text('$' + 0)
 				}
 				totalPriceText.text('$' + (resDataMoney + totalPrice));
+
+				subtotalPriceText.text('$' + (resDataMoney + totalPrice));
 				$('.address-trigger').on('click', function () {
 					$('.address-box').show();
 				});
@@ -542,6 +564,9 @@
 					// console.log(resDataMoney)
 					$('.shipping').find('span').text(resDataAddress.addressCountry + ' of $' + resDataMoney);
 					totalPriceText.text('$' + totalPrice);
+					
+					shippingPriceText.text('$' + resDataMoney);
+					subtotalPriceText.text('$' + totalPrice);
 					renderAddressDetail(addressBox, reqData);
 					$('.address-box').hide();
 					$('.address-trigger').on('click', function () {
@@ -593,21 +618,26 @@
 			type: 'get',
 			success: function (data) {
 				var resData = data.extend.mlfrontOrderItemList;
-				// console.log(resData);
+				console.log(resData);
 				orderId = resData[0].orderId || null;
 				var cartList = $('.cart-list');
 				cartList.attr('data-id', resData.orderId);
 				renderCartList(cartList, resData)
 
 				// console.log(typeof totalPrice)
-				totalPrice += calAllProductPrice(resData) + resDataMoney;
+				var allPriceObj = calAllProductPrice(resData);
+				totalPrice = allPriceObj.allSubtotalPrice + resDataMoney;
 				totalPriceText.text('$' + totalPrice);
+
+				prototalPriceText.text('$' + (allPriceObj.allSubtotalPrice));
+				subtotalPriceText.text('$' + totalPrice);
 			}
 		})
 		/* all */
 		function calAllProductPrice(data) {
 			var len = data.length;
-			var allPrice = 0;
+			var allSubtotalPrice = 0;
+			var allOriginPrice = 0;
 			if (len === 0) {
 				return 0;
 			}
@@ -621,9 +651,13 @@
 					return (price + parseFloat(item))
 				}, originalPrice);
 				// console.log(data[i])
-				allPrice += parseFloat((singlePrice * discount * data[i].orderitemPskuNumber).toFixed(2))
+				allOriginPrice += parseFloat((singlePrice * data[i].orderitemPskuNumber).toFixed(2))
+				allSubtotalPrice += parseFloat((allOriginPrice * discount).toFixed(2))
 			}
-			return allPrice;
+			return {
+				allOriginPrice: allOriginPrice,
+				allSubtotalPrice: allSubtotalPrice
+			};
 		}
 
 		/* single */
@@ -669,7 +703,7 @@
 				html = '<div class="input-group">' +
 					'<input type="text" name="productNum" class="form-control" value="" placeholder="Please enter coupon code">' +
 					'<span class="input-group-addon" id="coupon-check" onclick="checkCouponCode(event)">check it</span>' +
-					'</div><div class="coupon-error">Enter coupon code to get a discount!</div>';
+					'</div><div class="coupon-error"><p class="without-data">Enter coupon code to get a discount!</p></div>';
 			}
 
 			/* MlbackCoupon/getOneMlbackCouponDetailByUId
@@ -709,14 +743,22 @@
 			var priceInfo = targetEl.parent().parent().parent().find('.price-info');
 			if (totalPrice >= counponDataList[id].couponPriceBaseline) {
 				// console.log(totalPrice, resData.couponPrice)
-				priceInfo.text('-$' + counponDataList[id].couponPrice);
-				totalPriceText.text('$' + (totalPrice - counponDataList[id].couponPrice).toFixed(2));
+				var couponPrice = counponDataList[id].couponPrice;
+				priceInfo.text('-$' + couponPrice);
+				totalPriceText.text('$' + (totalPrice - couponPrice).toFixed(2));
+				
+				couponPriceText.text('-$' + couponPrice);
+				subtotalPriceText.text('$' + (totalPrice - couponPrice).toFixed(2));
+
 				couponCode = counponDataList[id].couponCode;
 				couponId = counponDataList[id].couponId;
 			} else {
 				targetEl[0].checked = false;   
-				priceInfo.text("Cann't use this Coupon!")
+				priceInfo.text("Cann't use this Coupon!");
 				totalPriceText.text('$' + (totalPrice).toFixed(2));
+				
+				couponPriceText.text('-$' + 0);
+				subtotalPriceText.text('$' + (totalPrice).toFixed(2));
 			}
 		}
 
@@ -747,6 +789,10 @@
 						if (totalPrice >= resData.couponPriceBaseline) {
 							// console.log(totalPrice, resData.couponPrice)
 							totalPriceText.text('$' + (totalPrice - resData.couponPrice).toFixed(2));
+							
+							couponPriceText.text('-$' + resData.couponPrice);
+							subtotalPriceText.text('$' + (totalPrice - resData.couponPrice).toFixed(2));
+
 							couponId = resData.couponId;
 							couponCode = couponCode2;
 							renderErrorMsg(couponErrorBox, resData.couponName + '，Has been used!')
