@@ -39,7 +39,9 @@
 </head>
 
 <body>
+	<!-- <link rel="stylesheet" type="text/css" href="${APP_PATH }/static/pc/css/jqzoom.css"/> -->
 	<jsp:include page="pcheader.jsp"></jsp:include>
+	<script src="${APP_PATH }/static/pc/js/jquery.jqzoom-core.js"></script>
     <link rel="stylesheet" href="${APP_PATH }/static/common/swiper/swiper.min.css">
 	<script src="${APP_PATH }/static/common/swiper/swiper.min.js"></script>
 	<!-- main -->
@@ -99,36 +101,25 @@
 		var imgCount = 1;
 		var reviewId = null;
 		var sessionScopeproductId = '${sessionScope.productDetailId}';
-		// $(".review-list .review-item ").each(function{
-		// 	$(this).click(function(){
-		//        var img =$(this).find(".review-imgs img")
-		// 		alert(img)
-		// 		
-		// 	})
-		// })
 		/* load tpl for detail of product */
 		$('.product-details').load('${APP_PATH}/static/tpl/pcproductDetail.html', function () {
+			$(".jqzoom").imagezoom();
+			$(".jqPreload0").remove()
 			//接到产品id，查询本id产品的详情
 			var pidA = sessionScopeproductId;
 			var dataPrice = null;
-
 			var swiper = $('.product__details-banner .swiper-wrapper');
             var swipersmall =$('.additional_pic .swiper-wrapper')
-			
 			var conditionBox = $('.conditionBox');
-
 			var productDetailsBox = $('.product__details-text');
 			var prodcutDtitle = $('.product-d-title');
 			var productDlengthList = $('.product-d-length').find('.list');
 			var prodcutDpriceText = $('.product-d-price .price-text');
 			var descriptionBox = $('.group-details.description');
 			var reviewBox = $('.group-details.reviews-info');
-
 			var add = $('#product-num-add');
 			var sub = $('#product-num-sub');
 			var productNum = $('input[name="productNum"]');
-
-
 			/* details of banner */
 			$.ajax({
 				url: '${APP_PATH}/MlbackProductImg/getMlbackProductImgListByProductId',
@@ -140,6 +131,7 @@
 					if (data.code === 100) {
 						var resData = data.extend.mbackProductImgResList;
 						renderProductDetailsBanner(swiper, resData);
+						$(".jqzoom").imagezoom();
 						var galleryleft  = new Swiper('.additional_pic', {
 							direction: 'vertical',
 							slidesPerView: 6,
@@ -163,11 +155,6 @@
 							  }
 
 						});
-					
-						
-						
-						
-						
 					} else {
 						renderErrorMsg(swiper, 'No data for the relevant image was obtained');
 					}
@@ -196,13 +183,12 @@
 					}
 				}
 			});
-			
 			function renderProductDetailsBanner(parent, data) {
 				var htmlbig = '';
 				var htmlsmall = '';
 				for (var i=0, len=data.length; i < len; i += 1) {
 						htmlbig += '<div class="swiper-slide">' +
-						'<img src="' + data[i].productimgUrl + '" alt="' + data[i].productimgName + '">' +
+						'<img src="' + data[i].productimgUrl + '" rel="' + data[i].productimgUrl + '" alt="' + data[i].productimgName + '" class="jqzoom">' +
 						'</div>';
 				}
 				for (var a=0, len=data.length; a < len; a += 1) {
@@ -210,11 +196,9 @@
 						'<img src="' + data[a].productImgsecleturl + '">' +
 						'</div>';
 				}
-				
 				swipersmall.html(htmlsmall);
 				swiper.html(htmlbig);
 			}
-
 			function triggerCondition(parent) {
 				parent.find('.product-d-length').each(function (i, item) {
 					var activeItem = $(item).find('.price-item.active');
@@ -230,7 +214,6 @@
 					})
 				});
 			}
-
 			function renderCondition(parent, data) {
 				var conditionEl = $('<div class="container product-d-length" data-name="' + data.productskuName +
 					'" data-id="' + data.productskuId + '"/>');
@@ -300,7 +283,6 @@
 				}
 			});
 			function addHeaderInfo(productData){
-				
 				// console.log(productData);
 			    var productNameStr = productData.productName;
 			    var productSeoStr =productData.productSeo;
@@ -500,20 +482,12 @@
 					});
 
 				});
-
-				
-				
-				
-				
 			}
-			
-			
 			// render page nav
 			function render_page_nav(parent, pageInfo) {
 				//page_nav_area
 				parent.empty();
 				var ul = $("<ul></ul>").addClass("pagination");
-
 				//构建元素
 				var firstPageLi = $("<li></li>").append($("<a></a>").append("first").attr("href", "javascript:;"));
 				var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
@@ -529,7 +503,6 @@
 						to_page(pageInfo.pageNum - 1);
 					});
 				}
-
 				var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
 				var lastPageLi = $("<li></li>").append($("<a></a>").append("last").attr("href", "javascript:;"));
 				if (pageInfo.hasNextPage == false) {
@@ -543,7 +516,6 @@
 						to_page(pageInfo.pages);
 					});
 				}
-
 				//添加首页和前一页 的提示
 				ul.append(firstPageLi).append(prePageLi);
 				//1,2，3遍历给ul中添加页码提示
@@ -660,21 +632,6 @@
 					}
 				});
 			});
-			
-			// manipulate dom
-			// $('.list-group').find('.list-group-item').each(function (i, item) {
-			// 		var details = $(item).find(".group-details");
-			// 		$(item).find('.group-title').on('click', function () {
-			// 			if (details.hasClass('active')) {
-			// 				details.removeClass('active').hide();
-			// 				$(this).find('.icon').removeClass('bottom').addClass('right');
-			// 			} else {
-			// 				details.addClass('active').show();
-			// 				$(this).find('.icon').removeClass('right').addClass('bottom');
-			// 			}
-			// 		})
-			// 	});
-			
 		$(".descript_cont").find(".group-details:first").css("display","block");
 		$(".list-group li").each(function(j){
 			$(this).click(function(){
@@ -684,8 +641,6 @@
 				$(".group-details:eq("+j+")").show();
 			});
 		});
-			
-
 			$('.review-list').find('.review-more').each(function (i, item) {
 				$(item).on('click', function () {
 					if ($(this).find('.icon').hasClass('bottom')) {
@@ -702,7 +657,6 @@
 				$(prodcutDpriceText.find('.original')).text('$' + original);
 				$(prodcutDpriceText.find('.discount')).text('$' + discount);
 			}
-
 			function repeatCalPrice() {
 				var discount = prodcutDpriceText.data('discount') / 100;
 				sub.on('click', function () {
@@ -723,7 +677,6 @@
 						.toFixed(2));
 				})
 			}
-
 			function calOverPrice() {
 				var overPrice = 0;
 				conditionBox.find('.price-item.active').each(function (i, item) {
@@ -740,7 +693,6 @@
 				discount = (original * parseFloat(prodcutDpriceText.data('discount')) / 100).toFixed(2);
 				calPrice(original, discount);
 			}
-
 			// add-to-cart
 			$('.add-to-cart').on('click', function () {
 				// console.log(dataPrice)
@@ -757,7 +709,6 @@
 				reqData.cartitemProductskuMoneystr = skuData.price.join(',');
 				reqData.cartitemProductNumber = productNum.val();
 				// console.log(data);
-
 				// name, id, price
 				function getSkuData(els) {
 					var data = {
@@ -777,7 +728,6 @@
 				}
 
 				var flag = false
-
 				// console.log(skuCheckData);
 				flag = checkSku(skuCheckData);
 				// console.log(flag)

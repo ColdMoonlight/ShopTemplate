@@ -21,11 +21,8 @@
 	<meta name="wap-font-scale" content="no">
 	<meta name="aplus-touch" content="1">
 </head>
-
 <body>
-
 	<jsp:include page="pcheader.jsp"></jsp:include>
-
 	<!-- main -->
 	<div class="main">
 		<div class="container">
@@ -37,9 +34,7 @@
 			<div class="product-list product-list_home"></div>
 		</div>
 	</div>
-
 	<jsp:include page="pcfooter.jsp"></jsp:include>
-
 	<script>
 		var condition = $('.select');
 		var productList = $('.product-list');
@@ -47,12 +42,10 @@
 		console.log("sessionScopecategoryId:"+sessionScopecategoryId);
 		//var cidA = window.location.href.split('?')[1].split('=');
 		var cidA = sessionScopecategoryId;
-
 		//default codition
 		getProductList({
 			"productCategoryid": cidA
 		});
-
 		/* category condition */
 		$.ajax({
 			url: '${APP_PATH}/MlbackCategory/getOneMlbackCategoryParentDetail',

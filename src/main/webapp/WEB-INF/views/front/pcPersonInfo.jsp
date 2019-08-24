@@ -139,7 +139,6 @@ ${APP_PATH }/MlfrontUser/update
 			tianchong(resData)
 		}
 	})
-
 	function tianchong(data) {
 		$(".userid").val(data.userId);
 		$(".input.userEmail").text(data.userEmail ? data.userEmail : 'Please add');

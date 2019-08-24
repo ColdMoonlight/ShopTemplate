@@ -2282,8 +2282,8 @@ a:focus {
 }
 .forget_pass{text-align: right;}
 .forget_pass a{color: #666;}
-
-
+.loginregister{margin: 0 auto;}
+.login-register .input-group>input{border-radius:5px;}
 
 
 
