@@ -143,7 +143,6 @@
             '<img src="' + data.list[i].categoryImgurl + '" alt="">' +
             '</div>' +
             '<span class="product-name">' + data.list[i].categoryName + '</span>' +
-            /* '<span class="product-name">' + data.list[i].categoryDesc + '</span>'+ */
 
             '</a>' +
             '</div>';

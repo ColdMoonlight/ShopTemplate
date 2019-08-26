@@ -15,8 +15,8 @@
 .tt-desctop-menu .tt-megamenu-submenu > li.listfl6{max-width: 100%; padding: 0; margin: 10px 0;}
 .tt-megamenu-submenu li>a>img{float: left;}
 .tt-desctop-menu .tt-megamenu-submenu{margin: 0 0 0 50px;}
-.product__details-banner.swiper-container{width: 500px; height: 500px;border:1px solid #eeeee1; float:left;margin: 0 0 0 20px;}
-.product__details-banner .swiper-slide img{width: 100%; height: 100%;}
+.product__details-banner.swiper-container{width:500px; height: 500px;float:left;margin: 0 0 0 20px;}
+.product__details-banner .swiper-slide img{width: 100%; height: 100%;border: 1px solid #EEEEE1;}
 .cart-list .input-group{width: 200px;}
 .rightrule .input-group{width: 200px;}
 .tt-desktop-header{border-bottom: 1px solid #eeeee1;}

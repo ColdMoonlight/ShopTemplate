@@ -79,10 +79,6 @@
 								<input type="radio" name="payment" data-payid="0" checked onclick="selectPay(event)" class="checkbox">
 								<img src="${APP_PATH }/static/m/img/other/paypal.jpg">
 							</div>
-							<%-- <div class="coupon-item">
-		     		<input type="radio" name="payment" data-payid="1" onclick="selectPay(event)" class="checkbox">
-		     		<img src="${APP_PATH }/static/m/img/other/paypal.jpg">
-		     	</div> --%>
 						</div>
 					</li>
 					<li class="list-group-item">
@@ -874,7 +870,6 @@
 				type: 'post',
 				async: false,
 				success: function (data) {
-					// console.log("/MlfrontAddress/getOneMlfrontAddressDetailByUinfo");
 					// console.log(data)
 					var resData = data.extend;
 					//console.log(resData.mlfrontAddressOne)
@@ -883,7 +878,6 @@
 					} else {
 						falg = false;						
 						var addressinfoIdss = reqDataUp.addressinfoId;
-						// console.log("addressinfoIdss:"+addressinfoIdss);
 						if(addressinfoIdss!=null){
 							flag = true;
 						}

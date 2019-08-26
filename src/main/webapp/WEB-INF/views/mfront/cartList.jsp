@@ -52,10 +52,6 @@
 	<div class="main cart-box">
 		<div class="cart-title" style="display: none">
 			<img class="purechase-step" src="${APP_PATH }/static/m/img/other/step_cart.jpg">
-			<!-- <div class="cart-status">
-				Shopping List
-				<span class="icon dot"></span>
-			</div> -->
 		</div>
 		<!-- purechase step -->
 		
@@ -192,11 +188,6 @@
 			updateCartItemNum(item, productNumText);
 		}
 
-		/* private Integer cartitemId;
-		private String cartitemProductName;
-
-		${APP_PATH}/MlbackCart/updateCartItemSkuNum		POST请求 */
-
 		function updateCartItemNum(el, num) {
 			target = el.parent().parent().parent();
 			var reqData = {
@@ -253,10 +244,6 @@
 						cartitemProductId: $(item).data('productid'),
 						cartitemProductNumber: $(item).parent().find('.input-group input').val()
 					});
-					/* cartItemArr.push({
-						cartitemId: $(item).data('cartitemid'),
-						cartitemProductId: $(item).data('productid')
-					}); */
 				}
 			})
 			if (cartItemArr.length) {
@@ -341,12 +328,6 @@
 			window.localStorage.setItem('cartlist', JSON.stringify(cartObj));
 			getTotalPrice();
 		}
-		/**
-		 *     private Integer cartitemId;
-		 *		private Integer cartitemCartId;
-		 *		url: '${APP_PATH}/MlbackCart/delCartItem',
-		 *		JSon格式，post请求
-		 */
 
 		var cartNum = parseInt(cartText.text());
 
@@ -354,12 +335,6 @@
 			e.stopPropagation();
 			var el = $(e.target);
 			var cartitemid = el.parent().data('cartitemid');
-
-			// 只需要传递这一个参数就可以了。cartitemId
-			/* var reqData = { // 测试数据
-					cartitemCartId: 1000000,
-					// cartitemId: 1000000
-			} */
 
 			var reqData = {
 				//cartitemCartId: el.data('cartid'),

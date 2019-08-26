@@ -77,9 +77,6 @@
 	var Session_userEmail = '${sessionScope.loginUser.userEmail}';
 	var Session_userFirstname = '${sessionScope.loginUser.userFirstname}';
 	var Session_userLastname = '${sessionScope.loginUser.userLastname}';
-	// console.log("Session_userEmail:"+Session_userEmail);
-	// console.log("Session_userFirstname:"+Session_userFirstname);
-	// console.log("Session_userLastname:"+Session_userLastname);
 	if (Session_userFirstname == "" && Session_userLastname != "") {
 		$("#UHello_zsh").html(Session_userLastname);
 	} else if (Session_userFirstname != "" && Session_userLastname == "") {
@@ -93,7 +90,6 @@
 <script>
 	//  ${APP_PATH }/MlfrontUser/exit
 	$('.btn.signout').on('click', function () {
-		// console.log('*******')
 		$.ajax({
 			url: "${APP_PATH }/MlfrontUser/exit",
 			type: 'POST',

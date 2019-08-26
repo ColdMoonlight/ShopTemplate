@@ -84,6 +84,7 @@
 </body>
 
 <script>
+
 	/* 初始化请求这个接口
  ${APP_PATH }/MlfrontUser/getLoginUserDetail
  

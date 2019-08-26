@@ -11,36 +11,12 @@
   <div class="footer">
 		<div class="footer-logo"></div>
     <div class="container">
-      <!-- <div class="news_letter">
-        <span>NEWS LETTER</span>
-        <div class="form-group">
-          <input type="text">
-          <button>SEND</button>
-        </div>
-      </div>
-      <p>Subscribe to know about the latest sale style updates & more!</p>
-      <div class="share">
-        <a href="#"><i class="icon s1"></i></a>
-        <a href="#"><i class="icon s2"></i></a>
-        <a href="#"><i class="icon s3"></i></a>
-        <a href="#"><i class="icon s4"></i></a>
-        <a href="#"><i class="icon s5"></i></a>
-      </div> -->
       
       <div class="nav"></div>
     </div>
   </div>
   <script src="${APP_PATH }/static/m/js/sidenav.js"></script>
   <script>
-    /*
-      POST请求，无参数
-      MlbackFootNav/getMlfrontFootNavAllq 
-      {
-          "name": "Buyer Service 3",
-          "icon": "",
-          "link": "#"
-      }
-    */
 
     var footerData = [{
         "name": "Megalook_Hair",

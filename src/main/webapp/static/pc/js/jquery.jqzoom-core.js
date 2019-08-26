@@ -3,9 +3,9 @@
         var settings = {
             xzoom: 500,
             yzoom: 500,
-            offset: 10,
+            offset:-500,
             position: "BTR",
-            preload: 1
+            // preload: 1
         };
         if (options) {
             $.extend(settings, options);

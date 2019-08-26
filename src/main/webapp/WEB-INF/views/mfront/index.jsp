@@ -74,11 +74,6 @@
     function rednerHotProduct(parent, data) {
       var html = '';
       for (var i = 0; i < data.length; i += 1) {
-        /* html += '<div class="banner">' +
-          '<a href="${APP_PATH}/MlbackProduct/tomProductDetailPage?productId=' + data[i].actshowproProid + '">' + 
-							'<img src="' + data[i].actshowproImgwapurl + '" alt="">' +
-          '</a>' +
-          '</div>'; */
         html += '<div class="banner">' +
         '<a href="${APP_PATH}/' + data[i].actshowproSeoname + '.html">' +
 							'<img src="' + data[i].actshowproImgwapurl + '" alt="">' +
@@ -87,7 +82,6 @@
       }
       parent.html(html);
     }
-		/* xxxx */
     $.ajax({
       url: '${APP_PATH}/MlbackActShowPro/getMlbackActShowProListByActnum',
       data: "actshowproActnum=" + 1,
@@ -208,7 +202,6 @@
  	        if (data.code === 100) {
  	          var resData = data.extend.mlbackShowAreaOne;
  	          // console.log(resData);
- 	          // categoryName categoryImgurl;
  	          productBlock.append(renderBanner(resData))
  	        } else {
  	          renderErrorMsg(prodcutBox, 'No product-related data was obtained.');

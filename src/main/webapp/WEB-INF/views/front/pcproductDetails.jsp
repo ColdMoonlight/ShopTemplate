@@ -285,13 +285,14 @@
 			function addHeaderInfo(productData){
 				// console.log(productData);
 			    var productNameStr = productData.productName;
+			    var productMetaDescStr =productData.productMetaDesc;
 			    var productSeoStr =productData.productSeo;
 			    var urlStr = 'https://megalookhair.com/'+productSeoStr+'.html';
 			    var imageStr =productData.productMainimgurl;
 			    var amountStr = (productData.productOriginalprice * productData.productActoffoff / 100).toFixed(2);
 			    var productIdStr =productData.productId;
 	            var meta = $('<meta property = "og:title" content ="'+ productNameStr +'">'+
-				'<meta property = "og:description" content = "'+ productSeoStr +'" >'+
+	            '<meta property = "og:description" content = "'+ productMetaDescStr +'" >'+
 				'<meta property = "og:url" content = "'+urlStr+'" >'+
 				'<meta property = "og:image" content = "'+imageStr+'" >'+
 				'<meta property = "product:brand" content = "MegaLook" >'+

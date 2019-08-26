@@ -30,8 +30,6 @@
 
   <!-- main -->
   <div class="main">
-    <!-- purechase step -->
-    <%-- <img class="purechase-step" src="${APP_PATH }/static/m/img/other/step_pay.jpg"> --%>
 
     <div class="box-none">
       <img src="${APP_PATH}/static/m/img/other/pay-fail.png" alt="">

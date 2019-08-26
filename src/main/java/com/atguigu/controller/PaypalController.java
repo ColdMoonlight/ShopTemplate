@@ -73,6 +73,7 @@ public class PaypalController {
      * */
     @RequestMapping(method = RequestMethod.GET, value = "mpay")
     public String pay(HttpServletRequest request,HttpSession session){
+    	System.out.println("into**********/paypal/mpay**********");
     	//读取参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
     	
@@ -117,6 +118,7 @@ public class PaypalController {
      * */
     @RequestMapping(method = RequestMethod.GET, value = "ppay")
     public String ppay(HttpServletRequest request,HttpSession session){
+    	System.out.println("into**********/paypal/ppay**********");
     	//读取参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
     	

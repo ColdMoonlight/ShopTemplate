@@ -314,7 +314,6 @@
         success: function (data) {
           if (data.code === 100) {
             var productData = data.extend;
-            // console.log("MlfrontReview/getMlfrontReviewCount");
             // console.log(data.extend)
             var staticData = data.extend.StartNumList; 
             var reviewTotal = data.extend.allReviewNum;
@@ -428,9 +427,6 @@
 		         		html += '<img src="'+ img[i][k] +'">';
 		         	}
 		         html += '</div>' +
-             /* '<div class="review-content">' +
-	             '<div class="review-text">'+ text[i].reviewDetailstr +'</div>' +
-	           '</div>' + */
 	         '</li>';
 				}
 				parent.html(html);
@@ -743,9 +739,6 @@
 				});
 			}
 
-			/* $('.buy-now').on('click', function () {
-				window.location.href = '${APP_PATH}/MlbackCart/toCartList';
-			}) */
 			$('.buy-now').on('click', function() {
 				// console.log(dataPrice)
 				var skuData = getSkuData($('.product-d-length'));
