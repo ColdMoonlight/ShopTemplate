@@ -993,7 +993,7 @@ margin: 10px 0;
 
 .cart-item>.content .original {
 	text-decoration: line-through;
-	font: 12px/12px '';
+	/* font: 12px/12px ''; */
 	margin-left: .5em;
   margin-bottom: 1px;
 }

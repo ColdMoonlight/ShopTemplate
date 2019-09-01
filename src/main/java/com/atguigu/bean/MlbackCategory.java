@@ -16,6 +16,8 @@ public class MlbackCategory {
     private String categoryParentName;
 
     private Integer categoryStatus;
+    
+    private Integer categoryLable;
 
     private String categorySeo;
 
@@ -90,8 +92,16 @@ public class MlbackCategory {
     public void setCategoryStatus(Integer categoryStatus) {
         this.categoryStatus = categoryStatus;
     }
+    
+    public Integer getCategoryLable() {
+		return categoryLable;
+	}
 
-    public String getCategorySeo() {
+	public void setCategoryLable(Integer categoryLable) {
+		this.categoryLable = categoryLable;
+	}
+
+	public String getCategorySeo() {
         return categorySeo;
     }
 
@@ -162,8 +172,5 @@ public class MlbackCategory {
 	public void setCategoryProductNames(String categoryProductNames) {
 		this.categoryProductNames = categoryProductNames == null ? null : categoryProductNames.trim();
 	}
-    
-    
-    
     
 }

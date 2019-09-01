@@ -47,6 +47,7 @@
 										<th>类名</th>
 										<th>父节点</th>
 										<th>父节点名称</th>
+										<th>分类标签</th>
 										<th>状态</th>
 										<th>位置</th>
 										<th>路径描述</th>
@@ -132,6 +133,8 @@
 				var categoryImgurl = $("<td></td>").append(image);
 				var categoryParentId = $("<td></td>").append(item.categoryParentId);
 				var categoryParentName = $("<td></td>").append(item.categoryParentName);
+				var categoryLable = $("<td></td>").append(item.categoryLable);
+				
 				var categoryStatus = $("<td></td>").append((item.categoryStatus === 1 ? '已上架' : '未上架'));
 				var categorySeo = $("<td></td>").append(item.categorySeo);
 				var categorySortOrder = $("<td></td>").append(item.categorySortOrder);
@@ -152,6 +155,7 @@
 					.append(categoryName)
 					.append(categoryParentId)
 					.append(categoryParentName)
+					.append(categoryLable)
 					.append(categoryStatus)
 					//.append(categorySeo)
 					.append(categorySortOrder)
@@ -352,6 +356,8 @@
 			}
 			$(":input[name='categoryParentId']").val(data.categoryParentId);
 			$(":input[name='categoryParentName']").val(data.categoryParentName);
+			
+			$(":input[name='categoryLable']").val(data.categoryLable);
 			$('.categoryProducts.form-control').html(
 					(data.categoryProductNames ? data.categoryProductNames.split(',').join('<br>') : "暂无产品")
 			);

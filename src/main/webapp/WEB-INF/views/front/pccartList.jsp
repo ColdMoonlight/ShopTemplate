@@ -135,7 +135,7 @@
 						'<span class="original">$' + (dataPrice.origin) + '</span>' +
 						'<div class="input-group">' +
 						'<span class="input-group-addon" id="product-num-sub" onclick="subNum(event)"><i class="icon sub"></i></span>' +
-						'<input type="text" name="cart-product-num" class="form-control" value="' + (hasStorageItem ? cartObj[data[i].cartitemId].num : data[i].cartitemProductNumber) +
+						'<input type="text" name="cart-product-num" disabled="disabled" class="form-control" value="' + (hasStorageItem ? cartObj[data[i].cartitemId].num : data[i].cartitemProductNumber) +
 						'">' +
 						'<span class="input-group-addon" id="product-num-add" onclick="addNum(event)"><i class="icon plus"></i></span>' +
 						'</div>' +
@@ -311,10 +311,27 @@
 			}
 		})
 		function toProductDetails() {
-			$('.cart-item').each(function (i, item) {
-				$(item).on('click', function () {
-					toProductItem($(this).find('.checkbox').data('productid'))
-				})
+			// $('.cart-item').each(function (i, item) {
+			// 	$(item).on('click', function () {
+			// 		toProductItem($(this).find('.checkbox').data('productid'))
+			// 	})
+			// }, true)
+			
+			$(".cart-item").each(function(){
+				var textlink =$(this).children(".content").children(".text").find(".title");
+				// var imglink =$(this).find(".img");
+				textlink.on('click', function () {
+					var product_id = $(this).parents(".content").parents(".cart-item").find(".checkbox").data('productid');
+					// alert(product_id)
+				     toProductItem(product_id)
+				});
+				// imglink.on('click', function () {
+				// 	var product_id = $(this).prev(".checkbox").data('productid');
+				// 	// alert(product_id)
+				//      toProductItem(product_id)
+				// });
+				
+				
 			}, true)
 		}
 		
@@ -377,20 +394,20 @@
 							//取出isDelSuccess字段
 							//1，删除成功。  不alert，刷新 
 							//alert('删除成功')
-							window.location.href = '${APP_PATH}/MlbackCart/topcCartList';
+							window.location.href = '${APP_PATH}/myCart.html';
 						}
 						if (resData.isDelSuccess === 0) {
 							//0，删除失败。alert（resMsg），刷新
 							//全是错误情况，直接刷新
 							renderSysMsg('The system is abnormal, please try again later');
 							if (sysFlag) {
-								window.location.href = '${APP_PATH}/MlbackCart/topcCartList';
+								window.location.href = '${APP_PATH}/myCart.html';
 							}
 						}
 					} else {
 						renderSysMsg('The system is abnormal, please try again later');
 						if (sysFlag) {
-							window.location.href = '${APP_PATH}/MlbackCart/topcCartList';
+							window.location.href = '${APP_PATH}/myCart.html';
 						}
 					}
 				}

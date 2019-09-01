@@ -41,6 +41,8 @@ public class MlbackProduct {
 
     private Integer productActoffoff;
 
+    private Integer productActoffIf;
+    
     private Integer productReviewnum;
 
     private String productDesc;
@@ -202,6 +204,14 @@ public class MlbackProduct {
     public void setProductActoffoff(Integer productActoffoff) {
         this.productActoffoff = productActoffoff;
     }
+    
+    public Integer getProductActoffIf() {
+		return productActoffIf;
+	}
+
+	public void setProductActoffIf(Integer productActoffIf) {
+		this.productActoffIf = productActoffIf;
+	}
 
     public Integer getProductReviewnum() {
         return productReviewnum;

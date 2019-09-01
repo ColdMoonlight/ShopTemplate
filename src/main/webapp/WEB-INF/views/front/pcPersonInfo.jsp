@@ -30,7 +30,7 @@
       <div class="container">
 	<!-- main -->
 	<div class="main person-info">
-		<div class="form-op"><span class="edit-save" data-flag="0">edit</span></div>
+		<div class="form-op"><span class="edit-save" data-flag="1">sive it</span></div>
 		<div class="form">
 			<input class="userid" name="userId" type="hidden" />
 			<div class="input-group">
@@ -159,7 +159,7 @@ ${APP_PATH }/MlfrontUser/update
 	editSave.on('click', function () {
 		var flag = parseInt($(this).data('flag'));
 		if (!flag) {
-			$(this).attr('data-flag', "1").text('save it');
+			$(this).attr('data-flag', "0").text('dfdf');
 			$('.input').each(function (i, item) {
 				$(item).attr('contenteditable', true);
 			});
@@ -183,7 +183,7 @@ ${APP_PATH }/MlfrontUser/update
 				userLastname: $(".input.userLastname").text() === "Please add" ? null : $(".input.userLastname").text(),
 				userPoint: $(".input.userPoint").text() === "Please add" ? null : parseInt($(".input.userPoint").text())
 			}
-			console.table(reqData)
+			// console.table(reqData)
 			// save
 			$.ajax({
 				url: "${APP_PATH }/MlfrontUser/update",
@@ -195,7 +195,7 @@ ${APP_PATH }/MlfrontUser/update
 					// console.log(data);
 					if (data.code === 100) {
 						// console.log(data.extend.resMsg);
-						$(this).attr('data-flag', "0").text('edit');
+						$(this).attr('data-flag', "0")
 						$('.input').each(function (i, item) {
 							$(item).removeAttr('contenteditable');
 						});

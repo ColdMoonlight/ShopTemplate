@@ -111,7 +111,28 @@
 			var html = '';
 			if (data.length > 0) {
 				for (var i = 0; i < data.length; i += 1) {
+					var productactoffif = data[i].productActoffIf;
+					// console.log(productactoffif)
+					var productactoffid  =  data[i].productActoffid;
+					 // console.log(productactoffid)  
+					var cp_icon = "";
+					var showspan = "";
+					if(productactoffif == 1){
+								  if(productactoffid==1){
+									   showspan ="showactive1"
+								  }else if(productactoffid==2){
+									   showspan ="showactive2"
+								  }else if(productactoffid==3){
+									   showspan ="showactive3"
+								  }else if(productactoffid==4){
+									   showspan ="showactive4"
+								  }
+								  
+					}else{
+								   showspan ="hideactive"
+					}
 					html += '<div class="product-item">' +
+					 '<span class="hui_icon '+showspan+'"></span>'+
 						'<div class="product-img">' +
 						/* '<a href="${APP_PATH}/MlbackProduct/tomProductDetailPage?productId=' + data[i].productId + '">' + */
 						'<a href="${APP_PATH}/' + data[i].productSeo + '.html">' +
@@ -160,7 +181,7 @@
 		}
 	</script>
 	<!--  这是一个聊天交流的工具 -->
-  	//<script src="//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js"></script>
+  	<script src="//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js"></script>
 </body>
 
 </html>

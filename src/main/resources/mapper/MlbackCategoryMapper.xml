@@ -8,6 +8,7 @@
     <result column="category_parent_id" jdbcType="INTEGER" property="categoryParentId" />
     <result column="category_parent_name" jdbcType="VARCHAR" property="categoryParentName" />
     <result column="category_status" jdbcType="INTEGER" property="categoryStatus" />
+    <result column="category_lable" jdbcType="INTEGER" property="categoryLable" />
     <result column="category_seo" jdbcType="VARCHAR" property="categorySeo" />
     <result column="category_sort_order" jdbcType="INTEGER" property="categorySortOrder" />
     <result column="category_admin_id" jdbcType="INTEGER" property="categoryAdminId" />
@@ -79,7 +80,7 @@
   </sql>
   <sql id="Base_Column_List">
     category_id, category_name, category_imgurl, category_parent_id, category_parent_name, 
-    category_status, category_seo, category_sort_order, category_admin_id, category_admin_operaterName, 
+    category_status, category_lable, category_seo, category_sort_order, category_admin_id, category_admin_operaterName, 
     category_createTime, category_motifyTime, category_desc,category_product_ids,category_product_names,category_imgpcurl
   </sql>
   <select id="selectByExample" parameterType="com.atguigu.bean.MlbackCategoryExample" resultMap="BaseResultMap">
@@ -111,12 +112,12 @@
   </delete>
   <insert id="insert" parameterType="com.atguigu.bean.MlbackCategory">
     insert into tb_mlback_category (category_id, category_name, category_imgurl, 
-      category_parent_id, category_parent_name, category_status, 
+      category_parent_id, category_parent_name, category_status, category_lable, 
       category_seo, category_sort_order, category_admin_id, 
       category_admin_operaterName, category_createTime, 
       category_motifyTime, category_desc, category_product_ids, category_product_names,category_imgpcurl)
     values (#{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{categoryImgurl,jdbcType=VARCHAR}, 
-      #{categoryParentId,jdbcType=INTEGER}, #{categoryParentName,jdbcType=VARCHAR}, #{categoryStatus,jdbcType=INTEGER}, 
+      #{categoryParentId,jdbcType=INTEGER}, #{categoryParentName,jdbcType=VARCHAR}, #{categoryStatus,jdbcType=INTEGER}, #{categoryLable,jdbcType=INTEGER}, 
       #{categorySeo,jdbcType=VARCHAR}, #{categorySortOrder,jdbcType=INTEGER}, #{categoryAdminId,jdbcType=INTEGER}, 
       #{categoryAdminOperatername,jdbcType=VARCHAR}, #{categoryCreatetime,jdbcType=TIMESTAMP}, 
       #{categoryMotifytime,jdbcType=TIMESTAMP}, #{categoryDesc,jdbcType=VARCHAR}), 
@@ -149,6 +150,9 @@
       </if>
       <if test="record.categoryStatus != null">
         category_status = #{record.categoryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryLable != null">
+        category_lable = #{record.categoryLable,jdbcType=INTEGER},
       </if>
       <if test="record.categorySeo != null">
         category_seo = #{record.categorySeo,jdbcType=VARCHAR},
@@ -193,6 +197,7 @@
       category_parent_id = #{record.categoryParentId,jdbcType=INTEGER},
       category_parent_name = #{record.categoryParentName,jdbcType=VARCHAR},
       category_status = #{record.categoryStatus,jdbcType=INTEGER},
+      category_lable = #{record.categoryLable,jdbcType=INTEGER},
       category_seo = #{record.categorySeo,jdbcType=VARCHAR},
       category_sort_order = #{record.categorySortOrder,jdbcType=INTEGER},
       category_admin_id = #{record.categoryAdminId,jdbcType=INTEGER},
@@ -215,6 +220,7 @@
       category_parent_id = #{categoryParentId,jdbcType=INTEGER},
       category_parent_name = #{categoryParentName,jdbcType=VARCHAR},
       category_status = #{categoryStatus,jdbcType=INTEGER},
+      category_lable = #{categoryLable,jdbcType=INTEGER},
       category_seo = #{categorySeo,jdbcType=VARCHAR},
       category_sort_order = #{categorySortOrder,jdbcType=INTEGER},
       category_admin_id = #{categoryAdminId,jdbcType=INTEGER},
@@ -249,6 +255,9 @@
       <if test="categoryStatus != null">
         category_status = #{categoryStatus,jdbcType=INTEGER},
       </if>
+      <if test="categoryLable != null">
+        category_lable = #{categoryLable,jdbcType=INTEGER},
+      </if>
       <if test="categorySeo != null">
         category_seo = #{categorySeo,jdbcType=VARCHAR},
       </if>
@@ -281,13 +290,19 @@
       </if>
   </select>
   <!-- 使用中 -->
+  <select id="selectMlbackCategoryById" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </select>
+  <!-- 使用中 -->
   <select id="selectMlbackCategoryGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
     select *
     from tb_mlback_category order by category_id desc
   </select>
   <!-- 使用中 -->
   <select id="selectMlbackCategoryGetAllByParentId" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
-    select category_id,category_name,category_imgurl,category_parent_id,category_desc,category_imgpcurl
+    select category_id,category_name,category_lable,category_imgurl,category_parent_id,category_desc,category_imgpcurl
     from tb_mlback_category order by category_parent_id,category_id
   </select>
   <!-- 使用中 -->
@@ -311,6 +326,9 @@
       </if>
       <if test="categoryStatus != null">
         category_status,
+      </if>
+      <if test="categoryLable != null">
+        category_lable,
       </if>
       <if test="categorySeo != null">
         category_seo,
@@ -362,6 +380,9 @@
       <if test="categoryStatus != null">
         #{categoryStatus,jdbcType=INTEGER},
       </if>
+      <if test="categoryLable != null">
+        #{categoryLable,jdbcType=INTEGER},
+      </if>
       <if test="categorySeo != null">
         #{categorySeo,jdbcType=VARCHAR},
       </if>
@@ -412,6 +433,9 @@
       </if>
       <if test="categoryStatus != null">
         category_status = #{categoryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="categoryLable != null">
+        category_lable = #{categoryLable,jdbcType=INTEGER},
       </if>
       <if test="categorySeo != null">
         category_seo = #{categorySeo,jdbcType=VARCHAR},

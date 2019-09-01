@@ -21,6 +21,7 @@
     <result column="product_firsth" jdbcType="INTEGER" property="productFirsth" />
     <result column="product_actoffId" jdbcType="INTEGER" property="productActoffid" />
     <result column="product_actoffOff" jdbcType="INTEGER" property="productActoffoff" />
+    <result column="product_actoffif" jdbcType="INTEGER" property="productActoffIf" />
     <result column="product_reviewNum" jdbcType="INTEGER" property="productReviewnum" />
     <result column="product_category_idsStr" jdbcType="VARCHAR" property="productCategoryIdsStr" />
     <result column="product_category_namesStr" jdbcType="VARCHAR" property="productCategoryNamesStr" />
@@ -90,7 +91,7 @@
   <sql id="Base_Column_List">
     product_id, product_name, product_color, product_seo, product_categoryId, product_mainimgurl, product_originalPrice, 
     product_haveSaleNum, product_status, product_createTime, product_motifyTime, product_admin_id, 
-    product_admin_operatorName, product_lable, product_firsth, product_actoffId, product_actoffOff, product_reviewNum,
+    product_admin_operatorName, product_lable, product_firsth, product_actoffId, product_actoffOff, product_actoffif, product_reviewNum,
     product_category_idsStr,product_category_namesStr,product_meta_desc
   </sql>
   <sql id="Blob_Column_List">
@@ -146,13 +147,13 @@
       product_categoryId, product_mainimgurl, product_originalPrice, 
       product_haveSaleNum, product_status, product_createTime, 
       product_motifyTime, product_admin_id, product_admin_operatorName, 
-      product_lable, product_firsth, product_actoffId, product_actoffOff, 
+      product_lable, product_firsth, product_actoffId, product_actoffOff, product_actoffif,
       product_reviewNum, product_desc,product_category_idsStr,product_category_namesStr,product_meta_desc)
     values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productSeo,jdbcType=VARCHAR}, 
       #{productCategoryid,jdbcType=INTEGER}, #{productMainimgurl,jdbcType=VARCHAR}, #{productOriginalprice,jdbcType=DECIMAL}, 
       #{productHavesalenum,jdbcType=INTEGER}, #{productStatus,jdbcType=INTEGER}, #{productCreatetime,jdbcType=VARCHAR}, 
       #{productMotifytime,jdbcType=VARCHAR}, #{productAdminId,jdbcType=INTEGER}, #{productAdminOperatorname,jdbcType=VARCHAR}, 
-      #{productLable,jdbcType=INTEGER}, #{productFirsth,jdbcType=INTEGER}, #{productActoffid,jdbcType=INTEGER}, #{productActoffoff,jdbcType=INTEGER}, 
+      #{productLable,jdbcType=INTEGER}, #{productFirsth,jdbcType=INTEGER}, #{productActoffid,jdbcType=INTEGER}, #{productActoffoff,jdbcType=INTEGER}, #{productActoffIf,jdbcType=INTEGER}, 
       #{productReviewnum,jdbcType=INTEGER}, #{productDesc,jdbcType=LONGVARCHAR}, 
       #{productCategoryIdsStr,jdbcType=VARCHAR}, #{productCategoryNamesStr,jdbcType=VARCHAR}, #{productMetaDesc,jdbcType=VARCHAR})
   </insert>
@@ -214,6 +215,9 @@
       <if test="record.productActoffoff != null">
         product_actoffOff = #{record.productActoffoff,jdbcType=INTEGER},
       </if>
+      <if test="record.productActoffIf != null">
+        product_actoffif = #{record.productActoffIf,jdbcType=INTEGER},
+      </if>
       <if test="record.productReviewnum != null">
         product_reviewNum = #{record.productReviewnum,jdbcType=INTEGER},
       </if>
@@ -252,6 +256,7 @@
       product_firsth = #{record.productFirsth,jdbcType=INTEGER},
       product_actoffId = #{record.productActoffid,jdbcType=INTEGER},
       product_actoffOff = #{record.productActoffoff,jdbcType=INTEGER},
+      product_actoffif = #{record.productActoffIf,jdbcType=INTEGER},
       product_reviewNum = #{record.productReviewnum,jdbcType=INTEGER},
       product_desc = #{record.productDesc,jdbcType=LONGVARCHAR},
       product_category_idsStr = #{record.productCategoryIdsStr,jdbcType=VARCHAR},
@@ -279,6 +284,7 @@
       product_firsth = #{record.productFirsth,jdbcType=INTEGER},
       product_actoffId = #{record.productActoffid,jdbcType=INTEGER},
       product_actoffOff = #{record.productActoffoff,jdbcType=INTEGER},
+      product_actoffif = #{record.productActoffIf,jdbcType=INTEGER},
       product_reviewNum = #{record.productReviewnum,jdbcType=INTEGER},
       product_category_idsStr = #{record.productCategoryIdsStr,jdbcType=VARCHAR},
       product_category_namesStr = #{record.productCategoryNamesStr,jdbcType=VARCHAR},
@@ -305,6 +311,7 @@
       product_firsth = #{productFirsth,jdbcType=INTEGER},
       product_actoffId = #{productActoffid,jdbcType=INTEGER},
       product_actoffOff = #{productActoffoff,jdbcType=INTEGER},
+      product_actoffif = #{productActoffIf,jdbcType=INTEGER},
       product_reviewNum = #{productReviewnum,jdbcType=INTEGER},
       product_desc = #{productDesc,jdbcType=LONGVARCHAR},
       product_category_idsStr = #{productCategoryIdsStr,jdbcType=VARCHAR},
@@ -329,6 +336,7 @@
       product_firsth = #{productFirsth,jdbcType=INTEGER},
       product_actoffId = #{productActoffid,jdbcType=INTEGER},
       product_actoffOff = #{productActoffoff,jdbcType=INTEGER},
+      product_actoffif = #{productActoffIf,jdbcType=INTEGER},
       product_reviewNum = #{productReviewnum,jdbcType=INTEGER},
       product_category_idsStr = #{productCategoryIdsStr,jdbcType=VARCHAR},
       product_category_namesStr = #{productCategoryNamesStr,jdbcType=VARCHAR},
@@ -394,6 +402,9 @@
       </if>
       <if test="productActoffoff != null">
         product_actoffOff = #{productActoffoff,jdbcType=INTEGER},
+      </if>
+      <if test="productActoffIf != null">
+        product_actoffif = #{productActoffIf,jdbcType=INTEGER},
       </if>
       <if test="productReviewnum != null">
         product_reviewNum = #{productReviewnum,jdbcType=INTEGER},
@@ -485,6 +496,9 @@
       <if test="productActoffoff != null">
         product_actoffOff,
       </if>
+      <if test="productActoffIf != null">
+        product_actoffif,
+      </if>
       <if test="productReviewnum != null">
         product_reviewNum,
       </if>
@@ -558,6 +572,9 @@
       </if>
       <if test="productActoffoff != null">
         #{productActoffoff,jdbcType=INTEGER},
+      </if>
+      <if test="productActoffIf != null">
+        product_actoffif = #{productActoffIf,jdbcType=INTEGER},
       </if>
       <if test="productReviewnum != null">
         #{productReviewnum,jdbcType=INTEGER},
@@ -635,6 +652,9 @@
       <if test="productActoffoff != null">
         product_actoffOff = #{productActoffoff,jdbcType=INTEGER},
       </if>
+      <if test="productActoffIf != null">
+		product_actoffif = #{productActoffIf,jdbcType=INTEGER},
+	  </if>
       <if test="productReviewnum != null">
         product_reviewNum = #{productReviewnum,jdbcType=INTEGER},
       </if>

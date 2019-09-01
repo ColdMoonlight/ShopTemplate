@@ -740,9 +740,9 @@
 				discount = (original * parseFloat(prodcutDpriceText.data('discount')) / 100).toFixed(2);
 				calPrice(original, discount);
 			}
-
+			   var offset = $("#cart_icon").offset();  //结束的地方的元素
 			// add-to-cart
-			$('.add-to-cart').on('click', function () {
+			$('.add-to-cart').on('click', function (event) {   //是$(".addcar")这个元素点击促发的 开始动画的位置就是这个元素的位置为起点
 				// console.log(dataPrice)
 				var skuData = getSkuData($('.product-d-length'));
 				var reqData = {};
@@ -777,12 +777,11 @@
 				}
 
 				var flag = false
-
 				// console.log(skuCheckData);
 				flag = checkSku(skuCheckData);
 				// console.log(flag)
 				if (flag) generateOrder(reqData);
-
+				/**************/
 			});
 
 			function checkSku(skuCheckData) {
@@ -806,7 +805,7 @@
 					dataType: 'JSON',
 					contentType: 'application/json',
 					success: function (data) {
-						console.log(data);
+						// console.log(data);
 						//var resData = JSON.parse(data);
 						var resData =data.code;
 						if (resData === 100) {
@@ -816,12 +815,32 @@
 				                  content_ids: fbpid,
 				                  content_type: 'product'
 				                });
-							// cartText.text(parseInt(cartText.text()) + 1);
-							window.location.href = '${APP_PATH}/myCart.html';
+							setTimeout(function(){
+								cartText.text(parseInt(cartText.text()) + 1);
+							},1000)
+							// window.location.href = '${APP_PATH}/myCart.html';
 						}
 					},
 					error: function (data) {
 						cartText.text(num);
+					}
+				});
+				var img = $(".add-to-cart").parents(".top_detial").children(".left_swiper_cont").children(".additional_pic").children(".swiper-wrapper").children(".swiper-slide").eq(0).find('img').attr('src');
+				// alert(img)
+				var flyer = $('<img class="u-flyer" src="'+img+'" />');
+				flyer.fly({
+					start: {
+						left: event.pageX,
+						top: event.pageY
+					},
+					end: {
+						left: offset.left+10,
+						top: offset.top+10,
+						width: 0,
+						height: 0
+					},
+					onEnd: function(){
+						this.destory();
 					}
 				});
 			}
@@ -995,6 +1014,7 @@
 			})
 		}
 	</script>
+	<script src="//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js"></script>
 </body>
 
 </html>

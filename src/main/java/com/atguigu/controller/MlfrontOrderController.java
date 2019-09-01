@@ -125,6 +125,136 @@ public class MlfrontOrderController {
 //		}
 	}
 	
+	/**3.0.2.9	useOn	0505
+	 * 更新order表中的，地址字段，优惠券字段，优惠券折扣。
+	 * @param MlfrontOrder
+	 */
+	@RequestMapping(value="/earlyorderToPayInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg earlyorderToPayInfo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontOrder mlfrontOrder){
+		//0.0接受参数信息
+		System.out.println("mlfrontOrder:"+mlfrontOrder);
+		Integer originalOrderId = mlfrontOrder.getOrderId();
+		String filnanyNumber = mlfrontOrder.getOrderProNumStr();
+		Integer CouponId =mlfrontOrder.getOrderCouponId();
+		Integer orderPayPlateInt = mlfrontOrder.getOrderPayPlate();
+		String buyMessStr = mlfrontOrder.getOrderBuyMess();
+		//1.0用order查orderItem,遍历orderItem,计算每个Item的价格，再加在一起；
+		String Orderitemidstr = mlfrontOrder.getOrderOrderitemidstr();
+		String orderitemidArr[] = Orderitemidstr.split(",");
+		BigDecimal totalprice = new BigDecimal(0);
+		DecimalFormat df1 = new DecimalFormat("0.00");
+		MlfrontOrderItem mlfrontOrderItemReq = new MlfrontOrderItem();
+		MlfrontOrderItem mlfrontOrderItemRes = new MlfrontOrderItem();
+		for(int i=0;i<orderitemidArr.length;i++){
+			BigDecimal oneAllprice = new BigDecimal(0);
+			Integer orderItemId = Integer.parseInt(orderitemidArr[i]);
+			mlfrontOrderItemReq.setOrderitemId(orderItemId);
+			List<MlfrontOrderItem> mlfrontOrderItemList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemReq);
+			mlfrontOrderItemRes = mlfrontOrderItemList.get(0);
+			BigDecimal ItemProductOriginalprice =mlfrontOrderItemRes.getOrderitemProductOriginalprice();
+			String OrderitemPskuMoneystr = mlfrontOrderItemRes.getOrderitemPskuMoneystr();
+			Integer number = mlfrontOrderItemRes.getOrderitemPskuNumber();
+			Integer accoff = mlfrontOrderItemRes.getOrderitemProductAccoff();
+			String PskuMoneystr[] = OrderitemPskuMoneystr.split(",");
+			BigDecimal pskuMoneyOne = new BigDecimal(0);
+			for(int j =0;j<PskuMoneystr.length;j++){
+				pskuMoneyOne = new BigDecimal(PskuMoneystr[j]);
+				oneAllprice = oneAllprice.add(pskuMoneyOne);
+			}
+			oneAllprice=oneAllprice.add(ItemProductOriginalprice);
+			//计算这一项的价格，(基础价格+每个的sku价格的和)*折扣*数量,存入orderitemPskuReamoney字段中;
+			oneAllprice = oneAllprice.multiply(new BigDecimal(number));
+			oneAllprice = oneAllprice.multiply(new BigDecimal(accoff));
+			oneAllprice = oneAllprice.multiply(new BigDecimal(0.01));
+			String str = df1.format(oneAllprice);
+			System.out.println(oneAllprice);
+			System.out.println(str); //13.15
+			MlfrontOrderItem mlfrontOrderItemMoneyBlack = new MlfrontOrderItem();
+			mlfrontOrderItemMoneyBlack.setOrderitemId(orderItemId);
+			mlfrontOrderItemMoneyBlack.setOrderitemPskuReamoney(str);
+			//更新本条，存入orderitemPskuReamoney字段
+			mlfrontOrderItemService.updateByPrimaryKeySelective(mlfrontOrderItemMoneyBlack);
+			//一个字段存储总价格
+			totalprice = totalprice.add(oneAllprice);
+		}
+		/*		加		单个的	(基础价格+每个的sku价格的和)*折扣*数量,
+		 * 		加				地址运费
+		 * 		减				优惠价格
+		 * */
+		//2.0计算地址价格，计算优惠价格，插入order项目价格
+		//2.1拿到地址ID,
+		Integer AddressId = mlfrontOrder.getAddressinfoId();
+		//查询英文名,查询该英文名的价格运费价格
+		Integer addressMoney = 0;
+		//2.2加上地区快递费
+		totalprice = totalprice.add(new BigDecimal(addressMoney));
+		//拿到优惠码Code,
+		String CouponCode = mlfrontOrder.getOrderCouponCode();
+		//查询该优惠码的优惠价格
+		BigDecimal CouponCodeMoney = getCouponCodeMoney("0");
+		//加上优惠券减掉的
+		totalprice = totalprice.subtract(CouponCodeMoney);
+		//计算该订单的实际价格
+		String totalpriceStr = df1.format(totalprice);
+		//2.3更新order表(地区字段,优惠券字段,总价的价格，结算方式,留言,总价的价格)
+		MlfrontOrder mlfrontOrderEnd = new  MlfrontOrder();
+		mlfrontOrderEnd.setOrderId(originalOrderId);
+		mlfrontOrderEnd.setAddressinfoId(AddressId);//地区字段
+		mlfrontOrderEnd.setOrderCouponId(CouponId);
+		mlfrontOrderEnd.setOrderCouponCode(CouponCode);//优惠券字段
+		mlfrontOrderEnd.setOrderCouponPrice(CouponCodeMoney);//优惠券money
+		mlfrontOrderEnd.setOrderPayPlate(orderPayPlateInt);//结算方式
+		mlfrontOrderEnd.setOrderProNumStr(filnanyNumber);//最终各个产品数量
+		mlfrontOrderEnd.setOrderBuyMess(buyMessStr);//留言
+		BigDecimal bigTotalprice = new BigDecimal(totalpriceStr);//总价的价格
+		mlfrontOrderEnd.setOrderMoney(bigTotalprice);
+		String nowTime = DateUtil.strTime14s();
+		mlfrontOrderEnd.setOrderMotifytime(nowTime);
+		//执行更新order表
+		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderEnd);
+		//3.0将order信息写入payInfo信息中心//uid oid 支付方式，交易订单号，支付信息
+		//从orderId中查询uid,地址id,buyMess字段;
+		Integer payAddressinfoId = mlfrontOrderEnd.getAddressinfoId();
+		
+		MlfrontAddress mlfrontAddress =new MlfrontAddress();
+		mlfrontAddress.setAddressId(payAddressinfoId);
+		
+		List<MlfrontAddress> mlfrontAddressToPayList = mlfrontAddressService.selectMlfrontAddressById(mlfrontAddress);
+		
+		MlfrontAddress mlfrontAddressToPay = mlfrontAddressToPayList.get(0);
+		
+		session.setAttribute("mlfrontAddressToPay", mlfrontAddressToPay);
+		session.setAttribute("totalprice", totalprice);
+		
+		MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
+		mlfrontPayInfoNew.setPayinfoOid(originalOrderId);
+		mlfrontPayInfoNew.setPayinfoStatus(0);//0未支付1已支付
+		if(orderPayPlateInt==0){
+			mlfrontPayInfoNew.setPayinfoPlatform("paypal");
+		}else{
+			mlfrontPayInfoNew.setPayinfoPlatform("bank_Card");
+		}
+		mlfrontPayInfoNew.setPayinfoMoney(totalprice);
+		mlfrontPayInfoNew.setPayinfoCreatetime(nowTime);
+		mlfrontPayInfoNew.setPayinfoMotifytime(nowTime);
+		mlfrontPayInfoService.insertSelective(mlfrontPayInfoNew);
+		List<MlfrontPayInfo> mlfrontPayInfoResList = mlfrontPayInfoService.selectMlfrontPayInfoAll();
+		MlfrontPayInfo mlfrontPayInfoResOne = mlfrontPayInfoResList.get(0);
+		Integer payinfoId = mlfrontPayInfoResOne.getPayinfoId();
+		session.setAttribute("payinfoId", payinfoId);
+		
+		session.setAttribute("sendAddressinfoId", payAddressinfoId);
+		//4.0传入orderid,查询其中的orderItemID，、找到cartID 找到cartid,移除购物车中的
+		Integer IsUpdate = updateCart(mlfrontOrder);
+		//5.0发起支付
+		Integer isSuccess = 0;//返回0，跳支付成功页面
+		//Integer isSuccess = 1;//返回1，跳支付失败页面
+		return Msg.success().add("resMsg", "更新成功").add("isSuccess", isSuccess);
+		//return "redirect:/paypal/pay";
+	}
+	
+	
 	/**3.0	useOn	0505
 	 * 更新order表中的，地址字段，优惠券字段，优惠券折扣。
 	 * @param MlfrontOrder

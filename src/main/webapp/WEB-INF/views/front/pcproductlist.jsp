@@ -42,6 +42,7 @@
 	<jsp:include page="pcfooter.jsp"></jsp:include>
 
 	<script>
+		var reviewId = null;
 		var condition = $('.select');
 		var productList = $('.product-list');
 		var sessionScopecategoryId = '${sessionScope.categoryId}';
@@ -86,124 +87,6 @@
 			}
 		});
 		
-		
-		/* product list for category */
-/* 		function getProductList(data) {
-			$.ajax({
-				url: '${APP_PATH}/MlbackProduct/getMlbackProductByparentCategoryIdListNew',
-				data: JSON.stringify(data),
-				dataType: "JSON",
-				contentType: 'application/json',
-				type: "POST",
-				success: function (data) {
-					// console.log(data)
-					// var data = JSON.parse(data);
-					if (data.code === 100) {
-						rednerProduct(productList, data.extend.mlbackProductResList);
-					} else {
-						renderErrorMsg(productList, 'No product-related data was obtained');
-					}
-				},
-				error: function (error) {
-					if (error.status === 400) {
-						renderErrorMsg(productList, 'There is no relevant product, the page will jump to the home page after 3s!');
-						setTimeout(function () {
-							window.location.href = "${APP_PATH}/index/isMobileOrPc";
-						}, 3000);
-					}
-				}
-			});
-		} */
-
-
-/* 		function renderErrorMsg(parent, msg) {
-			parent.html('<p>' + msg + '</p>');
-		} */
-
-/* 		function rednerProduct(parent, data) {
-			var html = '';
-			if (data.length > 0) {
-				for (var i = 0; i < data.length; i += 1) {
-					html += '<div class="product-item">' +
-						'<div class="product-img">' +
-						'<a href="${APP_PATH}/' + data[i].productSeo + '.html">' +
-						'<img src="' + data[i].productMainimgurl + '" alt="">' +
-						'</a>' +
-						'</div>' +
-						'<div class="product-desc">' +
-						'<div class="product-title">' + data[i].productName + '</div>' +
-						'<div class="product-type"></div>' +
-						'<div class="product-data">' +
-						'<span class="pay-num">' + (data[i].productHavesalenum ? data[i].productHavesalenum : 0) + ' Payment</span>' +
-						'<span class="review-num">' + (data[i].productReviewnum ? data[i].productReviewnum : 0) +
-						' Review(s)</span>' +
-						'</div>' +
-						'<div class="product-price">' +
-						'<span class="product-now-price">$' + (data[i].productOriginalprice && data[i].productActoffoff ? (data[i]
-							.productOriginalprice * data[i].productActoffoff / 100).toFixed(2) : 0) + '</span>' +
-						'<span class="product-define-price">$' + (data[i].productOriginalprice ? data[i].productOriginalprice : 0) +
-						'</span>' +
-						'<span class="product-to-cart" data-id="' + data[i].productId + '"><i class="icon cart2"></i></span>' +
-						'</div>' +
-						'</div>' +
-						'</div>';
-				}
-
-				parent.html(html);
-			} else {
-				renderErrorMsg(parent, 'Relevant product classification products have been removed from the shelves!');
-			}
-		} */
-
-/* 		function renderCondition(parent, data, defaultHtml) {
-			var html = defaultHtml || '';
-			html += ''
-
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				if (data[i].categoryId === parseInt(cidA[1])) {
-					html = '<option value="' + data[i].categoryId + '">' + data[i].categoryName + '</option>' + html;
-				} else {
-					html += '<option value="' + data[i].categoryId + '">' + data[i].categoryName + '</option>';
-				}
-			}
-
-			parent.html(html);
-		} */
-		
-		
-		
-		/* product list for category */
- 		/* function getProductList(productCategoryid,pn) {
-			$.ajax({
-				url: '${APP_PATH}/MlbackProduct/getMlbackProductByparentCategoryIdListAndpn',
-				data: {
-	          			"categoryId": productCategoryid,
-	          			"pn": pn
-	        		  },
-				type: "POST",
-				success: function (data) {
-					// console.log(data)
-					// var data = JSON.parse(data);
-					if (data.code === 100) {
-						rednerProduct(productList, data.extend.mlbackProductResList);
-						var pageInfo = data.extend.pageInfo;
-						console.log("************pageInfo*************");
-						console.log(pageInfo);
-						console.log("************pageInfo*************");
-					} else {
-						renderErrorMsg(productList, 'No product-related data was obtained');
-					}
-				},
-				error: function (error) {
-					if (error.status === 400) {
-						renderErrorMsg(productList, 'There is no relevant product, the page will jump to the home page after 3s!');
-						setTimeout(function () {
-							window.location.href = "${APP_PATH}/index/isMobileOrPc";
-						}, 3000);
-					}
-				}
-			});
-		} */
 		function to_page(pn) {
 			$.ajax({
 				url: '${APP_PATH}/MlbackProduct/getMlbackProductByparentCategoryIdListAndpn',
@@ -216,7 +99,9 @@
 					// console.log(data)
 					// var data = JSON.parse(data);
 					if (data.code === 100) {
-						rednerProduct(productList, data.extend.mlbackProductResList);
+						var reviewTextData =  data.extend.mlbackProductResList;
+						console.log(reviewTextData)
+						rednerProduct(productList,reviewTextData);
 						var pageInfo = data.extend.pageInfo;
 						console.log("************pageInfo*************");
 						console.log(pageInfo);
@@ -237,7 +122,7 @@
 			});
 		}
 		
-		var pageInfo
+		// var pageInfo
 
 		// render page nav
 		function render_page_nav(parent, pageInfo) {
@@ -286,6 +171,7 @@
 				}
 				numLi.click(function () {
 					to_page(item);
+					
 				});
 				ul.append(numLi);
 			});
@@ -301,7 +187,28 @@
 			var html = '';
 			if (data.length > 0) {
 				for (var i = 0; i < data.length; i += 1) {
-					html += '<div class="product-item">' +
+					 var productactoffif = data[i].productActoffIf;
+					// console.log(productactoffif)
+					var productactoffid  =  data[i].productActoffid;
+					 // console.log(productactoffid)  
+					var cp_icon = "";
+					var showspan = "";
+					if(productactoffif == 1){
+								  if(productactoffid==1){
+									   showspan ="showactive1"
+								  }else if(productactoffid==2){
+									   showspan ="showactive2"
+								  }else if(productactoffid==3){
+									   showspan ="showactive3"
+								  }else if(productactoffid==4){
+									   showspan ="showactive4"
+								  }
+								  
+					}else{
+								   showspan ="hideactive"
+					}
+					html += '<div class="product-item" data-productid="'+ data[i].productId +'">' +
+					    '<span class="hui_icon '+showspan+'"></span>'+
 						'<div class="product-img">' +
 						'<a href="${APP_PATH}/' + data[i].productSeo + '.html">' +
 						'<img src="' + data[i].productMainimgurl + '" alt="">' +

@@ -361,6 +361,8 @@ a:focus {
 .category .category-item {
 	padding: .5em 0;
 	border-bottom: 1px solid #ccc;
+	background: url(../../../../../ShopTemplate/static/m/img/index/jtn_02.png) no-repeat right center;
+	background-size:30px ;
 }
 .category .category-item a {
 	position: relative;
@@ -497,21 +499,28 @@ a:focus {
 }
 
 .win-box-title {
-	display: flex;
-	justify-content: space-between;
 	padding: .25em;
-	border-bottom: 1px solid #cdcdcd;
+	/* border-bottom: 1px solid #cdcdcd; */
+	text-align: right;
 }
 
 .win-box-title>span {
-	padding: .5em .75em;
+	padding: .5em 1em;
 	font: 16px/18px Futura;
 	cursor: pointer;
+	display: inline-block;
+	background: #fe186e;
+	color: #fff;
+	border-radius: 2px;
 }
 
 .win-box-content {
-	padding: .5em;
+	padding: .5em .5rem 0;
 }
+/* .win-box-title .save{cursor: pointer; background: url(../../../../../ShopTemplate/static/pc/img/wx.png) no-repeat center left}
+.win-box-title .save.active{cursor: pointer; background: url(../../../../../ShopTemplate/static/pc/img/yx.png) no-repeat center left}
+ */
+
 
 .modal {
 	position: fixed;
@@ -661,6 +670,7 @@ a:focus {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   text-align:center;
+  background: #fff;
 }
 .input-group-addon {
   display: inline-block;
@@ -1439,6 +1449,7 @@ a:focus {
 
 .cart-item>.content .title {
   font-size: 14px;
+  text-decoration: underline;
 }
 
 .cart-item>.content .condition {
@@ -1616,6 +1627,7 @@ a:focus {
 .shipping {
 	padding: 1em;
 	font-size: 14px;
+	background: #fff;
 }
 .shipping>span {
 	color: #ff1671;
@@ -1626,6 +1638,7 @@ a:focus {
 	padding: .5em;
 	display: flex;
 	align-items: center;
+	background: #Fff;
 }
 
 .order-title .bag {
@@ -2285,16 +2298,23 @@ a:focus {
 
 .loginregister{margin: 0 auto;}
 .login-register .input-group>input{border-radius:5px;}
-
-
-
-
-
-
-
-
-
-
+.input-group .input-group>input, .input-group .input-group>.input{background: #fff;}
+.product-item{ position: relative;}
+.hui_icon{width:45px; height: 45px; position: absolute; top: 0;right: 0; }
+.showactive1{background:url(../../../../../ShopTemplate/static/pc/img/sale10.png) no-repeat center;background-size:45px;}
+.showactive2{background:url(../../../../../ShopTemplate/static/pc/img/sale20.png) no-repeat center;background-size:45px;}
+.showactive3{background:url(../../../../../ShopTemplate/static/pc/img/sale30.png) no-repeat center;background-size:45px;}
+.showactive4{background:url(../../../../../ShopTemplate/static/pc/img/sale40.png) no-repeat center;background-size:45px;}
+.no_all .product-box{display: none !important;}
+.shopingaddress{background: #fff;}
+.address{ position: relative; padding: 0;}
+.time_tit{ position: absolute; right: 0; top: 0;}
+.tit_numtt{width: 100%; height: 30px; line-height: 30px; background:#f4f4f4;}
+.tit_numtt span{vertical-align: middle; margin: 0 15px; display: inline-block;width: 15px; height: 15px; background:#999;text-align: center; line-height: 15px; color: #fff;}
+.tit_numtt b{display: inline-block;line-height: 30px;font-size: 12px;}
+.order_box .group-details.coupons {padding: 1em 0 0;}
+.order_box .coupons .coupon-error{padding: 0;}
+.address-details .address.icon_dz{background:url(../../../../../ShopTemplate/static/m/img/index/loa.png) no-repeat center;background-size:32px;}
 
 
 

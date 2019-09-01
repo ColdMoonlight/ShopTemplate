@@ -572,18 +572,25 @@ public class MlbackProductController {
 	@ResponseBody
 	public Msg getMlbackProductByparentCategoryIdListAndpn(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "categoryId") Integer categoryId,@RequestParam(value = "pn", defaultValue = "1") Integer pn){
 		
-		MlbackCategory mlbackCategory = new MlbackCategory();
+		MlbackCategory mlbackCategoryReq = new MlbackCategory();
 		
 		MlbackCategory mlbackCategoryOne = new MlbackCategory();
 		
-		mlbackCategory.setCategoryId(categoryId);
+		Integer categoryIdInt = categoryId;
+		System.out.println("categoryIdInt:"+categoryIdInt);
 		
-	 	List<MlbackCategory> mlbackCategoryList = mlbackCategoryService.selectMlbackCategory(mlbackCategory);
+		mlbackCategoryReq.setCategoryId(categoryIdInt);
+		
+		mlbackCategoryOne = mlbackCategoryService.selectMlbackCategoryById(mlbackCategoryReq);
+		
+		List<MlbackCategory> mlbackCategoryList = new ArrayList<MlbackCategory>();
 	 	
-	 	mlbackCategoryOne = mlbackCategoryList.get(0);
-	 	
-	 	String categoryProductIds = mlbackCategoryOne.getCategoryProductIds();
-	 	
+	 	String categoryProductIds = null;
+	 	if(mlbackCategoryOne==null){
+	 		categoryProductIds = null;
+	 	}else{
+	 		categoryProductIds = mlbackCategoryOne.getCategoryProductIds();
+	 	}
 	 	
 	 	List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
 	 	
@@ -627,10 +634,106 @@ public class MlbackProductController {
 					.add("mlbackProductResList", returnList).add("pageInfo", page);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private PageInfo getPageInfo(List<MlbackProduct> mlbackProductResList,Integer pn) {
 		int PagNum = 25;
 		PageHelper.startPage(pn, PagNum);
 		PageInfo page = new PageInfo(mlbackProductResList, PagNum);
+		
+		int EndRow = (pn-1)*PagNum+PagNum;
+		int lastPage=(mlbackProductResList.size()/PagNum)+1;
+		int firstPage = 1;
+		boolean hasNextPage = true;
+		boolean hasPreviousPage=true;
+		boolean isFirstPage = true;
+		boolean isLastPage = true;
+		//计算上半部分参数
+		if(pn==lastPage&&lastPage>1){
+			isFirstPage = false;
+			isLastPage = true;
+			hasPreviousPage=true;
+			hasNextPage = false;
+			EndRow = mlbackProductResList.size();
+		}else if(pn==lastPage&&lastPage==1){
+			isFirstPage = true;
+			isLastPage = true;
+			hasPreviousPage=false;
+			hasNextPage = false;
+			EndRow = mlbackProductResList.size();
+		}else if(pn==1&&lastPage>1){
+			isFirstPage = true;
+			isLastPage = false;
+			hasPreviousPage=false;
+			hasNextPage = true;
+			EndRow = pn*PagNum;
+		}else{
+			isFirstPage = false;
+			isLastPage = false;
+			hasPreviousPage=true;
+			hasNextPage = true;
+			EndRow = pn*PagNum;
+		}
+		
+		int navigateFirstPage = 1;
+		int navigateLastPage = lastPage;
+		
+		int navigatePages = PagNum;
+		
+		int[] navigatepageNums = new int[lastPage];
+		for(int i=0;i<lastPage;i++){
+			navigatepageNums[i]=i+1;
+		}
+		page.setNavigatepageNums(navigatepageNums);
+		//计算下半部分参数
+		int nextPage =0;
+		int pageNum = 0;
+		int pageSize = 0;
+		int pages = 0;
+		int prePage = 0;
+		int size = 0;
+		int startRow = 0;
+		startRow= (pn-1)*PagNum+1;
+		
+		pageNum = pn;
+		pageSize = PagNum;
+		pages = lastPage;
+		if(pn==lastPage&&lastPage>1){
+			nextPage=0;
+			prePage = pn-1;
+			size = mlbackProductResList.size()-(pn-1)*PagNum;
+		}else if (pn==lastPage&&lastPage==1){
+			nextPage=0;
+			prePage = 0;
+			size = mlbackProductResList.size();
+		}else if(pn==1&&lastPage>1){
+			nextPage=pn+1;
+			prePage=0;
+			size = PagNum;
+		}else{
+			nextPage=pn+1;
+			prePage = pn-1;
+			size = PagNum;
+		}
+		//封装参数
+		page.setEndRow(EndRow);
+		page.setFirstPage(firstPage);
+		page.setHasNextPage(hasNextPage);
+		page.setHasPreviousPage(hasPreviousPage);
+		page.setIsFirstPage(isFirstPage);
+		page.setIsLastPage(isLastPage);
+		page.setLastPage(lastPage);
+		page.setNavigateFirstPage(navigateFirstPage);
+		page.setNavigateLastPage(navigateLastPage);
+		page.setNavigatePages(navigatePages);
+		page.setNextPage(nextPage);
+		page.setPageNum(pageNum);
+		page.setPageSize(pageSize);
+		page.setPages(pages);
+		page.setPrePage(prePage);
+		page.setSize(size);
+		page.setStartRow(startRow);
+		page.setTotal(mlbackProductResList.size());
+		System.out.println(page);
 		return page;
 	}
 
@@ -655,7 +758,7 @@ public class MlbackProductController {
 			EndIndex = StartIndex+25;
 		}
 		
-		for(int i=0;i<EndIndex;i++){
+		for(int i=StartIndex;i<EndIndex;i++){
 			MlbackProduct mlfrontProductOne = mlfrontProductResListPage.get(i);
 			mlfrontProductResreturn.add(mlfrontProductOne);
 		}

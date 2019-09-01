@@ -862,6 +862,7 @@ public class MlfrontCartController {
 						mlfrontCartItemOne.setCartitemMotifytime(nowTime);
 						//更新
 						mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemOne);
+						mlfrontCartItem.setCartitemId(CartItemIdInt);
 						mlfrontCartItemListBuyNow.add(mlfrontCartItem);
 						break;
 					}else{
@@ -975,6 +976,7 @@ public class MlfrontCartController {
 						mlfrontCartItemOne.setCartitemMotifytime(nowTime);
 						//更新
 						mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemOne);
+						mlfrontCartItem.setCartitemId(CartItemIdInt);
 						mlfrontCartItemListBuyNow.add(mlfrontCartItem);
 						break;
 					}else{

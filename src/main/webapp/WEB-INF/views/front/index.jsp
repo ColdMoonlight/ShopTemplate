@@ -225,7 +225,28 @@
     function rednerProduct(data) {
       var html = '';
       for (var i = 0; i < data.length; i += 1) {
+		  var productactoffif = data[i].productActoffIf;
+		  // console.log(productactoffif)
+		  var productactoffid  =  data[i].productActoffid;
+           // console.log(productactoffid)  
+		  var showspan = "";
+		  if(productactoffif == 1){
+			  if(productactoffid==1){
+				   showspan ="showactive1"
+			  }else if(productactoffid==2){
+				   showspan ="showactive2"
+			  }else if(productactoffid==3){
+				   showspan ="showactive3"
+			  }else if(productactoffid==4){
+				   showspan ="showactive4"
+			  }
+			  
+		  }else{
+			   showspan ="hideactive"
+		  }
+		  
         html += '<div class="product-item col-lg-3">' +
+		          '<span class="hui_icon '+showspan+'"></span>'+
           		'<div class="product-img">' +
           		'<a href="${APP_PATH}/' + data[i].productSeo + '.html">' +
           		'<img src="' + data[i].productMainimgurl + '" alt="">' +
@@ -309,17 +330,13 @@
          }
        });
     }
-		// function number5Times(len,productData) {
-		// 	var lens=parseInt(len-(len%5));
-		// 	// console.log(productData.slice(0,lens))
-		// 	return productData.slice(0,lens);
-		//    }
-		   
+    
 	function number5Times(len,productData) {
         var lens=parseInt(len-(len%5));
 		return productData.slice(0,lens);
        }	   
   </script>
+  <script src="//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js"></script>
 </body>
 
 </html>

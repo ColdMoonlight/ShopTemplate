@@ -30,6 +30,16 @@ public class MlbackCategoryService {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategory(mlbackCategory);
 		return mlbackCategoryList;
 	}
+	/**
+	 * @author Shinelon
+	 * @param MlbackCategory
+	 * @exception 查看用户信息是否存在
+	 * 
+	 * */
+	public MlbackCategory selectMlbackCategoryById(MlbackCategory mlbackCategory) {
+		MlbackCategory  mlbackCategoryOne = mlbackCategoryMapper.selectMlbackCategoryById(mlbackCategory);
+		return mlbackCategoryOne;
+	}
 	
 	/**
 	 * @author Shinelon

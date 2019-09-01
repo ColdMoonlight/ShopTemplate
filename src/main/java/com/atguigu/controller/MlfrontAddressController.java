@@ -125,6 +125,41 @@ public class MlfrontAddressController {
 			}	
 		}
 	}
+	/**1.1	UseNow	0505
+	 * MlfrontAddress	insert
+	 * @param MlfrontAddress
+	 */
+	@RequestMapping(value="/getAreafreightMoney",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getAreafreightMoney(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontAddress mlfrontAddress){
+		//接受参数信息
+		System.out.println("mlfrontAddress:"+mlfrontAddress);
+		
+		String areafreightCountryEnglish = mlfrontAddress.getAddressCountry();
+		
+		//接受categoryId
+		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
+		mlbackAreafreightReq.setAreafreightCountryEnglish(areafreightCountryEnglish);
+		//查询本条
+		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByEng(mlbackAreafreightReq);
+		Integer areafreightMoney = 0;
+		if(mlbackAreafreightResList.size()>0){
+			areafreightMoney =mlbackAreafreightResList.get(0).getAreafreightPrice();
+		}
+		//取出id
+		System.out.println(1);
+		Integer addressId = mlfrontAddress.getAddressId();
+		String nowTime = DateUtil.strTime14s();
+		mlfrontAddress.setAddressMotifytime(nowTime);
+		MlfrontUser loginUser =  (MlfrontUser) session.getAttribute("loginUser");
+		Integer usertype = 0;
+		if(loginUser==null){
+			usertype = 0;//游客
+		}else{
+			usertype = 1;//注册用户
+		}
+		return Msg.success().add("resMsg", "查询运费成功").add("areafreightMoney", areafreightMoney).add("usertype", usertype);//新增以后，返回去的这里，有id，你从这里拿
+	}
 	
 	/**2.0	useOn	0505
 	 * MlfrontAddress	delete

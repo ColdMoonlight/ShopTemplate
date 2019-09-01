@@ -12,8 +12,8 @@
         }
         var noalt = '';
         var self = this;
-        $(this).bind("mouseenter",
-        function(ev) {
+        $(this).bind("mouseenter",  function(ev) {
+      
             var imageLeft = $(this).offset().left;
             var imageTop = $(this).offset().top;
             var imageWidth = $(this).get(0).offsetWidth;
@@ -23,10 +23,12 @@
             var boxWidth = $(this).parent().width();
             var boxHeight = $(this).parent().height();
             noalt = $(this).attr("alt");
-            var bigimage = $(this).attr("rel");
+            var bigimage1 = $(this).attr("rel");
+//            alert(bigimage)
+//             console.log(bigimage)
             $(this).attr("alt", '');
             if ($("div.zoomDiv").get().length == 0) {
-                $(document.body).append("<div class='zoomDiv'><img class='bigimg' src='" + bigimage + "'/></div><div class='zoomMask'>&nbsp;</div>");
+                $(document.body).append("<div class='zoomDiv'><img class='bigimg' src='" + bigimage1 + "'/></div>");
             }
             if (settings.position == "BTR") {
                 if (boxLeft + boxWidth + settings.offset + settings.xzoom > screen.width) {

@@ -165,9 +165,6 @@ public class MlbackActShowProController {
 		mlbackActShowProReq.setActshowproStatus(1);
 		mlbackActShowProReq.setActshowproActnum(actshowproActnum);
 		//查询本条
-//		List<MlbackActShowPro> mlbackActShowProList =mlbackActShowProService.selectMlbackActShowProGetAll();
-//		return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
-//					.add("mlbackActShowProList", mlbackActShowProList);
 		List<MlbackActShowPro> mlbackActShowProList =mlbackActShowProService.selectMlbackActShowProByActnum(mlbackActShowProReq);
 		return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
 					.add("mlbackActShowProList", mlbackActShowProList);

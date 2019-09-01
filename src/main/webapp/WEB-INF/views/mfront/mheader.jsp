@@ -129,15 +129,21 @@
         }
       }
       parent.html(html);
+	  
     }
-
+	
+	
     function renderSubCategory(parent, data) {
       parent.find('.title .name').text(data.categoryName);
       var html = '';
       if (data.list && data.list.length) {
-
         for (var i = 0; i < data.list.length; i += 1) {
-          html += '<div class="sub-category-product">' +
+			var iddata =data.categoryId
+			var no_show=""
+			if(iddata==7){
+					no_show="hide"	
+			}
+          html += '<div class="sub-category-product '+no_show+'">' +
             '<a href="${APP_PATH}/MlbackCategory/toproductlist?categoryId=' + data.list[i].categoryId + '">' +
             '<div class="product-img">' +
             '<img src="' + data.list[i].categoryImgurl + '" alt="">' +
@@ -151,7 +157,7 @@
       } else {
         renderErrorMsg(parent.find('.body'), 'Related products have been removed！')
       }
-
+      parent.parent().removeClass("hide");
       parent.parent().addClass('active');
     }
 
@@ -195,7 +201,6 @@
     function mainCategoryTrigger() {
       var activeItem = mainCategory.find('.active');
       var items = mainCategory.find('.category-item');
-
       items.each(function (i, item) {
         $(item).on('click', function () {
           activeItem.removeClass('active');
@@ -203,6 +208,13 @@
           activeItem = $(this);
           var data = categoryData[$(this).data('id')];
           renderSubCategory(subCategory, data);
+		  var hideno=$(".sub-category-product.hide")
+		 var hidtop=hideno.parents(".product-box")
+		     hidtop.addClass("hide")
+			 var iddata =data.categoryId
+		 if(iddata==7){
+			  window.location.href = "${APP_PATH }/Category/49.html";
+		 }
         })
       })
     }

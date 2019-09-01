@@ -57,6 +57,7 @@
 										<th>标签</th>
 										<th>同级别位置</th>
 										<th>折扣</th>
+										<th>折扣图</th>
 										<th>评论num</th>
 										<th>操作</th>
 									</tr>
@@ -170,6 +171,7 @@
 				var productFirsth = $("<td></td>").append(item.productFirsth);
 				/* var productActoffid = $("<td></td>").append(item.productActoffid); */
 				var productActoffoff = $("<td></td>").append(item.productActoffoff);
+				var productActoffIf = $("<td></td>").append((item.productActoffIf ? '展示' : '不展示'));
 				var productReviewnum = $("<td></td>").append(item.productReviewnum);
 				var productDesc = $("<td></td>").append(item.productDesc);
 
@@ -194,6 +196,7 @@
 					.append(productLable)
 					.append(productFirsth)
 					.append(productActoffoff)
+					.append(productActoffIf)
 					.append(productReviewnum)
 					.append(btnTd)
 					.appendTo("#task_table tbody");
@@ -275,18 +278,6 @@
 					getCategoryDown();
 					// productDesc
 					$('.summer-note').summernote();
-				/* 	summernote = $('.summer-note').summernote({
-						disableDragAndDrop: true,
-						height: 300,
-						emptyPara: '',
-						codemirror: {
-							// codemirror options
-							mode: 'text/html',
-							htmlMode: true,
-							lineNumbers: true,
-							theme: 'monokai'
-						}
-					}); */
 					// option
 					$('.add-item').each(function (i, item) {
 						$(item).on('click', function () {
@@ -587,6 +578,7 @@
 			}
 			$(":input[name='productActoffid']").val(data.productActoffid);
 			$(":input[name='productActoffoff']").val(data.productActoffoff);
+			$(":input[name='productActoffIf']").val(data.productActoffIf);
 			$(":input[name='productReviewnum']").val(data.productReviewnum);
 			$(".summer-note").html(data.productDesc);
 		}

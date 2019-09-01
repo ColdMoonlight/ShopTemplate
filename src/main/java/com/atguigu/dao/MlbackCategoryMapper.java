@@ -30,6 +30,8 @@ public interface MlbackCategoryMapper {
     int insertSelective(MlbackCategory record);
     //查询后台登陆用户
     List<MlbackCategory> selectMlbackCategory(MlbackCategory example);
+    //查询后台登陆用户
+    MlbackCategory selectMlbackCategoryById(MlbackCategory example);
     //查询全部登陆用户
 	List<MlbackCategory> selectMlbackCategoryGetAll();
 	//查询全部Category的parentid信息
