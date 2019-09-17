@@ -166,7 +166,7 @@ public class MlfrontPayInfoController {
 		System.out.println(1);
 		Integer payinfoIdId = mlfrontPayInfo.getPayinfoId();
 		String nowTime = DateUtil.strTime14s();
-		mlfrontPayInfo.setPayinfoMotifytime(nowTime);;
+		mlfrontPayInfo.setPayinfoMotifytime(nowTime);
 		if(payinfoIdId==null){
 			//无id，insert
 			mlfrontPayInfo.setPayinfoCreatetime(nowTime);;

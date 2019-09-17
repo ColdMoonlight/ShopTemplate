@@ -264,7 +264,7 @@
   <select id="selectMlbackReviewImgByRIdAndImgSort" parameterType="com.atguigu.bean.MlbackReviewImg" resultMap="BaseResultMap">
     select *
     from tb_mlback_reviewimg 
-    where reviewImg_id = #{reviewimgId,jdbcType=INTEGER} and reviewImg_sort_order = #{reviewimgSortOrder,jdbcType=INTEGER}
+    where review_id = #{reviewId,jdbcType=INTEGER} and reviewImg_sort_order = #{reviewimgSortOrder,jdbcType=INTEGER}
   </select>
   <!-- selectMlbackReviewImgByRIdAndImgSort -->
   <delete id="deleteByreviewId" parameterType="java.lang.Integer">

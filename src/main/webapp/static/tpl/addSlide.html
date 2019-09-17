@@ -1,0 +1,90 @@
+<div class="op">
+    <a data-href="#" class="btn btn-default" role="button"> <i class="glyphicon glyphicon-tasks"></i> 新增/编辑</a>
+    <button type="button" class="btn btn-primary bianji" id="tasksubmit">保存</button>
+</div>
+<form class="form-horizontal">
+	<ul id="categoryTab" class="nav nav-tabs">
+		<li class="active"><a data-href="#general" data-toggle="tab">基本</a></li>
+		<li><a data-href="#pic" data-toggle="tab">图片</a></li>
+	</ul>
+	<div id="categoryTabContent" class="tab-content">
+		<input type="text" style="display: none;" placeholder="slideId" name="slideId">
+		<div class="tab-pane in active" id="general">
+		 	<div class="form-group">
+	            <label for="slideName" class="col-sm-2 control-label">轮播品name:</label>
+	            <div class="col-sm-4">
+	                <input type="text" class="form-control" placeholder="slideName" name="slideName">
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label for="slideArea" class="col-sm-2 control-label">轮播位置:</label>
+	             <div class="col-sm-10">
+			  	    <select name="slideArea" class="form-control">
+			  	      <option value ="0" selected="selected">未选择位置</option>
+					  <option value ="1">首页轮播</option>
+					  <option value ="2">优惠券位置</option>
+					  <option value ="3">第3活动</option>
+					  <option value ="4">第4活动</option>
+					  <option value ="5">第5活动</option>
+					</select>
+	             </div>
+	        </div>
+	        <div class="form-group">
+	            <label for="slideFirthNum" class="col-sm-2 control-label">轮播同级次序:</label>
+	             <div class="col-sm-10">
+			  	    <select name="slideFirthNum" class="form-control">
+					  <option value ="1" selected="selected">1</option>
+					  <option value ="2">2</option>
+					  <option value ="3">3</option>
+					  <option value ="4">4</option>
+					  <option value ="5">5</option>
+					</select>
+	             </div>
+	        </div>
+	        <div class="form-group">
+	             <label for="slideWapstatus" class="col-sm-2 control-label">手机图状态:</label>
+	             <div class="col-sm-10">
+	                 <select name="slideWapstatus" class="form-control">
+					  <option value ="0" selected="selected">不展示</option>
+					  <option value ="1">展示</option>
+					</select>
+	             </div>
+	         </div>
+	         <div class="form-group">
+	             <label for="slidePcstatus" class="col-sm-2 control-label">pc图状态:</label>
+	             <div class="col-sm-10">
+	                 <select name="slidePcstatus" class="form-control">
+					  <option value ="0" selected="selected">不展示</option>
+					  <option value ="1">展示</option>
+					</select>
+	             </div>
+	         </div>
+	        <div class="form-group">
+	             <label for="slideProid" class="col-sm-2 control-label">产品名字:</label>
+	             <div class="col-sm-10">
+	                 <select id="slideProid" name="slideProid" class="form-control"></select>
+	             </div>
+	         </div>
+	        <div class="form-group">
+	             <label for="slideIfinto" class="col-sm-2 control-label">If可进入:</label>
+	             <div class="col-sm-10">
+	                 <select name="slideIfinto" class="form-control">
+					  <option value ="0" selected="selected">不可进入</option>
+					  <option value ="1">可进入</option>
+					</select>
+	             </div>
+	         </div>         
+		</div>
+		<div class="tab-pane" id="pic">
+			<h3>轮播管理图片：</h3>
+		    <div>
+		    	 <div class="upload-img-btn img">
+		            <input class="uploadImg" type="file" name="file" id="file1">
+		        </div>
+		        <div class="upload-img-btn img2">
+		            <input class="uploadImg" type="file" name="file" id="file2">
+		        </div>
+		    </div>
+		</div>
+	</div>             
+</form>

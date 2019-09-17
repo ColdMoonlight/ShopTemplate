@@ -41,6 +41,9 @@
 										<th>优惠力度</th>
 										<th>适用范围</th>
 										<th>优惠码</th>
+										<th>展示位置</th>
+										<th>手机图</th>
+										<th>PC端图</th>
 										<th>是否有效</th>
 										<th>操作</th>
 									</tr>
@@ -120,6 +123,27 @@
 				var couponPriceBaseline = $("<td></td>").append(parseFloat(item.couponPriceBaseline));
 				var couponCode = $("<td></td>").append(item.couponCode);
 				var couponStatus = $("<td></td>").append((item.couponStatus === 1 ? '已生效' : '未生效'));
+				
+				var couponAreaNumStr = "";
+				if (item.couponAreaNum == 1) {
+					couponAreaNumStr = '1-请选择';
+				} else if (item.couponAreaNum == 2) {
+					couponAreaNumStr = '2-首页';
+				} else if (item.couponAreaNum == 3) {
+					couponAreaNumStr = '3-详情页';
+				} else if (item.couponAreaNum == 4) {
+					couponAreaNumStr = '4-结算页';
+				} 
+				
+				var couponAreaNum = $("<td></td>").append(couponAreaNumStr);
+				
+				var imgurl = item.couponImgwapurl;
+				var image = '<img src=' + imgurl + ' ' + 'width=50 height=50>';
+				var couponImgwapurl = $("<td></td>").append(image);
+				var imgurlpc = item.couponImgpcurl;
+				var imagepc = '<img src=' + imgurlpc + ' ' + 'width=50 height=50>';
+				var couponImgpcurl = $("<td></td>").append(imagepc);
+				
 				var editBtn = $("<button></button>").addClass("btn btn-primary btn-xs edit_btn")
 					.append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
 				//为编辑按钮添加一个分类id
@@ -135,6 +159,9 @@
 					.append(couponPrice)
 					.append(couponPriceBaseline)
 					.append(couponCode)
+					.append(couponAreaNum)
+					.append(couponImgwapurl)
+					.append(couponImgpcurl)
 					.append(couponStatus)
 					.append(btnTd)
 					.appendTo("#task_table tbody");
@@ -270,6 +297,20 @@
 			$(":input[name='couponPrice']").val(data.couponPrice);
 			$(":input[name='couponPriceBaseline']").val(data.couponPriceBaseline);
 			$(":input[name='couponCode']").val(data.couponCode);
+			
+			$(":input[name='couponAreaNum']").val(data.couponAreaNum);
+			
+			
+			if (data.couponImgwapurl && data.couponImgwapurl.length) {
+				var el = $(".upload-img-btn.img");
+				el.attr("style", "background-repeat: no-repeat; background-position: center; background-size: 100%;");
+				setImage(el, data.couponImgwapurl);
+			}
+			if (data.couponImgpcurl && data.couponImgpcurl.length) {
+				var el2 = $(".upload-img-btn.img2");
+				el2.attr("style", "background-repeat: no-repeat; background-position: center; background-size: 100%;");
+				setImage(el2, data.couponImgpcurl);
+			}
 
 			$(":input[name='couponStatus']").prop('checked', (data.couponStatus === 1 ? true : false));
 			$(":input[name='couponStatus']").val(data.couponStatus);
@@ -303,6 +344,99 @@
 				}
 			});
 		}
+		
+		$(document.body).on("change", "#file1", upload);
+		$(document.body).on("change", "#file2", uploadMainFu);
+
+		function upload() {
+			var self = this;
+			var obj = new FormData();
+			obj.append('file', $(this)[0].files[0]);
+			var couponIdUP = $(":input[name='couponId']").val();
+			//console.log("categoryIdUP:"+categoryIdUP);
+			if (couponIdUP == '') {
+				//如果没有pid,弹出"请先输入产品名，保存后再次进入"
+				// console.log("productIdUP:"+productIdUP);
+				alert("请先输入类名，保存后从编辑进入");
+			} else {
+				obj.append('couponId', couponIdUP);
+				$.ajax({
+					url: "${APP_PATH}/UpImg/uploadCouponWapImg",
+					type: "post",
+					dataType: "json",
+					cache: false,
+					data: obj,
+					processData: false, // 不处理数据
+					contentType: false, // 不设置内容类型
+					success: function (data) {
+						// 设置背景为我们选择的图片
+						// console.log(data);
+						var returl = data.extend.uploadUrl;
+						// $(self).parent().css({ "background-image": "url("+'${APP_PATH }/static/img/category/'+returl+")" });  
+						setImage($(self).parent(), returl);
+					}
+				});
+			}
+		}
+
+		function setImage(el, url) {
+			var img = new Image();
+			url = url.indexOf('://') > -1 ? url : '${APP_PATH }/static/img/Coupon/' + url;
+			img.src = url;
+			img.onload = function () {
+				var winW = $('#categoryTabContent').width();
+				var imgW = img.width;
+				var imgH = img.height;
+
+				if (imgW >= winW) {
+					el.css({
+						'width': '320px',
+						'height': '320px',
+						'backgroundImage': 'url(' + url + ')',
+						'backgroundSize': '100%'
+					});
+				} else {
+					el.css({
+						'width': '320px',
+						'height': '320px',
+						'backgroundImage': 'url(' + url + ')',
+						'backgroundSize': '100%'
+					});
+				}
+			}
+		}
+
+		function uploadMainFu() {
+			var self = this;
+			//实例化一个FormData
+			var obj = new FormData();
+			obj.append('file', $(this)[0].files[0]);
+			// console.log($(this)[0].files[0])
+			var couponIdUP = $(":input[name='couponId']").val();
+			if (couponIdUP == "") {
+				// 如果没有pid,弹出"请先输入产品名，保存后再次进入"
+				// console.log("productIdUP:"+productIdUP);
+				alert("请先输入产品名，保存后从编辑进入");
+			} else {
+				obj.append('couponId', couponIdUP);
+				$.ajax({
+					url: "${APP_PATH}/UpImg/uploadCouponPcImg",
+					type: "post",
+					dataType: "json",
+					cache: false,
+					data: obj,
+					processData: false, // 不处理数据
+					contentType: false, // 不设置内容类型
+					success: function (data) {
+						//设置背景为我们选择的图片
+						// console.log(data);
+						var returl = data.extend.uploadUrl;
+						// $(self).parent().css({ "background-image": "url("+'${APP_PATH }/static/img/category/'+returl+")" });
+						setImage($(self).parent(), returl);
+					}
+				});
+			}
+    }
 	</script>
 </body>
 

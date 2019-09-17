@@ -50,11 +50,11 @@
 
 <body>
   <!-- info -->
-  <div class="info">
-    <p class="container" style="text-align: center;">Free Shipping World Wide.</p>
-  </div>
   <!--header  -->
   <div class="header bd-b">
+			<div class="info">
+			<p style="text-align: center;">Free Shipping World Wide.</p>
+		  </div>
     <div class="container">
       <span id="menu" class="icon menu"></span>
       <span class="icon person"></span>
@@ -120,11 +120,24 @@
     function renderMainCategory(parent, data) {
       var html = '';
       for (var i in data) {
+		  var categoryLableInt = data[i].categoryLable;
+		  var	classimg = "";
+		  if(categoryLableInt == 0){
+		  	classimg = "classimg0";
+		  }else if(categoryLableInt == 1){
+		  	classimg = "classimg1";
+		  }else if(categoryLableInt == 2){
+		  	classimg = "classimg2";
+		  }else if(categoryLableInt == 3){
+		  	classimg = "classimg3";
+		  }else if(categoryLableInt == 4){
+		  	classimg = "classimg4";
+		  }
         if (categoryActiveNum === i) {
-          html += '<li class="category-item active" data-id="' + data[i].categoryId + '"><a href="#">' + data[i]
+          html += '<li class="category-item '+classimg+' active" data-id="' + data[i].categoryId + '"><a href="#">' + data[i]
             .categoryName + '</a></li>';
         } else {
-          html += '<li class="category-item" data-id="' + data[i].categoryId + '"><a href="#">' + data[i].categoryName +
+          html += '<li class="category-item '+classimg+'" data-id="' + data[i].categoryId + '"><a href="#">' + data[i].categoryName +
             '</a></li>';
         }
       }
@@ -171,6 +184,8 @@
       url: '${APP_PATH}/MlbackCategory/getOneMlbackCategoryParentDetail',
       method: 'GET',
       success: function (data) {
+		  var resData = data.extend.mlbackCategorydownList;
+		  console.log(resData)/**************resData********/
         if (data.code === 100) {
           categoryData = data.extend.mlbackCategorydownList.reduce(function (obj, item) {
             if (item.categoryParentId === -1) {

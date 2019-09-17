@@ -22,6 +22,12 @@ public class MlbackCoupon {
     private String couponCreatetime;
 
     private String couponMotifytime;
+    
+    private String couponImgwapurl;	//优惠券wap端图
+
+    private String couponImgpcurl;	//优惠券PC端图
+    
+    private Integer couponAreaNum;	//优惠券展示位置
 
     public Integer getCouponId() {
         return couponId;
@@ -102,4 +108,29 @@ public class MlbackCoupon {
     public void setCouponMotifytime(String couponMotifytime) {
         this.couponMotifytime = couponMotifytime == null ? null : couponMotifytime.trim();
     }
+
+	public String getCouponImgwapurl() {
+		return couponImgwapurl;
+	}
+
+	public void setCouponImgwapurl(String couponImgwapurl) {
+		this.couponImgwapurl = couponImgwapurl == null ? null : couponImgwapurl.trim();
+	}
+
+	public String getCouponImgpcurl() {
+		return couponImgpcurl;
+	}
+
+	public void setCouponImgpcurl(String couponImgpcurl) {
+		this.couponImgpcurl = couponImgpcurl == null ? null : couponImgpcurl.trim();
+	}
+
+	public Integer getCouponAreaNum() {
+		return couponAreaNum;
+	}
+
+	public void setCouponAreaNum(Integer couponAreaNum) {
+		this.couponAreaNum = couponAreaNum;
+	}
+    
 }

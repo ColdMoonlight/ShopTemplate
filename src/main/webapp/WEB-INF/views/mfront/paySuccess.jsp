@@ -32,7 +32,8 @@
 	  t.src=v;s=b.getElementsByTagName(e)[0];
 	  s.parentNode.insertBefore(t,s)}(window, document,'script',
 	  'https://connect.facebook.net/en_US/fbevents.js');
-	  fbq('init', '667403967094866');
+	  fbq('init', '246433859565492');
+	  //fbq('init', '667403967094866');
 	  fbq('track', 'PageView');
 	</script>
 	<noscript><img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=667403967094866&ev=PageView&noscript=1"/></noscript>
@@ -42,6 +43,15 @@
   		fbq('track', 'ViewContent');
 	</script>
 	<!-- Facebook Pixel Code end -->
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128377932-2"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'UA-128377932-2');
+	</script>
 </head>
 
 <body>
@@ -153,7 +163,8 @@
 <script>
 
 var orderId = $(".order-id").val();
-	window.dataLayer = window.dataLayer || []
+console.log("window.dataLayer = window.dataLayer");
+	window.dataLayer = window.dataLayer || [];
 	dataLayer.push({
 	   'transactionId': orderId ,
 	   'transactionAffiliation': 'megalookhair',

@@ -190,7 +190,6 @@ public class MlbackCouponController {
 	 * @return 
 	 */
 	@RequestMapping(value="/getOneMlbackCouponDetailByUId",method=RequestMethod.POST)
-	//@RequestMapping(value="/getOneMlbackCouponDetailByUId",method=RequestMethod.GET)
 	@ResponseBody
 	public Msg getOneMlbackCouponDetailByUId(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
 		Integer userType= 0;
@@ -233,6 +232,25 @@ public class MlbackCouponController {
 				return Msg.success().add("resMsg", "查询该用户名下所有优惠券完毕").add("userType", userType);
 			}
 		}
+	}
+	
+	/**
+	 * 8.0	useOn	0505
+	 * 某页面展示的优惠券列表查询
+	 * @param MlbackCoupon
+	 * @return 
+	 */
+	@RequestMapping(value="/getMlbackCouponShowByAreaNum",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getMlbackCouponShowByAreaNum(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackCoupon mlbackCoupon){
+		
+		Integer couponAreaNum = mlbackCoupon.getCouponAreaNum();
+		//接受信息
+		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+		mlbackCouponReq.setCouponAreaNum(couponAreaNum);
+		List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCouponBYAreaNum(mlbackCouponReq);
+		
+		return Msg.success().add("resMsg", "某页面展示的优惠券列表查询成功").add("mlbackCouponResList", mlbackCouponResList);
 	}
 	
 }

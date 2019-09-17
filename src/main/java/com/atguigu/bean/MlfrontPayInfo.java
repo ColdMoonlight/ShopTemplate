@@ -24,6 +24,8 @@ public class MlfrontPayInfo {
     private String payinfoCreatetime;
 
     private String payinfoMotifytime;
+    
+    private String payinfoPlateNum;
 
     public Integer getPayinfoId() {
         return payinfoId;
@@ -112,6 +114,15 @@ public class MlfrontPayInfo {
     public void setPayinfoMotifytime(String payinfoMotifytime) {
         this.payinfoMotifytime = payinfoMotifytime == null ? null : payinfoMotifytime.trim();
     }
+    
+
+	public String getPayinfoPlateNum() {
+		return payinfoPlateNum;
+	}
+
+	public void setPayinfoPlateNum(String payinfoPlateNum) {
+		this.payinfoPlateNum = payinfoPlateNum == null ? null : payinfoPlateNum.trim();
+	}
 
 	public MlfrontPayInfo() {
 		super();
@@ -120,7 +131,7 @@ public class MlfrontPayInfo {
 
 	public MlfrontPayInfo(Integer payinfoId, Integer payinfoUid, String payinfoIp, Integer payinfoOid,
 			String payinfoPlatform, String payinfoPlatformserialcode, BigDecimal payinfoMoney, Integer payinfoStatus,
-			String payinfoReason, String payinfoCreatetime, String payinfoMotifytime) {
+			String payinfoReason, String payinfoCreatetime, String payinfoMotifytime, String payinfoPlateNum) {
 		super();
 		this.payinfoId = payinfoId;
 		this.payinfoUid = payinfoUid;
@@ -133,6 +144,7 @@ public class MlfrontPayInfo {
 		this.payinfoReason = payinfoReason;
 		this.payinfoCreatetime = payinfoCreatetime;
 		this.payinfoMotifytime = payinfoMotifytime;
+		this.payinfoPlateNum = payinfoPlateNum;
 	}
 
 	@Override
@@ -141,7 +153,7 @@ public class MlfrontPayInfo {
 				+ ", payinfoOid=" + payinfoOid + ", payinfoPlatform=" + payinfoPlatform + ", payinfoPlatformserialcode="
 				+ payinfoPlatformserialcode + ", payinfoMoney=" + payinfoMoney + ", payinfoStatus=" + payinfoStatus
 				+ ", payinfoReason=" + payinfoReason + ", payinfoCreatetime=" + payinfoCreatetime
-				+ ", payinfoMotifytime=" + payinfoMotifytime + "]";
+				+ ", payinfoMotifytime=" + payinfoMotifytime + ", payinfoPlateNum=" + payinfoPlateNum + "]";
 	}
     
 }

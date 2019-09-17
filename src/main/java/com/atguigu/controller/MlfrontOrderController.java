@@ -316,6 +316,10 @@ public class MlfrontOrderController {
 		//2.0计算地址价格，计算优惠价格，插入order项目价格
 		//2.1拿到地址ID,
 		Integer AddressId = mlfrontOrder.getAddressinfoId();
+		
+		if(AddressId==null){
+			AddressId= (Integer) session.getAttribute("realAddressId");
+		}
 		//查询英文名,查询该英文名的价格运费价格
 		Integer addressMoney = getAddressMoney(AddressId);
 		//2.2加上地区快递费

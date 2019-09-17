@@ -12,6 +12,10 @@
     <result column="coupon_admin_operatorName" jdbcType="VARCHAR" property="couponAdminOperatorname" />
     <result column="coupon_createTime" jdbcType="VARCHAR" property="couponCreatetime" />
     <result column="coupon_motifyTime" jdbcType="VARCHAR" property="couponMotifytime" />
+    <result column="couponImg_wapurl" jdbcType="VARCHAR" property="couponImgwapurl" />
+    <result column="couponImg_pcurl" jdbcType="VARCHAR" property="couponImgpcurl" />
+    <result column="coupon_AreaNum" jdbcType="INTEGER" property="couponAreaNum" />
+    
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List">
     coupon_id, coupon_name, coupon_price, coupon_price_baseline, coupon_status, coupon_code, 
-    coupon_admin_id, coupon_admin_operatorName, coupon_createTime, coupon_motifyTime
+    coupon_admin_id, coupon_admin_operatorName, coupon_createTime, coupon_motifyTime, couponImg_wapurl, couponImg_pcurl, coupon_AreaNum
   </sql>
   <select id="selectByExample" parameterType="com.atguigu.bean.MlbackCouponExample" resultMap="BaseResultMap">
     select
@@ -106,11 +110,12 @@
     insert into tb_mlback_coupon (coupon_id, coupon_name, coupon_price, 
       coupon_price_baseline, coupon_status, coupon_code, 
       coupon_admin_id, coupon_admin_operatorName, 
-      coupon_createTime, coupon_motifyTime)
+      coupon_createTime, coupon_motifyTime, couponImg_wapurl, couponImg_pcurl, coupon_AreaNum)
     values (#{couponId,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, #{couponPrice,jdbcType=DECIMAL}, 
       #{couponPriceBaseline,jdbcType=DECIMAL}, #{couponStatus,jdbcType=INTEGER}, #{couponCode,jdbcType=VARCHAR}, 
       #{couponAdminId,jdbcType=INTEGER}, #{couponAdminOperatorname,jdbcType=VARCHAR}, 
-      #{couponCreatetime,jdbcType=VARCHAR}, #{couponMotifytime,jdbcType=VARCHAR})
+      #{couponCreatetime,jdbcType=VARCHAR}, #{couponMotifytime,jdbcType=VARCHAR}, 
+      #{couponImgwapurl,jdbcType=VARCHAR}, #{couponImgpcurl,jdbcType=VARCHAR}, #{couponAreaNum,jdbcType=INTEGER})
   </insert>
   
   <select id="countByExample" parameterType="com.atguigu.bean.MlbackCouponExample" resultType="java.lang.Long">
@@ -152,6 +157,15 @@
       <if test="record.couponMotifytime != null">
         coupon_motifyTime = #{record.couponMotifytime,jdbcType=VARCHAR},
       </if>
+      <if test="record.couponImgwapurl != null">
+        couponImg_wapurl = #{record.couponImgwapurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponImgpcurl != null">
+        couponImg_pcurl = #{record.couponImgpcurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponAreaNum != null">
+        coupon_AreaNum = #{record.couponAreaNum,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -168,7 +182,10 @@
       coupon_admin_id = #{record.couponAdminId,jdbcType=INTEGER},
       coupon_admin_operatorName = #{record.couponAdminOperatorname,jdbcType=VARCHAR},
       coupon_createTime = #{record.couponCreatetime,jdbcType=VARCHAR},
-      coupon_motifyTime = #{record.couponMotifytime,jdbcType=VARCHAR}
+      coupon_motifyTime = #{record.couponMotifytime,jdbcType=VARCHAR},
+      couponImg_wapurl = #{record.couponImgwapurl,jdbcType=VARCHAR},
+      couponImg_pcurl = #{record.couponImgpcurl,jdbcType=VARCHAR},
+      coupon_AreaNum = #{record.couponAreaNum,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -184,7 +201,10 @@
       coupon_admin_id = #{couponAdminId,jdbcType=INTEGER},
       coupon_admin_operatorName = #{couponAdminOperatorname,jdbcType=VARCHAR},
       coupon_createTime = #{couponCreatetime,jdbcType=VARCHAR},
-      coupon_motifyTime = #{couponMotifytime,jdbcType=VARCHAR}
+      coupon_motifyTime = #{couponMotifytime,jdbcType=VARCHAR},
+      couponImg_wapurl = #{couponImgwapurl,jdbcType=VARCHAR},
+      couponImg_pcurl = #{couponImgpcurl,jdbcType=VARCHAR},
+      coupon_AreaNum = #{record.couponAreaNum,jdbcType=INTEGER}
     where coupon_id = #{couponId,jdbcType=INTEGER}
   </update>
   
@@ -222,6 +242,15 @@
       <if test="couponMotifytime != null">
         coupon_motifyTime,
       </if>
+      <if test="couponImgwapurl != null">
+        couponImg_wapurl,
+      </if>
+      <if test="couponImgpcurl != null">
+        couponImg_pcurl,
+      </if>
+      <if test="couponAreaNum != null">
+        coupon_AreaNum,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="couponId != null">
@@ -253,6 +282,15 @@
       </if>
       <if test="couponMotifytime != null">
         #{couponMotifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="couponImgwapurl != null">
+        #{couponImgwapurl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponImgpcurl != null">
+        #{couponImgpcurl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponAreaNum != null">
+        #{couponAreaNum,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -292,6 +330,15 @@
       <if test="couponMotifytime != null">
         coupon_motifyTime = #{couponMotifytime,jdbcType=VARCHAR},
       </if>
+      <if test="couponImgwapurl != null">
+        couponImg_wapurl = #{couponImgwapurl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponImgpcurl != null">
+        couponImg_pcurl = #{couponImgpcurl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponAreaNum != null">
+        coupon_AreaNum = #{couponAreaNum,jdbcType=INTEGER},
+      </if>
     </set>
     where coupon_id = #{couponId,jdbcType=INTEGER}
   </update>
@@ -327,11 +374,26 @@
       <if test="couponMotifytime != null">
         coupon_motifyTime = #{couponMotifytime,jdbcType=VARCHAR},
       </if>
+      <if test="couponImgwapurl != null">
+        couponImg_wapurl = #{couponImgwapurl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponImgpcurl != null">
+        couponImg_pcurl = #{couponImgpcurl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponAreaNum != null">
+        coupon_AreaNum = #{couponAreaNum,jdbcType=INTEGER},
+      </if>
   </select>
   <select id="selectMlbackCouponBYCode" parameterType="com.atguigu.bean.MlbackCoupon" resultMap="BaseResultMap">
     select *
     from tb_mlback_coupon 
     where coupon_code = #{couponCode,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectMlbackCouponBYAreaNum" parameterType="com.atguigu.bean.MlbackCoupon" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_coupon 
+    where coupon_AreaNum = #{couponAreaNum,jdbcType=INTEGER}
   </select>
   
   

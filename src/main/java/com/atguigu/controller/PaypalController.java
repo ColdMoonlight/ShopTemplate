@@ -261,6 +261,27 @@ public class PaypalController {
 		mlfrontPayInfoIOne.setPayinfoPlatformserialcode(payerId);
 		String nowTime = DateUtil.strTime14s();
 		mlfrontPayInfoIOne.setPayinfoMotifytime(nowTime);
+		//增加生成字段信息
+		//  MLH
+		String payInfoTime = DateUtil.getDateTime();
+		
+		String payinfoIdStr = payinfoId+"";
+		Integer orderlen = payinfoIdStr.length();
+		if(orderlen==6){
+			payinfoIdStr = "0"+payinfoIdStr;
+		}else if(orderlen==5){
+			payinfoIdStr = "00"+payinfoIdStr;
+		}else if(orderlen==4){
+			payinfoIdStr = "000"+payinfoIdStr;
+		}else if(orderlen==3){
+			payinfoIdStr = "0000"+payinfoIdStr;
+		}else if(orderlen==2){
+			payinfoIdStr = "00000"+payinfoIdStr;
+		}else if(orderlen==1){
+			payinfoIdStr = "000000"+payinfoIdStr;
+		}
+		String payinfoPlateNum = "MLH"+payInfoTime+payinfoIdStr;
+		mlfrontPayInfoIOne.setPayinfoPlateNum(payinfoPlateNum);
 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoIOne);
 		
 		//修改order单状态

@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>MEGALOOK</title>
 	<% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-	<link rel="shortcut icon" href="${APP_PATH }/static/pc/img/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="${APP_PATH }/static/pc/img/favicon1.ico" />
 	<link rel="stylesheet" href="${APP_PATH }/static/pc/css/theme.css">
 	<link rel="stylesheet" href="${APP_PATH }/static/pc/css/main.css">
 	<link rel="stylesheet" href="${APP_PATH }/static/pc/css/new.css">
@@ -253,7 +253,7 @@
 			method: 'GET',
 			success: function (data) {
 				var resData = data.extend.mlbackCategorydownList;
-				// console.log(resData);
+				// console.log(resData);/**********resData*********/
 				if (data.code === 100) {
 					categoryData = resData.reduce(function (obj, item) {
 						if (item.categoryParentId === -1) {
@@ -361,6 +361,7 @@
 		  function toProductItem(id) {
 		  if (parseInt(id)) window.location.href = "${APP_PATH }/MlbackProduct/topcProductDetailPage?productId=" + id;
 		}
+		
 		
 	</script>
 </body>

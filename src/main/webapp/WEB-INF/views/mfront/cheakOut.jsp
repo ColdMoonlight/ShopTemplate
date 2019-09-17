@@ -32,7 +32,8 @@
 	  t.src=v;s=b.getElementsByTagName(e)[0];
 	  s.parentNode.insertBefore(t,s)}(window, document,'script',
 	  'https://connect.facebook.net/en_US/fbevents.js');
-	  fbq('init', '667403967094866');
+	  fbq('init', '246433859565492');
+	  //fbq('init', '667403967094866');
 	  fbq('track', 'PageView');
 	</script>
 	<noscript><img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=667403967094866&ev=PageView&noscript=1"/></noscript>
@@ -399,12 +400,12 @@
 				<div class="list-group">
 					<li class="list-group-item">
 						<!-- <div class="group-title"><span>Choose Coupons</span> <span class="price-info"></span></i></div> -->
-						<div class="tit_numtt"><span>3</span><b>Checkout Review</b></div>	
+						<div class="tit_numtt"><span>3</span><b>DISCOUNT CODES</b></div>	
 						<div class="group-details coupons active"></div>
 					</li>
 					<li class="list-group-item">
 						<!-- <div class="group-title"><span>PAYMENT METHOD</span></div> -->
-						<div class="tit_numtt"><span>4</span><b>Checkout Review</b></div>	
+						<div class="tit_numtt"><span>4</span><b>PAYMENT METHOD</b></div>	
 						<div class="group-details pay-method active">
 							<div class="coupon-item">
 								<input type="radio" name="payment" data-payid="0" checked onclick="selectPay(event)" class="checkbox">
@@ -414,7 +415,7 @@
 					</li>
 					<li class="list-group-item">
 						<!-- <div class="group-title"><span>Buyer messages</span></div> -->
-						<div class="tit_numtt"><span>5</span><b>Checkout Review</b></div>	
+						<div class="tit_numtt"><span>5</span><b>ADDITIONAL INFORMATION</b></div>	
 						<div class="group-details customer-message active">
 							<textarea placeholder="Buyer message"></textarea>
 						</div>
@@ -480,6 +481,15 @@
 		var addressIdIntInt;
 		
 		$("#country").bind("change",function(){
+			var radio_zt =$(".coupons .coupon-item input[type='radio']");
+			 couponPriceText.text('-$' + 0);
+			   if(radio_zt.is(":checked")){
+				  radio_zt.removeAttr("checked");
+				 couponPriceText.text('-$' + 0);
+			   }
+			   $(".coed_inp").val("");
+			   $(".without-data").text("Enter coupon code to get a discount!");
+			
 			 var dataname = $(this).val();
 			 $.ajax({
 				  url: '${APP_PATH}/MlfrontAddress/getAreafreightMoney',
@@ -509,7 +519,7 @@
 		});
 
 		function renderAddressDetail(data) {
-			
+			// console.log(data)
 	        $("input.firstname").val(data.addressUserfirstname ? data.addressUserfirstname : '');
 			$("input.lastname").val(data.addressUserlastname ? data.addressUserlastname : '');
 			$("input.email").val(data.addressEmail ? data.addressEmail : '');
@@ -518,7 +528,9 @@
 			$("input.code").val(data.addressPost ? data.addressPost : '');
 			$("input.city").val(data.addressCity ? data.addressCity : '');
 			$("input.province").val(data.addressProvince ? data.addressProvince : '');
-
+			// $("select option:checked").text(data.addressCountry ? data.addressCountry : ''); 
+			$("#country").val(data.addressCountry ? data.addressCountry : ''); 
+			
 		}
 
 		/* 初始化地址模块 */
@@ -526,13 +538,12 @@
 			url: '${APP_PATH}/MlfrontAddress/getOneMlfrontAddressDetailByUinfo',
 			type: 'post',
 			success: function (data) {
+				// console.log("MlfrontAddress/getOneMlfrontAddressDetailByUinfo")
 				// console.log(data)
 				var resDataAddress = data.extend.mlfrontAddressOne;
-				// console.log(resDataAddress)
 				var resDataUserType = data.extend.usertype;
 				addressId = resDataAddress ? resDataAddress.addressId : null;
 				resDataMoney = data.extend.areafreightMoney;
-				// console.log(resDataMoney)
 				var addressBox = $('.address');
 				var couponBox = $('.coupons');
 				// console.log(data)
@@ -545,8 +556,10 @@
 					$(".address").addClass("active")
 				} else {
 					// renderAddressAdd(addressBox);
-					$('.shipping').find('span').text('Please add the shipping address first');
-					shippingPriceText.text('$' + 0)
+					$('.shipping').find('span').text('United States'+ ' of $' + resDataMoney);
+					if($("#country").val="United States"){
+						shippingPriceText.text('$' + resDataMoney)
+					}
 				}
 
 				var subtotalText = (parseFloat(resDataMoney) + parseFloat(totalPrice)).toFixed(2);
@@ -569,10 +582,10 @@
 				return obj
 			}, {});
 			//if (!inputCheck(reqData)) return;
-			console.log("************")
-			console.log(reqData)
+			// console.log("*****savr_address*******")
+			// console.log(reqData)
 			reqData.addressId = reqData.addressId === '' ? null : parseInt(reqData.addressId);
-			$.ajax({
+			 $.ajax({
 				url: '${APP_PATH}/MlfrontAddress/save',
 				type: 'post',
 				dataType: 'JSON',
@@ -584,12 +597,11 @@
 					addressId = resDataAddress.addressId;
 					addressIdIntInt = resDataAddress.addressId;
 					returnaddressId = addressIdIntInt;
-					console.log("addressIdIntInt:"+addressIdIntInt);
+					// console.log("addressIdIntInt:"+addressIdIntInt);
 					var addressBox = $('.address');
 					$('.address-id').val(resDataAddress.addressId);
 				}
 			})
-			//return returnaddressId;
 		}
        
 		/* 所购商品列表 */
@@ -698,7 +710,7 @@
 			var html = '';
 			if (userType === 0) {
 				html = '<div class="input-group">' +
-					'<input type="text" name="productNum" class="form-control" value="" placeholder="Please enter coupon code">' +
+					'<input type="text" name="productNum" class="form-control coed_inp" value="" placeholder="Please enter coupon code">' +
 					'<span class="input-group-addon" id="coupon-check" onclick="checkCouponCode(event)">check it</span>' +
 					'</div><div class="coupon-error"><p class="without-data">Enter coupon code to get a discount!</p></div>';
 			}
@@ -797,8 +809,7 @@
 		}
 		//MlfrontOrder/orderToPayInfo
 		//这5个参数，json格式
-		/* 
-			private Integer orderId;  //1  都一样，随便从一条取出就行了
+		/*  private Integer orderId;  //1  都一样，随便从一条取出就行了
 		    private String orderOrderitemidstr;//1 每条的orderitemId都不一样，需要拼成字段"77,78"中间逗号拼接。
 		    private Integer orderCouponId  // 1  优惠码，就一个
 		    private String orderCouponCode; //1，每条的产品数量，需要拼成字段"1,1"中间逗号拼接。
@@ -810,11 +821,8 @@
 				return ;
 			} else{
 				
-				var kkkaddressid ;
-					savr_address();  // addres 保存
-				console.log("kkkaddressid:"+kkkaddressid)
+				savr_address();  // addres 保存
 				var addressIdInt = $('.address-id').val();
-				sleep(2000);
 	
 				var reqData = {
 					"orderId": orderId,
@@ -840,8 +848,8 @@
 	
 				// console.log(reqData)
 			    // console.log(reqDataUp)
-				console.log(checkAddress(reqDataUp))
-				//if (checkAddress(reqDataUp)) {
+				// console.log(checkAddress(reqDataUp))
+				if (checkAddress(reqDataUp)) {
 					fbq('track', 'AddPaymentInfo');//追踪'发起结账'事件  facebook广告插件可以注释掉，但不要删除
 					$.ajax({
 						url: '${APP_PATH}/MlfrontOrder/orderToPayInfo',
@@ -855,9 +863,9 @@
 							window.location.href = '${APP_PATH }/paypal/mpay';
 						}
 					})
-				//} else {
+				} else {
 					renderSysMsg('Please fill in the shipping address And save it ')
-				// }
+				 }
 			}
 			
 		})
@@ -919,51 +927,86 @@
 			
 			var flag = 0;
 			var firstnamestr = $(".firstname").val();
-			console.log("firstnamestr:"+firstnamestr);
+			// console.log("firstnamestr:"+firstnamestr);
 			var lastnamestr = $(".lastname").val();
-			console.log("lastnamestr:"+lastnamestr);
+			// console.log("lastnamestr:"+lastnamestr);
 			var emailstr = $(".email").val();
 			var phonestr = $(".phone").val();
 			var addressstr = $(".addreNo").val();
 			var codestr = $(".code").val();
 			var citystr = $(".city").val();
-			var countrystr = $("#country").val();
+			// var countrystr = $("#country").val();
+			var countrystr=$('#country option:checked').text()
 			var provincestr = $(".province").val();
+			
+			
 			if(firstnamestr==null||firstnamestr==''){
 				flag = 1;
-				alert("firstnamestr为空");
+				alert("firstnamestr is empty");
+				$(".firstname").addClass("error_br");
+				$(".firstname").focus(function(){
+					$(this).removeClass("error_br")
+				})
 			}else if(lastnamestr==null||lastnamestr==''){
 				flag = 1;
-				alert("lastnamestr为空");
+				alert("lastnamestr is empty");
+				$(".lastname").addClass("error_br");
+				$(".lastname").focus(function(){
+					$(this).removeClass("error_br")
+				})
 			}else if(emailstr==null||emailstr==''){
 				flag = 1;
-				alert("emailstr为空");
+				alert("emailstr is empty");
+				$(".email").addClass("error_br");
+				$(".email").focus(function(){
+					$(this).removeClass("error_br")
+				})
 			}else if(phonestr==null||phonestr==''){
 				flag = 1;
-				alert("phonestr为空");
+				alert("phonestr is empty");
+				$(".phone").addClass("error_br");
+				$(".phone").focus(function(){
+					$(this).removeClass("error_br")
+				})
 			}else if(addressstr==null||addressstr==''){
 				flag = 1;
-				alert("addressstr为空");
+				alert("addressstr is empty");
+				$(".addreNo").addClass("error_br");
+				$(".addreNo").focus(function(){
+					$(this).removeClass("error_br")
+				})
 			}else if(codestr==null||codestr==''){
 				flag = 1;
-				alert("codestr为空");
-			}else if(countrystr==null||countrystr==''){
+				alert("codestr is empty");
+				$(".codestr").addClass("error_br");
+				$(".codestr").focus(function(){
+					$(this).removeClass("error_br")
+				})
+			}else if(citystr==null||citystr==''){
 				flag = 1;
-				alert("countrystr为空");
+				alert("citystr is empty");
+				$(".city").addClass("error_br");
+				$(".city").focus(function(){
+					$(this).removeClass("error_br")
+				})	
+			}else if(countrystr==null||countrystr==''||countrystr=='select the Country'){
+				flag = 1;
+				alert("countrystr is empty");
+				$("#country").addClass("error_br");
+				$("#country").focus(function(){
+					$(this).removeClass("error_br")
+				})
 			}else if(provincestr==null||provincestr==''){
 				flag = 1;
-				alert("provincestr为空");
+				alert("provincestr is empty");
+				$(".province").addClass("error_br");
+				$(".province").focus(function(){
+					$(this).removeClass("error_br")
+				})
 			}
 			return flag;
 		}
 		
-		
-		function sleep(delay) {
-			  var start = (new Date()).getTime();
-			  while ((new Date()).getTime() - start < delay) {
-			    continue;
-			  }
-			}
 	</script>
 
 	<script src="//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js"></script>

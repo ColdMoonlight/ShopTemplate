@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.MlbackSlideMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackSlide">
+    <id column="slide_id" jdbcType="INTEGER" property="slideId" />
+    <result column="slide_name" jdbcType="VARCHAR" property="slideName" />
+    <result column="slide_area" jdbcType="INTEGER" property="slideArea" />
+    <result column="slide_firth_num" jdbcType="INTEGER" property="slideFirthNum" />
+    <result column="slide_wapstatus" jdbcType="INTEGER" property="slideWapstatus" />
+    <result column="slide_pcstatus" jdbcType="INTEGER" property="slidePcstatus" />
+    <result column="slide_wapimgurl" jdbcType="VARCHAR" property="slideWapimgurl" />
+    <result column="slide_pcimgurl" jdbcType="VARCHAR" property="slidePcimgurl" />
+    <result column="slide_proid" jdbcType="INTEGER" property="slideProid" />
+    <result column="slide_proname" jdbcType="VARCHAR" property="slideProname" />
+    <result column="slide_seoname" jdbcType="VARCHAR" property="slideSeoname" />
+    <result column="slide_ifinto" jdbcType="INTEGER" property="slideIfinto" />
+    <result column="slide_createTime" jdbcType="VARCHAR" property="slideCreatetime" />
+    <result column="slide_motifyTime" jdbcType="VARCHAR" property="slideMotifytime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    slide_id, slide_name, slide_area, slide_firth_num, slide_wapstatus, slide_pcstatus, 
+    slide_wapimgurl, slide_pcimgurl, slide_proid, slide_proname, slide_seoname, slide_ifinto, 
+    slide_createTime, slide_motifyTime
+  </sql>
+  <select id="selectByExample" parameterType="com.atguigu.bean.MlbackSlideExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_mlback_slide
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_mlback_slide
+    where slide_id = #{slideId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByExample" parameterType="com.atguigu.bean.MlbackSlideExample">
+    delete from tb_mlback_slide
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.MlbackSlide">
+    insert into tb_mlback_slide (slide_id, slide_name, slide_area, 
+      slide_firth_num, slide_wapstatus, slide_pcstatus, 
+      slide_wapimgurl, slide_pcimgurl, slide_proid, 
+      slide_proname, slide_seoname, slide_ifinto, 
+      slide_createTime, slide_motifyTime)
+    values (#{slideId,jdbcType=INTEGER}, #{slideName,jdbcType=VARCHAR}, #{slideArea,jdbcType=INTEGER}, 
+      #{slideFirthNum,jdbcType=INTEGER}, #{slideWapstatus,jdbcType=INTEGER}, #{slidePcstatus,jdbcType=INTEGER}, 
+      #{slideWapimgurl,jdbcType=VARCHAR}, #{slidePcimgurl,jdbcType=VARCHAR}, #{slideProid,jdbcType=INTEGER}, 
+      #{slideProname,jdbcType=VARCHAR}, #{slideSeoname,jdbcType=VARCHAR}, #{slideIfinto,jdbcType=INTEGER}, 
+      #{slideCreatetime,jdbcType=VARCHAR}, #{slideMotifytime,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="countByExample" parameterType="com.atguigu.bean.MlbackSlideExample" resultType="java.lang.Long">
+    select count(*) from tb_mlback_slide
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_mlback_slide
+    <set>
+      <if test="record.slideId != null">
+        slide_id = #{record.slideId,jdbcType=INTEGER},
+      </if>
+      <if test="record.slideName != null">
+        slide_name = #{record.slideName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slideArea != null">
+        slide_area = #{record.slideArea,jdbcType=INTEGER},
+      </if>
+      <if test="record.slideFirthNum != null">
+        slide_firth_num = #{record.slideFirthNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.slideWapstatus != null">
+        slide_wapstatus = #{record.slideWapstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.slidePcstatus != null">
+        slide_pcstatus = #{record.slidePcstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.slideWapimgurl != null">
+        slide_wapimgurl = #{record.slideWapimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slidePcimgurl != null">
+        slide_pcimgurl = #{record.slidePcimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slideProid != null">
+        slide_proid = #{record.slideProid,jdbcType=INTEGER},
+      </if>
+      <if test="record.slideProname != null">
+        slide_proname = #{record.slideProname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slideSeoname != null">
+        slide_seoname = #{record.slideSeoname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slideIfinto != null">
+        slide_ifinto = #{record.slideIfinto,jdbcType=INTEGER},
+      </if>
+      <if test="record.slideCreatetime != null">
+        slide_createTime = #{record.slideCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slideMotifytime != null">
+        slide_motifyTime = #{record.slideMotifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_mlback_slide
+    set slide_id = #{record.slideId,jdbcType=INTEGER},
+      slide_name = #{record.slideName,jdbcType=VARCHAR},
+      slide_area = #{record.slideArea,jdbcType=INTEGER},
+      slide_firth_num = #{record.slideFirthNum,jdbcType=INTEGER},
+      slide_wapstatus = #{record.slideWapstatus,jdbcType=INTEGER},
+      slide_pcstatus = #{record.slidePcstatus,jdbcType=INTEGER},
+      slide_wapimgurl = #{record.slideWapimgurl,jdbcType=VARCHAR},
+      slide_pcimgurl = #{record.slidePcimgurl,jdbcType=VARCHAR},
+      slide_proid = #{record.slideProid,jdbcType=INTEGER},
+      slide_proname = #{record.slideProname,jdbcType=VARCHAR},
+      slide_seoname = #{record.slideSeoname,jdbcType=VARCHAR},
+      slide_ifinto = #{record.slideIfinto,jdbcType=INTEGER},
+      slide_createTime = #{record.slideCreatetime,jdbcType=VARCHAR},
+      slide_motifyTime = #{record.slideMotifytime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackSlide">
+    update tb_mlback_slide
+    set slide_name = #{slideName,jdbcType=VARCHAR},
+      slide_area = #{slideArea,jdbcType=INTEGER},
+      slide_firth_num = #{slideFirthNum,jdbcType=INTEGER},
+      slide_wapstatus = #{slideWapstatus,jdbcType=INTEGER},
+      slide_pcstatus = #{slidePcstatus,jdbcType=INTEGER},
+      slide_wapimgurl = #{slideWapimgurl,jdbcType=VARCHAR},
+      slide_pcimgurl = #{slidePcimgurl,jdbcType=VARCHAR},
+      slide_proid = #{slideProid,jdbcType=INTEGER},
+      slide_proname = #{slideProname,jdbcType=VARCHAR},
+      slide_seoname = #{slideSeoname,jdbcType=VARCHAR},
+      slide_ifinto = #{slideIfinto,jdbcType=INTEGER},
+      slide_createTime = #{slideCreatetime,jdbcType=VARCHAR},
+      slide_motifyTime = #{slideMotifytime,jdbcType=VARCHAR}
+    where slide_id = #{slideId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackSlide">
+    insert into tb_mlback_slide
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="slideId != null">
+        slide_id,
+      </if>
+      <if test="slideName != null">
+        slide_name,
+      </if>
+      <if test="slideArea != null">
+        slide_area,
+      </if>
+      <if test="slideFirthNum != null">
+        slide_firth_num,
+      </if>
+      <if test="slideWapstatus != null">
+        slide_wapstatus,
+      </if>
+      <if test="slidePcstatus != null">
+        slide_pcstatus,
+      </if>
+      <if test="slideWapimgurl != null">
+        slide_wapimgurl,
+      </if>
+      <if test="slidePcimgurl != null">
+        slide_pcimgurl,
+      </if>
+      <if test="slideProid != null">
+        slide_proid,
+      </if>
+      <if test="slideProname != null">
+        slide_proname,
+      </if>
+      <if test="slideSeoname != null">
+        slide_seoname,
+      </if>
+      <if test="slideIfinto != null">
+        slide_ifinto,
+      </if>
+      <if test="slideCreatetime != null">
+        slide_createTime,
+      </if>
+      <if test="slideMotifytime != null">
+        slide_motifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="slideId != null">
+        #{slideId,jdbcType=INTEGER},
+      </if>
+      <if test="slideName != null">
+        #{slideName,jdbcType=VARCHAR},
+      </if>
+      <if test="slideArea != null">
+        #{slideArea,jdbcType=INTEGER},
+      </if>
+      <if test="slideFirthNum != null">
+        #{slideFirthNum,jdbcType=INTEGER},
+      </if>
+      <if test="slideWapstatus != null">
+        #{slideWapstatus,jdbcType=INTEGER},
+      </if>
+      <if test="slidePcstatus != null">
+        #{slidePcstatus,jdbcType=INTEGER},
+      </if>
+      <if test="slideWapimgurl != null">
+        #{slideWapimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="slidePcimgurl != null">
+        #{slidePcimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="slideProid != null">
+        #{slideProid,jdbcType=INTEGER},
+      </if>
+      <if test="slideProname != null">
+        #{slideProname,jdbcType=VARCHAR},
+      </if>
+      <if test="slideSeoname != null">
+        #{slideSeoname,jdbcType=VARCHAR},
+      </if>
+      <if test="slideIfinto != null">
+        #{slideIfinto,jdbcType=INTEGER},
+      </if>
+      <if test="slideCreatetime != null">
+        #{slideCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="slideMotifytime != null">
+        #{slideMotifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlback_slide
+    where slide_id = #{slideId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackSlide">
+    update tb_mlback_slide
+    <set>
+      <if test="slideName != null">
+        slide_name = #{slideName,jdbcType=VARCHAR},
+      </if>
+      <if test="slideArea != null">
+        slide_area = #{slideArea,jdbcType=INTEGER},
+      </if>
+      <if test="slideFirthNum != null">
+        slide_firth_num = #{slideFirthNum,jdbcType=INTEGER},
+      </if>
+      <if test="slideWapstatus != null">
+        slide_wapstatus = #{slideWapstatus,jdbcType=INTEGER},
+      </if>
+      <if test="slidePcstatus != null">
+        slide_pcstatus = #{slidePcstatus,jdbcType=INTEGER},
+      </if>
+      <if test="slideWapimgurl != null">
+        slide_wapimgurl = #{slideWapimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="slidePcimgurl != null">
+        slide_pcimgurl = #{slidePcimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="slideProid != null">
+        slide_proid = #{slideProid,jdbcType=INTEGER},
+      </if>
+      <if test="slideProname != null">
+        slide_proname = #{slideProname,jdbcType=VARCHAR},
+      </if>
+      <if test="slideSeoname != null">
+        slide_seoname = #{slideSeoname,jdbcType=VARCHAR},
+      </if>
+      <if test="slideIfinto != null">
+        slide_ifinto = #{slideIfinto,jdbcType=INTEGER},
+      </if>
+      <if test="slideCreatetime != null">
+        slide_createTime = #{slideCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="slideMotifytime != null">
+        slide_motifyTime = #{slideMotifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where slide_id = #{slideId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- selectMlbackSlideById -->
+  <select id="selectMlbackSlideById" parameterType="com.atguigu.bean.MlbackSlide" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_slide 
+    where slide_id = #{slideId,jdbcType=INTEGER}
+  </select>
+  
+   <!-- selectMlbackSlideGetAll -->
+  <select id="selectMlbackSlideGetAll" parameterType="com.atguigu.bean.MlbackActShowPro" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_slide order by slide_id desc
+  </select>
+  
+   <!-- selectMlbackSlideGetAll -->
+  <select id="selectMlbackSlidewapListByArea" parameterType="com.atguigu.bean.MlbackActShowPro" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_slide where slide_wapstatus = #{slideWapstatus,jdbcType=INTEGER} and slide_area = #{slideArea,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectMlbackSlidepcListByArea" parameterType="com.atguigu.bean.MlbackActShowPro" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_slide where slide_pcstatus = #{slidePcstatus,jdbcType=INTEGER} and slide_area = #{slideArea,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  
+  
+</mapper>

@@ -3,7 +3,7 @@
         var settings = {
             xzoom: 500,
             yzoom: 500,
-            offset:-501,
+            offset:0,
             position: "BTR",
             // preload: 1
         };
@@ -12,7 +12,7 @@
         }
         var noalt = '';
         var self = this;
-        $(this).bind("mouseenter",  function(ev) {
+        $(this).bind("mouseover",  function(ev) {
       
             var imageLeft = $(this).offset().left;
             var imageTop = $(this).offset().top;

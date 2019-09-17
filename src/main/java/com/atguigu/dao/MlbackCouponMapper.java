@@ -34,9 +34,11 @@ public interface MlbackCouponMapper {
     int updateByPrimaryKeySelective(MlbackCoupon record);
     //查询后台登陆用户00
     List<MlbackCoupon> selectMlbackCouponByConditionS(MlbackCoupon example);
-  //查询后台登陆用户00
+    //查询后台登陆用户00
     List<MlbackCoupon> selectMlbackCouponBYCode(MlbackCoupon example);
     //查询全部登陆用户00
 	List<MlbackCoupon> selectMlbackCouponGetAll();
+	//查询全部登陆用户00
+	List<MlbackCoupon> selectMlbackCouponBYAreaNum(MlbackCoupon mlbackCoupon);
     
 }

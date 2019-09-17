@@ -19,7 +19,8 @@
 	  t.src=v;s=b.getElementsByTagName(e)[0];
 	  s.parentNode.insertBefore(t,s)}(window, document,'script',
 	  'https://connect.facebook.net/en_US/fbevents.js');
-	  fbq('init', '667403967094866');
+	  fbq('init', '246433859565492');
+	  //fbq('init', '667403967094866');
 	  fbq('track', 'PageView');
 	</script>
 	<noscript><img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=667403967094866&ev=PageView&noscript=1"/></noscript>
@@ -45,10 +46,15 @@
   		<!-- banner -->
 	    <div id="banner" class="swiper-container">
 	      <div class="swiper-wrapper"></div>
-			  <div class="swiper-pagination"></div>
+	      <div class="swiper-pagination"></div>
+		  <div class="swiper-button-nexta"></div>
+          <div class="swiper-button-preva"></div>
 	    </div>
 	    <!-- discount -->
-	    <img class="discount" src="${APP_PATH }/static/pc/discount.jpg" />
+		<div class="coupon_cont2">
+			
+		</div>
+	    <!-- <img class="discount" src="${APP_PATH }/static/pc/discount.jpg" /> -->
 	    <!-- countDownArea date -->
 	    <div id="countdown-area"> </div>
 	    <!-- product intro -->
@@ -73,57 +79,6 @@
 	<script src="${APP_PATH }/static/common/swiper/swiper.min.js"></script>
   <script>
   	/* banner */
-  	var slideData = [
-       {
-    	   title: '',
-    	   link: 'javascript:;',
-    	   path: '${APP_PATH }/static/pc/slide/pc_firsr01.jpg'
-       },
-       {
-    	   title: '',
-    	   link: 'javascript:;',
-    	   path: '${APP_PATH }/static/pc/slide/pc_firsr02.jpg'
-       },
-       {
-    	   title: '',
-    	   link: 'javascript:;',
-    	   path: '${APP_PATH }/static/pc/slide/pc_firsr03.jpg'
-       },
-       {
-    	   title: '',
-    	   link: 'javascript:;',
-    	   path: '${APP_PATH }/static/pc/slide/pc_firsr04.jpg'
-       },
-       {
-    	   title: '',
-    	   link: 'javascript:;',
-    	   path: '${APP_PATH }/static/pc/slide/pc_firsr05.jpg'
-       }
-  	];
-
-  	function renderSlide(parent, data) {
-  		var html = '';
-  		for (var i=0, len=data.length; i<len; i+=1) {
-  			html += '<div class="swiper-slide">' +
-				  '<a href="' + data[i].link + '">' +
-							'<img src="' + data[i].path + '" alt="">' +
-					'</a>' +
-				'</div>';
-  		}
-  		parent.html(html);
-  	}
-  	
-  	renderSlide($('#banner .swiper-wrapper'), slideData);
-  	new Swiper('#banner', {
-      freeMode: true,
-			pagination: {
-				el: '.swiper-pagination',
-				clickable: true
-			},
-			autoplay: {
-		    delay: 3000,
-		  },
-  	});
   	
     function renderHotProduct(parent, data) {
       var html = '';
@@ -335,6 +290,105 @@
         var lens=parseInt(len-(len%5));
 		return productData.slice(0,lens);
        }	   
+/******一下是首页轮播展示*********************/
+	  	function renderSlide(parent, data) {
+			var html = '';
+			for (var i=0, len=data.length; i<len; i+=1) {
+				var slideIfinto_click = data[i].slideIfinto;
+				// console.log(slideIfinto_click);
+				if(slideIfinto_click==0){
+					html += '<div class="swiper-slide">' +
+						  '<a href="javascript:;">' +
+									'<img src="' + data[i].slidePcimgurl + '" alt="">' +
+							'</a>' +
+						'</div>';
+				}else{
+					html += '<div class="swiper-slide">' +
+						  '<a href="${APP_PATH}/' + data[i].slideSeoname + '.html">' +
+									'<img src="' + data[i].slidePcimgurl + '" alt="">' +
+							'</a>' +
+						'</div>';
+				}
+				
+			}
+			parent.html(html);
+		}
+	$.ajax({
+		 url: '${APP_PATH}/MlbackSlide/getMlbackSlidepcListByArea',
+	      data: JSON.stringify({
+		 	"slideArea": 1
+		 }),
+		 type: 'post',
+		 dataType: 'JSON',
+		 contentType: 'application/json',
+		 success: function (data) {
+		 	 // console.log(data)/***data**/
+           if (data.code === 100) {
+             var resData = data.extend.mlbackSlideList;;
+		 	 // console.log(resData);
+			renderSlide($('#banner .swiper-wrapper'), resData);
+			new Swiper('#banner', {
+			  freeMode: true,
+					pagination: {
+						el: '.swiper-pagination',
+						clickable: true
+					},
+					 simulateTouch : false,//禁止鼠标模拟
+					autoplay: {delay: 3000,},
+					  navigation: {
+						nextEl: '.swiper-button-nexta',
+						prevEl: '.swiper-button-preva',
+					  },
+			});
+		
+           } else {
+             renderErrorMsg(prodcutBox, 'No product-related data was obtained.');
+           }
+         }
+       });
+	   /*******优惠券*************************/
+	   	                  var bannercoupon=$(".coupon_cont2")
+	   					function rednerCoupon(parent, data) {
+	   						  var html = '';
+	   						  for (var i = 0; i < data.length; i += 1) {
+	   							   var slideIfinto_click = data[i].slideIfinto;
+	   							  if(slideIfinto_click==0){
+	   								  html += '<div class="coupon_ban">' +
+	   								  '<a href="javascript:;">' +
+	   								  '<img src="' + data[i].slidePcimgurl + '" alt="">' +
+	   								  '</a>' +
+	   								  '</div>';
+	   							  }else{
+	   								  html += '<div class="coupon_ban">' +
+	   								  '<a href="${APP_PATH}/' + data[i].slideSeoname + '.html">' +
+	   								  '<img src="' + data[i].slidePcimgurl + '" alt="">' +
+	   								  '</a>' +
+	   								  '</div>';
+	   							  }
+	   							  
+	   							
+	   						  }
+	   						  parent.html(html);
+	   						}
+	   				 $.ajax({
+	   					 url: '${APP_PATH}/MlbackSlide/getMlbackSlidewapListByArea',
+	   						data: JSON.stringify({
+	   					   "slideArea": 2
+	   					 }),
+	   					 type: 'post',
+	   					 dataType: 'JSON',
+	   					 contentType: 'application/json',
+	   					 success: function (data) {
+	   							// console.log(data)/***data**/
+	   							if (data.code === 100) {
+	   							  var resData = data.extend.mlbackSlideList;;
+	   							  // console.log(resData);
+	   					         rednerCoupon(bannercoupon,resData)
+	   							} else {
+	   							  renderErrorMsg(prodcutBox, 'No product-related data was obtained.');
+	   							}
+	   						  }
+	   	   });	
   </script>
   <script src="//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js"></script>
 </body>

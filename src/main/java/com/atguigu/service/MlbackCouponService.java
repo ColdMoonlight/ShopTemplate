@@ -93,4 +93,9 @@ public class MlbackCouponService {
 		return mlbackCouponList;
 	}
 
+	public List<MlbackCoupon> selectMlbackCouponBYAreaNum(MlbackCoupon mlbackCoupon) {
+		List<MlbackCoupon>  mlbackCouponList = mlbackCouponMapper.selectMlbackCouponBYAreaNum(mlbackCoupon);
+		return mlbackCouponList;
+	}
+
 }

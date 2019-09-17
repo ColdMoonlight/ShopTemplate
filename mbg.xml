@@ -50,7 +50,9 @@
 		<table tableName="tb_mlback_showArea" domainObjectName="MlbackShowArea"></table>
 		<table tableName="tb_mlback_actShowPro" domainObjectName="MlbackActShowPro"></table>
 		<table tableName="tb_mlblack_countDown" domainObjectName="MlbackCountDown"></table>
-		<table tableName="tb_mlback_reviewimg" domainObjectName="MlbackReviewImg"></table>-->
+		<table tableName="tb_mlback_reviewimg" domainObjectName="MlbackReviewImg"></table>
+		<table tableName="tb_mlback_slide" domainObjectName="MlbackSlide"></table>
+		<table tableName="tb_mlback_channel" domainObjectName="MlbackChannel"></table>-->
 		
 		<!--
 		<table tableName="tb_mlfront_user" domainObjectName="MlfrontUser"></table>

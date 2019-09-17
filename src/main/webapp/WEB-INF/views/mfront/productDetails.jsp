@@ -33,8 +33,8 @@
 	  t.src=v;s=b.getElementsByTagName(e)[0];
 	  s.parentNode.insertBefore(t,s)}(window, document,'script',
 	  'https://connect.facebook.net/en_US/fbevents.js');
-	  fbq('init', '667403967094866');
-	  /* fbq('track', 'PageView'); */
+	  fbq('init', '246433859565492');
+	  //fbq('init', '667403967094866');
 	</script>
 	<noscript><img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=667403967094866&ev=PageView&noscript=1"/></noscript>
 	<!-- End Facebook Pixel Code -->
@@ -714,6 +714,7 @@
 			function generateOrder(reqData) {
 				// console.log(reqData)
 				var fbpid=reqData.cartitemProductId;
+				var fbprice=reqData.cartitemProductOriginalprice;
 				$.ajax({
 					url: '${APP_PATH}/MlbackCart/toAddToCart',
 					data: JSON.stringify(reqData),
@@ -727,7 +728,9 @@
 							//追踪'添加购物车'事件		facebook广告插件可以注释掉，但不要删除
 							fbq('track', 'AddToCart', {
 								  content_ids: fbpid,
-								  content_type: 'product'
+								  content_type: 'product',
+								  value: fbprice,
+								  currency: 'USD'
 								});
 							// cartText.text(parseInt(cartText.text()) + 1);
 							window.location.href = '${APP_PATH}/myCart.html';
@@ -755,7 +758,11 @@
 				reqData.cartitemProductNumber = productNum.val();
 				// console.log(data);
 				
-				fbq('track', 'InitiateCheckout');//追踪'发起结账'事件		facebook广告插件可以注释掉，但不要删除
+				//fbq('track', 'InitiateCheckout');//追踪'发起结账'事件		facebook广告插件可以注释掉，但不要删除
+				fbq('track', 'InitiateCheckout', {
+					  content_ids: reqData.cartitemProductId,
+					  content_type: 'product'
+					});
 				// name, id, price
 				function getSkuData(els) {
 					var data = {

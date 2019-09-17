@@ -174,7 +174,7 @@ public class MlbackProductController {
 //			//SysUsers对象为空
 //			return Msg.fail().add("resMsg", "session中adminuser对象为空");
 //		}else{
-			int PagNum = 90;
+			int PagNum = 50;
 			PageHelper.startPage(pn, PagNum);
 			List<MlbackProduct> mlbackProductList = mlbackProductService.selectMlbackProductGetAll();
 			PageInfo page = new PageInfo(mlbackProductList, PagNum);
@@ -820,5 +820,27 @@ public class MlbackProductController {
 					.add("mlbackProductResList", mlbackProductResList);
 		
 	}
+	
+	/**
+	  * 13.0 UseNow 0505
+	  * 通过产品名查看单条产品的详情
+	  * @param productId
+	  * @return 
+	  */
+	 @RequestMapping(value="/searchProductLike",method=RequestMethod.POST)
+	 @ResponseBody
+	 public Msg searchProductLike(@RequestParam(value = "productName") String productName){
+	  //接受信息
+	  MlbackProduct mlbackProductReq = new MlbackProduct();
+	  mlbackProductReq.setProductName(productName);
+	  System.out.println("productName:"+productName);
+	  List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductLike(mlbackProductReq);
+	  List<MlbackProduct> mlbackProductResListnum =mlbackProductService.selectMlbackProductLikeNum(mlbackProductReq);
+	  Integer num = mlbackProductResListnum.size();
+	  System.out.println("mlbackProductResListnum.size():"+num);
+	  return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
+	     .add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num);
+	  
+	 }
 	
 }

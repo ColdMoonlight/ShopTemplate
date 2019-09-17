@@ -91,10 +91,12 @@
 
 	<script type="text/javascript">
 		var adminAccname = '${sessionScope.AdminUser.adminAccname}';
-		console.log("adminAccname:" + adminAccname);
+		// console.log("adminAccname:" + adminAccname);
 		$("#UEmailSession").html(adminAccname);
 	</script>
 	<script type="text/javascript">
+		
+		
 		$('.nicescroll').each(function(i, item) {
 			$(item).niceScroll({
 				cursorcolor: "rgba(0,0,0,.3)",
@@ -280,6 +282,7 @@
 			var data = {
 				reviewId: $(this).attr('del-id')
 			};
+			console.log(data)
 			$.ajax({
 				url: "${APP_PATH}/MlfrontReview/delete",
 				data: JSON.stringify(data),
@@ -339,6 +342,53 @@
 					})
 				});
 				$('#upload-img-fu1').on("change", uploadfu);
+				
+				/******删除上传评论的图片**********************/
+				// $(".clear_img").each(function(){
+				//    $(this).click(function(){
+				// 	   var data = {
+				// 	   			reviewimgId:$(this).parents(".upload-img-btn").attr("id")
+				// 	   		};
+				// 	   $.ajax({
+				// 	   			url: "${APP_PATH}/MlbackReviewImg/delete",
+				// 	   			data: JSON.stringify(data),
+				// 	   			dataType: "json",
+				// 	   			contentType: 'application/json',
+				// 	   			type: "post",
+				// 	   			success: function (result) {
+				// 	   				console.log(result)
+				// 	   				if (result.code == 100) {
+				// 	   					alert('删除成功！');
+				// 	   					$(this).parents(".upload-img-btn").addClass(".ggg")
+				// 	   				}
+				// 	   			}
+				// 	   		});
+				//    })
+				// })
+					$(".clear_img").on("click",function(id){
+						var selfimg =this;
+							var data = {
+								reviewimgId:$(this).parents(".upload-img-btn").attr("id")
+							};
+							// console.log(data);
+							$.ajax({
+								url: "${APP_PATH}/MlbackReviewImg/delete",
+								data: JSON.stringify(data),
+								dataType: "json",
+								contentType: 'application/json',
+								type: "post",
+								success: function (result) {
+									console.log(result)
+									if (result.code == 100) {
+										alert('删除成功！');
+										$(selfimg).parents(".upload-img-btn").css({"background":"url(/ShopTemplate/static/img/plus.png) no-repeat","background-size":"200px"})
+									}
+								}
+							});
+						});
+				
+				
+				
 			});
 		});
 
@@ -415,10 +465,12 @@
 
 		// 编辑-回显-数据（仅图片）
 		function tianchongImg(data) {
-			// console.log(data);
+			console.log(data);
 			var elImgs = $('.sub-img').find('.upload-img-btn');
 			for (var i = 0; i < data.length; i += 1) {
 				$(elImgs[data[i].reviewimgSortOrder - 1]).css("background-image", "url(" + data[i].reviewimgUrl + ")");
+				var imgid =data[i].reviewimgId;
+				$(elImgs[data[i].reviewimgSortOrder - 1]).attr("id",imgid)
 			}
 		}
 
@@ -489,6 +541,8 @@
 				});
 			}
 		}
+		
+		
 	</script>
 </body>
 
