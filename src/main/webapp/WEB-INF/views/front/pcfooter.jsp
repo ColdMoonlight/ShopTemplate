@@ -16,7 +16,7 @@
 		<div class="container">		
 			<div class="row">
 				<div class="tt-footer-logo col-lg-2 col-md-12">
-					<img src="https://www.megalook.com/image/cache/catalog/megalook-logo1024x1024-200x39fill.png">
+					<img src="${APP_PATH }/static/pc/img/dblogo.png" alt="" style="max-width: 100%;">
 		      <div >Our Hair Your Glory</div>
 				</div>
 				<div class="tt-footer-nav col-lg-10 col-md-12"></div>
@@ -33,7 +33,7 @@
 				</div>
 				<div class="tt-col-right tt-col-item">
 					<!-- paypal -->
-					<img class="tt-box-paypal" src="https://www.megalook.com/image/cache/catalog/59f934e702d77-400x36h.png" />
+					<img class="tt-box-paypal" src="${APP_PATH }/static/pc/img/paylogo.jpg" />
 					<!-- /paypal -->
 				</div>
 			</div>
