@@ -5,23 +5,19 @@
 .clearfix{*zoom:1;}
 .fl{float:left;}
 .fr{float:right;}
-.nav_boxfirst{width: 100%;position: relative;}
-.navul{ text-align: center;width: 100%;}
-.navul li{line-height: 61px;margin: 0 15px; font-weight: bold; display:inline-block; position: relative;}
+.nav_boxfirst{width: 100%;}
+.navul{ text-align: center;width: 100%;position: relative;}
+.navul li{line-height: 61px;margin: 0 15px; font-weight: bold; display:inline-block;}
 .navul li a{position: relative; z-index: 999; display: block; font-size: 14px; color: #333333;}
 .navul li a:hover {color: #ff1671;}
 .navul li>a.active{color: #ff1671;}
 .menu_list-wap::before{content: ""; width: 100%; height: 2px; background: #ff1671; position: absolute; top: 0; left: 0;}
 .menu_list-wap{position: absolute;top: 100%; left: 0;padding:0 0 10px; z-index: 1000;display: none;background: #fff;-webkit-box-shadow:0 3px 10px rgba(0,0,0,.15);box-shadow:0 3px 10px rgba(0,0,0,.15);}
-.navul li:nth-of-type(7) .menu_list-wap{left: -250px;}
-.navul li:nth-of-type(2) .home_left_middle{width: 800px;}
-.navul li:nth-of-type(3) .home_left_middle{width: 1000px;}
-.navul li:nth-of-type(4) .home_left_middle{width: 500px;}
-.navul li:nth-of-type(5) .home_left_middle{width: 800px;}
-.navul li:nth-of-type(6) .home_left_middle{width: 200px;}
-.navul li:nth-of-type(7) .home_left_middle{width: 600px;}
-.navul li:nth-of-type(8) .home_left_middle{width: 200px;}
+.menu_list-wap .home_left_middle { display: flex; }
+.menu_list-wap .home_left_middle>dl { display: inline-block; min-width: 180px;}
 .menu_list-wap dl {display: inline-block;vertical-align: top; width: auto; margin: 0 30px;text-align: left;}
+.menu_list-wap .home_left_middle.nowrap { display: block; }
+.menu_list-wap .home_left_middle.nowrap dl {display: block }
 .menu_list-wap dl dd{ line-height: 30px;}
 .menu_list-wap dl dd a{font-weight: normal; color: #444;font-size:12px;}
 .menu_list-wap dl dd a:hover{color: #444;}
@@ -90,8 +86,8 @@
 .main{margin: 185px 0 0;}
 .mainindex{margin:0 auto;}
 /************************/
- .navul li:nth-of-type(8) .menu_list-wap dl{display: block;} 
- .navul li:nth-of-type(6) .menu_list-wap dl{display: block;}
+/*  .navul li:nth-of-type(8) .menu_list-wap dl{display: block;} 
+ .navul li:nth-of-type(6) .menu_list-wap dl{display: block;} */
 .product-d-length .list>span{min-width:17%;padding: 0 1%;}
 .product-d-title{ line-height:30px; border:none}
 .rightrule{width:660px;float:left;margin: 5px 0 0;}
@@ -821,5 +817,3 @@ p.video_discontent2_con{font-size: 17px; color: #000; line-height: 24px;margen:0
 	
 	
 }
-
-
