@@ -1,6 +1,7 @@
 package com.atguigu.bean;
 
 public class MlbackAbandonPurchase {
+	
 	//弃购id
     private Integer abandonpurchaseId;
     //活动详情

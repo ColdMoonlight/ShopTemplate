@@ -141,7 +141,7 @@
 				if (slideIfproORcateORpage == 0) {
 					html += '<a href="${APP_PATH}/' + data.slideSeoname + '.html">' + '<img src="' + data.slidePcimgurl + '" alt="">' + '</a>';
 				} else if (slideIfproORcateORpage == 1) {
-					html += '<a href="${APP_PATH}/search/' + data.slideCateSeoname + '.html">' + '<img src="' + dat.slidePcimgurl + '" alt="">' + '</a>';
+					html += '<a href="${APP_PATH}/search/' + data.slideCateSeoname + '.html">' + '<img src="' + data.slidePcimgurl + '" alt="">' + '</a>';
 				} else if (slideIfproORcateORpage == 2) {
 					html += '<a href="${APP_PATH}/' + data.slidePageSeoname + '.html">' + '<img src="' + data.slidePcpimgurl + '" alt="">' + '</a>';
 				}
