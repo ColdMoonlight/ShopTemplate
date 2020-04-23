@@ -312,6 +312,13 @@
             <span class="text">弃购邮件列表</span></a>
         </div>
       </li>
+      <li>
+        <div class="item">
+          <a href="${APP_PATH }/MlbackOrderStateEmail/toMlbackOrderStateEmailPage">
+            <i class="glyphicon glyphicon-stats"></i>
+            <span class="text">后台通知邮件列表</span></a>
+        </div>
+      </li>
     </ul>
   </li>
 </ul>

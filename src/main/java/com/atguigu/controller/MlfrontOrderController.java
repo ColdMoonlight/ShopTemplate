@@ -21,6 +21,7 @@ import com.atguigu.bean.MlbackAbandonPurchase;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackAreafreight;
 import com.atguigu.bean.MlbackCoupon;
+import com.atguigu.bean.MlbackOrderStateEmail;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackShipEmail;
 import com.atguigu.bean.MlfrontAddress;
@@ -38,6 +39,7 @@ import com.atguigu.service.MlbackAbandonPurchaseService;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackAreafreightService;
 import com.atguigu.service.MlbackCouponService;
+import com.atguigu.service.MlbackOrderStateEmailService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackShipEmailService;
 import com.atguigu.service.MlfrontAddressService;
@@ -91,6 +93,9 @@ public class MlfrontOrderController {
 	
 	@Autowired
 	MlbackProductService mlbackProductService;
+	
+	@Autowired
+	MlbackOrderStateEmailService mlbackOrderStateEmailService;
 	
 	/**
 	 * 1.0	onuse	20191225	检查
@@ -908,8 +913,23 @@ public class MlfrontOrderController {
 		mlfrontPayInfoRes = mlfrontPayInfoResList.get(0);
 		String payinfoPlateNum = mlfrontPayInfoRes.getPayinfoPlateNum();
 		
+		String toCustomerVerifyInfoStr = "";
+		
+		//查询
+		MlbackOrderStateEmail mlbackOrderStateEmailReq = new MlbackOrderStateEmail();
+		mlbackOrderStateEmailReq.setOrderstateemailName("Verifyed");
+		//查询本条
+		List<MlbackOrderStateEmail> mlbackOrderStateEmailList =mlbackOrderStateEmailService.selectMlbackOrderStateEmailByName(mlbackOrderStateEmailReq);
+		if(mlbackOrderStateEmailList.size()>0){
+			
+			MlbackOrderStateEmail mlbackOrderStateEmailOne =mlbackOrderStateEmailList.get(0);
+			
+			toCustomerVerifyInfoStr = getToCustomerVerifyEmailManage(mlbackOrderStateEmailOne,payinfoPlateNum);
+		}else{
+			
+			toCustomerVerifyInfoStr = getToCustomerVerifyEmail(payinfoPlateNum);
+		}
 		//11.1
-		String toCustomerVerifyInfoStr = getToCustomerVerifyEmail(payinfoPlateNum);
 		try {
 			//提醒客户准备发货
 			String getToEmail = userEmail;
@@ -926,11 +946,39 @@ public class MlfrontOrderController {
 	}
 
 
+	private String getToCustomerVerifyEmailManage(MlbackOrderStateEmail mlbackOrderStateEmailOne,String payinfoPlateNum) {
+		
+		String emailOneStr =  mlbackOrderStateEmailOne.getOrderstateemailOne();
+		String emailTwoStr =  mlbackOrderStateEmailOne.getOrderstateemailTwo();
+		String emailThreeStr =  mlbackOrderStateEmailOne.getOrderstateemailThree();
+		String emailFourStr =  mlbackOrderStateEmailOne.getOrderstateemailFour();
+		String emailFiveStr =  mlbackOrderStateEmailOne.getOrderstateemailFive();
+		String Message ="";
+		Message =Message+"Hi gorgeous girl ,"+"<br><br>";
+		Message=Message+emailOneStr+"<br>. "+" # ("+payinfoPlateNum+") "+emailTwoStr+"<br><br><br>";
+		Message=Message+emailThreeStr+".<br><br>";
+		Message=Message+emailFourStr+"<br><br><br>";
+		Message=Message+emailFiveStr+"<br><br>";
+		Message=Message+"Best Regards,<br>";
+		Message=Message+"-----------------------------------<br>";
+		String team = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.team");
+		String email = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.email");
+		String whatsapp = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.whatsapp");
+		String Telephone = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.Telephone");
+		//读取配置文件
+		Message=Message+team+"<br>";
+		Message=Message+"Email:"+email+"<br>";
+		Message=Message+"Whatsapp:"+whatsapp+"<br>";
+		Message=Message+"Telephone/SMS:"+Telephone+"<br>";
+		return Message;
+	}
+
 	//11.1
 	private String getToCustomerVerifyEmail(String payinfoPlateNum) {
 		String Message ="";
 		Message =Message+"Hi gorgeous girl ,"+"<br><br>";
-		Message=Message+"This is Megalook Hair . We have received your order # ("+payinfoPlateNum+")  and confirmed your payment. <br><br><br>";
+		Message=Message+"This is Megalook Hair  <br>. ";
+		Message=Message+"We have received your order # ("+payinfoPlateNum+")  and confirmed your payment. <br><br><br>";
 		Message=Message+"The hair you ordered is in stock and is expected to be shipped within 24-48 hours .<br><br>";
 		Message=Message+"We will send the parcel tracking number to you through email & SMS after delivery, and you can also view it on the PayPal bill.<br><br><br>";
 		Message=Message+"Please don't hesitate to call me if you need help. We still here behind Megalook Hair.<br><br>";

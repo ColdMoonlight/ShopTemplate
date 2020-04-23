@@ -68,7 +68,9 @@
 		<table tableName="tb_mlback_video" domainObjectName="MlbackVideo"></table>
 		<table tableName="tb_mlblack_abandonPurchase" domainObjectName="MlbackAbandonPurchase"></table>
 		<table tableName="tb_mlback_coupondesctitle" domainObjectName="MlbackCouponDescTitle"></table>
-		<table tableName="tb_mlback_coupondescdetail" domainObjectName="MlbackCouponDescDetail"></table>-->
+		<table tableName="tb_mlback_coupondescdetail" domainObjectName="MlbackCouponDescDetail"></table>
+		<table tableName="tb_mlback_orderStateEmail" domainObjectName="MlbackOrderStateEmail"></table>-->
+		
 		
 		
 		<!--
