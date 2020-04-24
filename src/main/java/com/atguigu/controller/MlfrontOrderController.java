@@ -955,10 +955,14 @@ public class MlfrontOrderController {
 		String emailFiveStr =  mlbackOrderStateEmailOne.getOrderstateemailFive();
 		String Message ="";
 		Message =Message+"Hi gorgeous girl ,"+"<br><br>";
-		Message=Message+emailOneStr+"<br>. "+" # ("+payinfoPlateNum+") "+emailTwoStr+"<br><br><br>";
+		Message=Message+emailOneStr+" # ("+payinfoPlateNum+") "+emailTwoStr+"<br><br>";
 		Message=Message+emailThreeStr+".<br><br>";
-		Message=Message+emailFourStr+"<br><br><br>";
-		Message=Message+emailFiveStr+"<br><br>";
+		Message=Message+emailFourStr+"<br><br>";
+		if("".equals(emailFiveStr)){
+			System.out.println("emailFiveStr:"+emailFiveStr+"这句话为空");
+		}else{
+			Message=Message+emailFiveStr+"<br><br>";
+		}
 		Message=Message+"Best Regards,<br>";
 		Message=Message+"-----------------------------------<br>";
 		String team = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.team");

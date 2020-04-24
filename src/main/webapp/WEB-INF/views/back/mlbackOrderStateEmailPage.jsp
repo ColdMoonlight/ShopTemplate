@@ -226,7 +226,7 @@
 				data: data,
 				dataType: "json",
 				contentType: 'application/json',
-				type: "POST",
+				type: "post",
 				success: function (result) {
 					if (result.code == 100) {
 						alert('添加成功！');
@@ -238,7 +238,7 @@
 		//删除任務
 		$("#task_table").on("click", ".btn-danger", function () {
 			var data = {
-				orderStateEmailId: $(this).attr('del-id')
+				orderstateemailId: $(this).attr('del-id')
 			};
 			$.ajax({
 				url: "${APP_PATH}/MlbackOrderStateEmail/delete",
@@ -254,48 +254,48 @@
 				}
 			});
 		});
-		
 
-		function loadTpl() {
+		function loadTpl(id) {
 			$('.table-box').load('${APP_PATH}/static/tpl/addOrderStateEmail.html', function () {
-				// 设置归属类
+				if (id) {
+					// fetch data
+					var data = {
+						"orderStateEmailId": id 
+					};
+					$.ajax({
+						url: "${APP_PATH}/MlbackOrderStateEmail/getOneMlbackOrderStateEmailDetail",
+						data: data,
+						type: "POST",
+						success: function (result) {
+							if (result.code == 100) {
+								obj = result.extend.mlbackOrderStateEmailOne;
+								// console.log(obj);
+								tianchong(obj);
+							} else {
+								alert("联系管理员");
+							}
+						}
+					});
+				}
+				
 			});
 		}
 
 		//编辑任务
 		$("#task_table").on("click", ".edit_btn", function () {
 			// tab tpl
-			loadTpl()
-			// fetch data
-			data = {
-				"orderStateEmailId": $(this).attr('edit-id')
-			};
-			$.ajax({
-				url: "${APP_PATH}/MlbackOrderStateEmail/getOneMlbackOrderStateEmailDetail",
-				data: data,
-				type: "POST",
-				success: function (result) {
-					if (result.code == 100) {
-						obj = result.extend.mlbackOrderStateEmailOne;
-						// console.log(obj);
-						tianchong(obj);
-					} else {
-						alert("联系管理员");
-					}
-				}
-			});
-			function tianchong(data) {
-				console.log(data);
-				$(":input[name='orderstateemailId']").val(data.orderStateEmailId);
-				$(":input[name='orderstateemailName']").val(data.orderstateemailName);
-				$(":input[name='orderstateemailOne']").val(data.orderstateemailOne);
-				$(":input[name='orderstateemailTwo']").val(data.orderstateemailTwo);
-				$(":input[name='orderstateemailThree']").val(data.orderstateemailThree);
-				$(":input[name='orderstateemailFour']").val(data.orderstateemailFour);
-				$(":input[name='orderstateemailFive']").val(data.orderstateemailFive);
-			}
+			loadTpl($(this).attr('edit-id'));
 
 		});
+		function tianchong(data) {
+			$("input[name='orderstateemailId']").val(data.orderstateemailId);
+			$("input[name='orderstateemailName']").val(data.orderstateemailName);
+			$("input[name='orderstateemailOne']").val(data.orderstateemailOne);
+			$("input[name='orderstateemailTwo']").val(data.orderstateemailTwo);
+			$("input[name='orderstateemailThree']").val(data.orderstateemailThree);
+			$("input[name='orderstateemailFour']").val(data.orderstateemailFour);
+			$("input[name='orderstateemailFive']").val(data.orderstateemailFive);
+		}
 		
 	</script>
 </body>
