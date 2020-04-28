@@ -13,8 +13,8 @@
 .navul li>a.active{color: #ff1671;}
 .menu_list-wap::before{content: ""; width: 100%; height: 2px; background: #ff1671; position: absolute; top: 0; left: 0;}
 .menu_list-wap{position: absolute;top: 100%; left: 0;padding:0 0 10px; z-index: 1000;display: none;background: #fff;-webkit-box-shadow:0 3px 10px rgba(0,0,0,.15);box-shadow:0 3px 10px rgba(0,0,0,.15);}
-.menu_list-wap .home_left_middle { display: flex; }
-.menu_list-wap .home_left_middle>dl { display: inline-block; min-width: 180px;}
+.menu_list-wap .home_left_middle { text-align: left; max-height: 100vh; overflow-y: auto;}
+.menu_list-wap .home_left_middle>dl { display: inline-block; padding: 0 18px;}
 .menu_list-wap dl {display: inline-block;vertical-align: top; width: auto; margin: 0 30px;text-align: left;}
 .menu_list-wap .home_left_middle.nowrap { display: block; }
 .menu_list-wap .home_left_middle.nowrap dl {display: block }
