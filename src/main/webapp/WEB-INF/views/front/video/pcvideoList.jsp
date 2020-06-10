@@ -53,7 +53,7 @@
 	<!-- main -->
 	<div class="main">
 		<div class="banvideo">
-			<img src="${APP_PATH }/static/pc/img/video/bant.jpg" >
+			<img src="${APP_PATH }/static/pc/img/video/pc1.jpg" >
 		</div>
 		<!-- <div class="container clearfix"> -->
 			<div class="tipsimg clearfix"><img src="${APP_PATH }/static/pc/img/video/bt2.jpg" ></div>
@@ -90,7 +90,7 @@
 					<li class="video_discontent_item">
 							<img src="${APP_PATH }/static/pc/img/yhj.png" alt="" class="video_discontent_img1">
 							<p class="video_discontent2_con">          
-								Once we receive your Email Information, $20 coupon code will directly send to your Email .
+								Once we receive your Email information,<span style="color:#eb5350"> 10$ coupon</span> will directly send to your Email if your order over 90$.
 							</p>
 							<p class="video_discontent_left">
 									<img src="${APP_PATH }/static/pc/img/yq.png">
