@@ -182,11 +182,7 @@ public class MlfrontCartController {
 							Integer accoff =  mlfrontCartItem.getCartitemProductActoff();
 							mlfrontCartItem.setCartitemProductActoff(accoff*10);
 							mlfrontCartItemService.insertSelective(mlfrontCartItem);
-							
-//							List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
-//							Integer cartItemId = mlfrontCartItemList.get(0).getCartitemId();
 							Integer cartItemId = mlfrontCartItem.getCartitemId();
-
 							String cartItemIdStrnew = cartItemId+"";
 							cartitemIdstrUser=cartitemIdstrUser+","+cartItemIdStrnew;
 							MlfrontCart mlfrontCartAfter = new MlfrontCart();
