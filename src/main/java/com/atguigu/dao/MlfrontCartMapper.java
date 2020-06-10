@@ -41,5 +41,7 @@ public interface MlfrontCartMapper {
 	MlfrontCart selectMlfrontCartByCartId(Integer cartId);
 	//通过时间查询全部登陆用户00
 	List<MlfrontCart> selectMlfrontCartByDate(MlfrontCart mlfrontCart);
+
+	List<MlfrontCart> selectMlfrontCartGetAllHundred();
     
 }

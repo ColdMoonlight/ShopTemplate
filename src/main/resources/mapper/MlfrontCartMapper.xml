@@ -280,4 +280,9 @@
     select *
     from tb_mlfront_cart where userTemporary_ip = #{usertemporaryIp,jdbcType=VARCHAR}
   </select> -->
+  <!-- selectAll使用中 -->
+  <select id="selectMlfrontCartGetAllHundred" parameterType="com.atguigu.bean.MlfrontCart" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_cart order by cart_id desc limit 100
+  </select>
 </mapper>

@@ -81,4 +81,9 @@ public class MlfrontCartItemService {
 		return mlfrontCartItemList;
 	}
 
+	public List<MlfrontCartItem> selectMlfrontCartItemGetAllHundred() {
+		List<MlfrontCartItem>  mlfrontCartItemList = mlfrontCartItemMapper.selectMlfrontCartItemGetAllHundred();
+		return mlfrontCartItemList;
+	}
+
 }

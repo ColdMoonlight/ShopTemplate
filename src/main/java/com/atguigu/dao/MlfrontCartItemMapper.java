@@ -37,5 +37,7 @@ public interface MlfrontCartItemMapper {
 	
 	//查询全部登陆用户00
 	List<MlfrontCartItem> selectMlfrontCartItemById(MlfrontCartItem record);
+
+	List<MlfrontCartItem> selectMlfrontCartItemGetAllHundred();
     
 }

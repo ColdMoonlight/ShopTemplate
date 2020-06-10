@@ -477,5 +477,10 @@
     </if>
     order by order_id desc
   </select>
+  <!-- selectAll使用中 -->
+  <select id="selectMlfrontOrderAllHundred" parameterType="com.atguigu.bean.MlfrontOrder" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_order order by order_id desc limit 100
+  </select>
   
 </mapper>

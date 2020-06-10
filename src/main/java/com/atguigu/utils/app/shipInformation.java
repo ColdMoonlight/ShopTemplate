@@ -1,13 +1,6 @@
 package com.atguigu.utils.app;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
-
-import org.json.JSONException;
-
-import com.atguigu.bean.Msg;
-import com.atguigu.ship.Classes.AftershipAPIException;
 import com.atguigu.ship.Classes.Checkpoint;
 import com.atguigu.ship.Classes.ConnectionAPI;
 import com.atguigu.ship.Classes.Tracking;
@@ -15,7 +8,7 @@ import com.atguigu.ship.Classes.Tracking;
 public class shipInformation {
 	
 	
-//	//mogalook-live环境
+//	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
 	
 	public static void main(String[] args) {
@@ -29,11 +22,9 @@ public class shipInformation {
 	 * */
 	
 	/**
-     * @param payinfoPlateNum 
-	 * @Method: 01绑定物流单号进入app
-     * @Description: 绑定物流单号进入app
+     * @param String orderLogisticsname, String trackingNumber, String payinfoPlateNum
+     * @Description: 01绑定物流单号进入app
      * @Anthor:zsh
-     * @param session
      * @return
      * @throws Exception
      */ 
@@ -82,11 +73,9 @@ public class shipInformation {
 	}
 	
 	/**
-     * @param payinfoPlateNum 
-	 * @Method: 02查询物流信息
-     * @Description: 绑定物流单号进入app
+     * @param String trackingNumber, String Slug
+     * @Description: 查询物流信息
      * @Anthor:zsh
-     * @param session
      * @return
      * @throws Exception
      */ 
@@ -105,9 +94,7 @@ public class shipInformation {
 		tracking.setSlug(Slug);
 		try {
 			trackingRes = connection.getTrackingByNumber(tracking);
-			System.out.println("------------tracking2------------");
 			System.out.println(trackingRes);
-			System.out.println("------------tracking2------------");
 			
 			List<Checkpoint> CheckpointList =  trackingRes.getCheckpoints();
 			
@@ -121,7 +108,6 @@ public class shipInformation {
 		} 
 		
 		return trackingRes;
-
 	}
 	
 }

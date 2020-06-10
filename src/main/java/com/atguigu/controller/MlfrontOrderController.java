@@ -373,9 +373,10 @@ public class MlfrontOrderController {
 		mlfrontPayInfoNew.setPayinfoCreatetime(nowTime);
 		mlfrontPayInfoNew.setPayinfoMotifytime(nowTime);
 		mlfrontPayInfoService.insertSelective(mlfrontPayInfoNew);
-		List<MlfrontPayInfo> mlfrontPayInfoResList = mlfrontPayInfoService.selectMlfrontPayInfoAll();
-		MlfrontPayInfo mlfrontPayInfoResOne = mlfrontPayInfoResList.get(0);
-		Integer payinfoId = mlfrontPayInfoResOne.getPayinfoId();
+//		List<MlfrontPayInfo> mlfrontPayInfoResList = mlfrontPayInfoService.selectMlfrontPayInfoAll();
+//		MlfrontPayInfo mlfrontPayInfoResOne = mlfrontPayInfoResList.get(0);
+//		Integer payinfoId = mlfrontPayInfoResOne.getPayinfoId();
+		Integer payinfoId = mlfrontPayInfoNew.getPayinfoId();
 		session.setAttribute("payinfoId", payinfoId);
 		
 		session.setAttribute("sendAddressinfoId", payAddressinfoId);
@@ -1231,9 +1232,6 @@ public class MlfrontOrderController {
 		//接收参数
 		
 		Tracking TrackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
-		System.out.println("-------------------------");
-		System.out.println(TrackingRes);
-		System.out.println("-------------------------");
 		return Msg.success().add("TrackingRes", TrackingRes);
 	}
 
