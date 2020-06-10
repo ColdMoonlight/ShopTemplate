@@ -24,12 +24,7 @@
 <script>
 	//接口初始hua
 	  $(function() {
-		var language = navigator.language.toLocaleLowerCase();
-		if (language == "zh-cn" || language == "zh-tw" || language == "zh-hk" || language == "zh-mo") {
-			window.location.href = "https://www.baidu.com";
-		} else {
-			window.location.href="${APP_PATH}/index.html";
-		}
+		window.location.href="${APP_PATH}/index.html";
 		//启动index页面，调用接口判断请求来源 
 	}) 
 </script>
