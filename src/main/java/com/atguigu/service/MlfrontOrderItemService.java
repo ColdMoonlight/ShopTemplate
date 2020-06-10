@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.atguigu.bean.MlfrontCart;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.dao.MlfrontOrderItemMapper;
 
@@ -104,6 +105,11 @@ public class MlfrontOrderItemService {
 	 * */
 	public List<MlfrontOrderItem> selectMlfrontOrderItemByMotifyTime(MlfrontOrderItem mlfrontOrderItem) {
 		List<MlfrontOrderItem>  mlfrontOrderItemList = mlfrontOrderItemMapper.selectMlfrontOrderItemByMotifyTime(mlfrontOrderItem);
+		return mlfrontOrderItemList;
+	}
+
+	public List<MlfrontOrderItem> selectMlfrontOrderItemAllHundred() {
+		List<MlfrontOrderItem>  mlfrontOrderItemList = mlfrontOrderItemMapper.selectMlfrontOrderItemAllHundred();
 		return mlfrontOrderItemList;
 	}
 

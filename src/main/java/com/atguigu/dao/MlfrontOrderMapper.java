@@ -41,5 +41,7 @@ public interface MlfrontOrderMapper {
 	List<MlfrontOrder> selectMlfrontOrderByUidOnly(MlfrontOrder mlfrontOrder);
 
 	List<MlfrontOrder> selectOrderListByUidAndStatus(MlfrontOrder mlfrontOrder);
+
+	List<MlfrontOrder> selectMlfrontOrderAllHundred();
     
 }

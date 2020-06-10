@@ -31,7 +31,7 @@ public interface MlfrontOrderItemMapper {
     int updateByPrimaryKeySelective(MlfrontOrderItem record);
     //查询后台登陆用户00
     List<MlfrontOrderItem> selectMlfrontOrderItemById(MlfrontOrderItem example);
-  //查询后台登陆用户00
+    //查询后台登陆用户00
     List<MlfrontOrderItem> selectMlfrontOrderItemByOrderId(MlfrontOrderItem example);
     
     List<MlfrontOrderItem> selectMlfrontOrderItemByNowTime(String nowTime);
@@ -39,5 +39,7 @@ public interface MlfrontOrderItemMapper {
 	List<MlfrontOrderItem> selectMlfrontOrderItemGetAll();
 	//时间筛选
 	List<MlfrontOrderItem> selectMlfrontOrderItemByMotifyTime(MlfrontOrderItem mlfrontOrderItem);
+
+	List<MlfrontOrderItem> selectMlfrontOrderItemAllHundred();
     
 }

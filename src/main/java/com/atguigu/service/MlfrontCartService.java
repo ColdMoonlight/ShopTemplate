@@ -98,5 +98,10 @@ public class MlfrontCartService {
 		List<MlfrontCart>  mlfrontCartList = mlfrontCartMapper.selectMlfrontCartByDate(mlfrontCart);
 		return mlfrontCartList;
 	}
+
+	public List<MlfrontCart> selectMlfrontCartGetAllHundred() {
+		List<MlfrontCart>  mlfrontCartList = mlfrontCartMapper.selectMlfrontCartGetAllHundred();
+		return mlfrontCartList;
+	}
 	
 }

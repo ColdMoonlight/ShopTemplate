@@ -578,7 +578,8 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderitemMotifytime(nowTime);
 				mlfrontOrderItemService.insertSelective(mlfrontOrderItemNew);
 				//获取新生成的id
-				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
+				//MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
+				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAllHundred().get(0);
 				Integer orderItemNewId = MlfrontOrderItemReallOne.getOrderitemId();
 				String orderItemNewIdStr = orderItemNewId+"";
 				//存档便于以后用
@@ -595,7 +596,8 @@ public class MlfrontCartController {
 			mlfrontOrderNew.setOrderMotifytime(nowTime);
 			mlfrontOrderService.insertSelective(mlfrontOrderNew);
 			//获取新生成的id
-			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
+			//MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
+			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAllHundred().get(0);
 			//后更新每个orderItem对象
 			Integer orderId = mlfrontOrdergetAllOne.getOrderId();
 			orderIdFinally = orderId;
@@ -641,7 +643,8 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderitemMotifytime(nowTime);
 				mlfrontOrderItemService.insertSelective(mlfrontOrderItemNew);
 				//获取新生成的id
-				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
+				//MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
+				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAllHundred().get(0);
 				Integer orderItemNewId = MlfrontOrderItemReallOne.getOrderitemId();
 				String orderItemNewIdStr = orderItemNewId+"";
 				//存档便于以后用
@@ -659,7 +662,8 @@ public class MlfrontCartController {
 			mlfrontOrderNew.setOrderMotifytime(nowTime);
 			mlfrontOrderService.insertSelective(mlfrontOrderNew);
 			//获取新生成的id
-			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
+			//MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
+			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAllHundred().get(0);
 			//后更新每个orderItem对象
 			Integer orderId = mlfrontOrdergetAllOne.getOrderId();
 			orderIdFinally = orderId;
@@ -987,7 +991,8 @@ public class MlfrontCartController {
 							Integer accoff =  mlfrontCartItem.getCartitemProductActoff();
 							mlfrontCartItem.setCartitemProductActoff(accoff*10);
 							mlfrontCartItemService.insertSelective(mlfrontCartItem);
-							List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
+							//List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
+							List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAllHundred();
 							Integer cartItemId = mlfrontCartItemList.get(0).getCartitemId();
 							String cartItemIdStrnew = cartItemId+"";
 							cartitemIdstrUser=cartitemIdstrUser+","+cartItemIdStrnew;
@@ -1013,7 +1018,8 @@ public class MlfrontCartController {
 				mlfrontCartItem.setCartitemMotifytime(nowTime);
 				mlfrontCartItem.setCartitemStatus(0);
 				mlfrontCartItemService.insertSelective(mlfrontCartItem);
-				List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
+				//List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
+				List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAllHundred();
 				Integer cartItemId = mlfrontCartItemList.get(0).getCartitemId();
 				//拿回来主键ID		mlfrontCartItem
 				MlfrontCart MlfrontCartItemReturn = new MlfrontCart();
@@ -1027,7 +1033,8 @@ public class MlfrontCartController {
 				Integer accoff =  mlfrontCartItem.getCartitemProductActoff();
 				mlfrontCartItem.setCartitemProductActoff(accoff*10);
 				mlfrontCartService.insertSelective(MlfrontCartItemReturn);
-				List<MlfrontCart> mlfrontCartInsertAfterList= mlfrontCartService.selectMlfrontCartGetAll();
+//				List<MlfrontCart> mlfrontCartInsertAfterList= mlfrontCartService.selectMlfrontCartGetAll();
+				List<MlfrontCart> mlfrontCartInsertAfterList= mlfrontCartService.selectMlfrontCartGetAllHundred();
 				Integer cartAfterId = mlfrontCartInsertAfterList.get(0).getCartId();
 				mlfrontCartItem.setCartitemId(cartItemId);
 				mlfrontCartItem.setCartitemCartId(cartAfterId);
@@ -1122,7 +1129,8 @@ public class MlfrontCartController {
 							Integer accoff =  mlfrontCartItem.getCartitemProductActoff();
 							mlfrontCartItem.setCartitemProductActoff(accoff*10);
 							mlfrontCartItemService.insertSelective(mlfrontCartItem);
-							List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
+							//List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
+							List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAllHundred();
 							Integer cartItemId = mlfrontCartItemList.get(0).getCartitemId();
 							String cartItemIdStrnew = cartItemId+"";
 							cartitemIdstrUser=cartitemIdstrUser+","+cartItemIdStrnew;
@@ -1151,7 +1159,8 @@ public class MlfrontCartController {
 				Integer accoff =  mlfrontCartItem.getCartitemProductActoff();
 				mlfrontCartItem.setCartitemProductActoff(accoff*10);
 				mlfrontCartItemService.insertSelective(mlfrontCartItem);
-				List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
+//				List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
+				List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAllHundred();
 				Integer cartItemId = mlfrontCartItemList.get(0).getCartitemId();
 				//拿回来主键ID		mlfrontCartItem
 				MlfrontCart MlfrontCartItemReturn = new MlfrontCart();
@@ -1162,7 +1171,8 @@ public class MlfrontCartController {
 				MlfrontCartItemReturn.setCartCreatetime(nowTime);
 				MlfrontCartItemReturn.setCartMotifytime(nowTime);
 				mlfrontCartService.insertSelective(MlfrontCartItemReturn);
-				List<MlfrontCart> mlfrontCartInsertAfterList= mlfrontCartService.selectMlfrontCartGetAll();
+				//List<MlfrontCart> mlfrontCartInsertAfterList= mlfrontCartService.selectMlfrontCartGetAll();
+				List<MlfrontCart> mlfrontCartInsertAfterList= mlfrontCartService.selectMlfrontCartGetAllHundred();
 				Integer cartAfterId = mlfrontCartInsertAfterList.get(0).getCartId();
 				mlfrontCartItem.setCartitemId(cartItemId);
 				mlfrontCartItem.setCartitemCartId(cartAfterId);
@@ -1232,7 +1242,8 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderitemMotifytime(nowTime);
 				mlfrontOrderItemService.insertSelective(mlfrontOrderItemNew);
 				//获取新生成的id
-				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
+				//MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
+				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAllHundred().get(0);
 				Integer orderItemNewId = MlfrontOrderItemReallOne.getOrderitemId();
 				String orderItemNewIdStr = orderItemNewId+"";
 				//存档便于以后用
@@ -1257,7 +1268,8 @@ public class MlfrontCartController {
 			
 			mlfrontOrderService.insertSelective(mlfrontOrderNew);
 			//获取新生成的id
-			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
+//			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
+			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAllHundred().get(0);
 			//后更新每个orderItem对象
 			Integer orderId = mlfrontOrdergetAllOne.getOrderId();
 			orderIdFinally = orderId;
@@ -1303,7 +1315,8 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderitemMotifytime(nowTime);
 				mlfrontOrderItemService.insertSelective(mlfrontOrderItemNew);
 				//获取新生成的id
-				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
+				//MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
+				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAllHundred().get(0);
 				Integer orderItemNewId = MlfrontOrderItemReallOne.getOrderitemId();
 				String orderItemNewIdStr = orderItemNewId+"";
 				//存档便于以后用
@@ -1328,7 +1341,8 @@ public class MlfrontCartController {
 			
 			mlfrontOrderService.insertSelective(mlfrontOrderNew);
 			//获取新生成的id
-			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
+			//MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
+			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAllHundred().get(0);
 			//后更新每个orderItem对象
 			Integer orderId = mlfrontOrdergetAllOne.getOrderId();
 			orderIdFinally = orderId;
