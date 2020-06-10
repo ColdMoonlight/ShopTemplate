@@ -54,11 +54,11 @@
 	<!-- main -->
 	<div class="main">
 		<div class="banvideo">
-			<img src="${APP_PATH }/static/pc/img/video/ban.jpg" >
+			<img src="${APP_PATH }/static/pc/img/video/mb1.jpg" >
 		</div>
 		<div class="tipsimg clearfix"><img src="${APP_PATH }/static/pc/img/video/wp2.jpg" ></div>
 		<div class="banvideo">
-			<img src="${APP_PATH }/static/pc/img/video/ty.jpg" >
+			<img src="${APP_PATH }/static/pc/img/video/ty2.jpg" >
 		</div>
 		<div class="container videobox  clearfix">
 			<div class="tipsimg clearfix"><img src="${APP_PATH }/static/pc/img/video/wp3.jpg" ></div>
