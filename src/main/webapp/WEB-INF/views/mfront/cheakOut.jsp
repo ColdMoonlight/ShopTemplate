@@ -123,9 +123,7 @@
 					<div class="form-group form-group_select selectActive">
 						<label for="addressProvince" class="form-label required">State/Province</label>
 						<div class="form-input">
-							<select name="addressProvince" class="form-control" id="province">
-								<option value="Alabama" selected="selected">Alabama</option>
-							</select>
+							<select name="addressProvince" class="form-control" id="province"></select>
 						</div>
 					</div>
 					<!-- city -->
@@ -542,7 +540,7 @@
 		}
 
 		function renderProvince(el, data) {
-			var htmlStr = '',
+			var htmlStr = '<option disabled>State</option>',
 				defaultValue = $(el).val();
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<option value="' + data[i].stateprovinceName + '"'+ (defaultValue == data[i].stateprovinceName ? "selected" : "") +'>' + data[i].stateprovinceName + '</option>';
