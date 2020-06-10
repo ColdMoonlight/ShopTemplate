@@ -540,7 +540,7 @@
 		}
 
 		function renderProvince(el, data) {
-			var htmlStr = '<option disabled>State</option>',
+			var htmlStr = '<option value="state">State</option>',
 				defaultValue = $(el).val();
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<option value="' + data[i].stateprovinceName + '"'+ (defaultValue == data[i].stateprovinceName ? "selected" : "") +'>' + data[i].stateprovinceName + '</option>';
@@ -1012,7 +1012,7 @@
 				$("#country").focus(function () {
 					$(this).removeClass("error_br")
 				})
-			} else if (hasProvince && !provincestr) {
+			} else if (hasProvince && provincestr == 'state') {
 				flag = 1;
 				// alert("provincestr is empty");
 				renderSysMsg('provincestr is empty')
