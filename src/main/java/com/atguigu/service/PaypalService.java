@@ -56,6 +56,8 @@ public class PaypalService {
 //	private APIContext apiContext;
 	APIContext apiContext = new APIContext(clientId, clientSecret, mode);
 
+	
+	//创建payMent参数
 	public Payment createPayment(
             Double total, 
             String currency, 
@@ -70,7 +72,7 @@ public class PaypalService {
             String successUrl) throws PayPalRESTException{
 		      
         
-      //获取总价格
+		//获取总价格
   		String totalStr = (String.format("%.2f", total));
   		System.out.println(totalStr);
   		System.out.println(description);
@@ -111,7 +113,7 @@ public class PaypalService {
   			items.add(item);
   			itemList.setItems(items);
   		}
-  	  	//地址参数
+  	  	//地址参数3.0
         ShippingAddress shippingAddress = getShippingAddress(mlfrontAddress);
 //  		ShippingAddress shippingAddress = getShippingAddressSDK(mlfrontAddress);
         itemList.setShippingAddress(shippingAddress); 		
