@@ -635,6 +635,8 @@
 			$(":input[name='productName']").val(data.productName);
 			$(":input[name='productColor']").val(data.productColor);
 			$(":input[name='productSeo']").val(data.productSeo);
+			$(":input[name='productMetaTitle']").val(data.productMetaTitle);
+			$(":input[name='productMetaKeyWords']").val(data.productMetaKeyWords);
 			$(":input[name='productCategoryid']").val(data.productCategoryid);
 			$(":input[name='productCategoryIdsStr']").val(data.productCategoryIdsStr);
 			$(":input[name='productCategoryNamesStr']").val(data.productCategoryNamesStr);
