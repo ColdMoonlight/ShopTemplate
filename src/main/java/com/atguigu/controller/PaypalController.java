@@ -4,11 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.ListIterator;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
@@ -40,7 +36,6 @@ import com.atguigu.utils.EmailUtilshtml;
 import com.atguigu.utils.EmailUtilshtmlCustomer;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.utils.URLUtils;
-import com.paypal.api.payments.ErrorDetails;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
@@ -87,15 +82,15 @@ public class PaypalController {
     @RequestMapping(method = RequestMethod.GET, value = "mpay")
     public String pay(HttpServletRequest request,HttpSession session){
     	System.out.println("into**********/paypal/mpay**********");
-    	//99.1读取getPayInfo参数
+    	//99.0.1,准备支付前,从session中读取getPayInfo参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
-    	//99.2从session中获取优惠券减去额度
+    	//99.0.2,准备支付前,从session中获取优惠券减去额度
     	String Shopdiscount = getCouponMoney(session);
-    	//99.3从session中获取地址运费
+    	//99.0.3,准备支付前,从session中获取地址运费
     	String addressMoney = getAddressMoney(session);
-    	//99.4从session中获取地址信息
+    	//99.0.4,准备支付前,从session中获取地址信息
     	MlfrontAddress mlfrontAddress = getMlfrontAddress(session);
-    	//99.5从session中获取orderList详情
+    	//99.0.5,准备支付前,从session中获取orderList详情
     	List<MlfrontOrderItem> mlfrontOrderItemList = getMlfrontOrderItemList(session);
     	
     	BigDecimal money = toPaypalInfo.getMoneyNum();
@@ -287,8 +282,8 @@ public class PaypalController {
             session.setAttribute("successpayerId", payerId);
             session.setAttribute("successpayment", payment);
             //99.1.1wap+pc端处理toUpdatePayInfoStateSuccess
-            //1生成支付号,2更改payinfo的状态
-        	toUpdatePayInfoStateSuccess(session,payerId,paymentId);
+            //1生成支付号,2更改payinfo的状态,从返回的payment中获取VIPId=payinfoId
+        	toUpdatePayInfoStateSuccess(session,payerId,paymentId,payment);
             
             System.out.println(payment.toJSON());
             
@@ -322,7 +317,7 @@ public class PaypalController {
             session.setAttribute("successpayment", payment);
             
             //99.1.1wap+pc端处理toUpdatePayInfoStateSuccess//仅仅生成支付号
-        	toUpdatePayInfoStateSuccess(session,payerId,paymentId);
+        	toUpdatePayInfoStateSuccess(session,payerId,paymentId,payment);
             
             System.out.println(payment.toJSON());
             
@@ -483,8 +478,6 @@ public class PaypalController {
     	
 	}
     
-
-	
     /**
      * 3.0.1.1	wap+pc同时处理邮件
      * */
@@ -540,11 +533,10 @@ public class PaypalController {
     }
     
 	/**
-	 * 
 	 * 4.0.1更新失败所需修改的表
 	 * 注释原因:失败之后更新的状态，payinfo与orderinfo的信息都为0,未支付也是0,所以需要修改
 	 * */
-//    private void toUpdatePayInfoFail(HttpSession session) {
+    private void toUpdatePayInfoFail(HttpSession session) {
 //    	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
 //    	//修改支付单状态
 //    	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
@@ -571,16 +563,11 @@ public class PaypalController {
 //		//执行更新
 //		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderResOne);
 //		
-//	}
-    
-    
-    
-    
-    
-    
+	}
+
     /**
 	 * 99.0.1读取getPayInfo参数
-     * 内部调用,封装toPaypalInfo
+     * 准备支付前,从session中读取getPayInfo参数
      * */
     private ToPaypalInfo getPayInfo(HttpSession session) {
     	//从session中获取对象
@@ -600,7 +587,9 @@ public class PaypalController {
 		String toPayUserfirstname = mlfrontAddressToPay.getAddressUserfirstname();
 		String toPayUserlastname = mlfrontAddressToPay.getAddressUserlastname();
 		//拼接参数
-		String toPayDesc = " ";
+		String toPayDesc = "";
+		toPayDesc+="VIP";
+		toPayDesc+=payinfoIdStr+",";
 //		toPayDesc=toPayDesc+toPayEmail+",";
 		toPayDesc+=toPayTelephone+",";
 		toPayDesc+=toPayCountry+",";
@@ -608,23 +597,27 @@ public class PaypalController {
 		toPayDesc+=toPayCity+",";
 		toPayDesc+=toPayDetail+",";
 		toPayDesc+=toPayUserfirstname+",";
-		toPayDesc+=toPayUserlastname+",VIP";
-		toPayDesc+=payinfoIdStr;
-//		toPayDesc+=toPayUserlastname;
+//		toPayDesc+=toPayUserlastname+",VIP";
+//		toPayDesc+=payinfoIdStr;
+		toPayDesc+=toPayUserlastname;
 		toPaypalInfo.setMoneyNum(totalprice);
 		toPaypalInfo.setMoneyType("USD");
 		toPaypalInfo.setPaymentDescription(toPayDesc);
 		return toPaypalInfo;
 	}
-    
-    //99.0.2从session中获取优惠券减去额度
+    /**
+	 * 99.0.1读取优惠信息CouponMoney
+     * 准备支付前,从session中获取优惠券减去额度
+     * */
 	private String getCouponMoney(HttpSession session) {
     	String Shopdiscount = (String) session.getAttribute("CouponCodeMoney");
     	System.out.println("从session中获取优惠券减去额度-Shopdiscount:"+Shopdiscount);
 		return Shopdiscount;
 	}
-	
-    //99.0.3从session中获取地址运费
+	/**
+	 * 99.0.1session中获取运费AddressMoney
+     * 准备支付前,从session中获取运费AddressMoney
+     * */
     private String getAddressMoney(HttpSession session) {
     	String addressMoney = (String) session.getAttribute("addressMoney");
     	System.out.println("从session中获取地址运费-addressMoney:"+addressMoney);
@@ -633,7 +626,7 @@ public class PaypalController {
     
     /**
      * 99.0.4从session中获取地址信息
-     * 内部调用,获取getMlfrontAddress
+     * 准备支付前,从session中获取地址信息
      * */
     private MlfrontAddress getMlfrontAddress(HttpSession session) {
     	MlfrontAddress mlfrontAddressToPay = (MlfrontAddress) session.getAttribute("mlfrontAddressToPay");
@@ -642,7 +635,7 @@ public class PaypalController {
     
     /**
      * 99.0.5从session中获取orderList详情
-     * 内部调用,获取getMlfrontOrderItemList
+     * 准备支付前,从session中获取orderList详情
      * */
     private List<MlfrontOrderItem> getMlfrontOrderItemList(HttpSession session) {
     	Integer orderId = (Integer) session.getAttribute("orderId");
@@ -672,9 +665,25 @@ public class PaypalController {
      * 99.1.1wap+pc端
      * 处理toUpdatePayInfoStateSuccess
      * 生成支付号,修改支付成功的payinfo状态
+     * @param payment 
      * */
-    private void toUpdatePayInfoStateSuccess(HttpSession session, String payerId, String paymentId) {
-    	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
+    private void toUpdatePayInfoStateSuccess(HttpSession session, String payerId, String paymentId, Payment payment) {
+    	
+    	//20200611
+    	//从交易信息中获取Transactions
+    	String paypalDescription =  payment.getTransactions().get(0).getDescription();
+    	//从交易信息中获取Transactions
+    	String paypalDescriptionArr[] = paypalDescription.split(",");
+//    	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
+    	String DescVipIdStr = "";
+    	String DescIdStr = "";
+    	if(paypalDescriptionArr.length>1){
+			//1.1如果有多个删除字段中的该项
+    		DescVipIdStr = paypalDescriptionArr[0];
+		}
+    	DescIdStr = DescVipIdStr.replace("VIP", "");
+    	Integer payinfoId =  Integer.parseInt(DescIdStr);
+    	session.setAttribute("payinfoId", payinfoId);
     	//修改支付单状态
     	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
 		mlfrontPayInfoNew.setPayinfoId(payinfoId);
@@ -709,15 +718,17 @@ public class PaypalController {
 		session.setAttribute("mlfrontPayInfoIOne", mlfrontPayInfoIOne);
 		session.setAttribute("payinfoIdStr", payinfoIdStr);
 		
-		//把新的地址填写回老的地址中,
 	}
     
     /**
      * 
      * 99.2.1wap端处理toUpdatePayInfoSuccess
+     * @param payment 
      * */
 	private void toUpdatePayInfoSuccess(HttpSession session, String payerId, String paymentId) {
     	
+		//200611
+		//在paypal第一次返回的时候,就已经将Payment信息中的payinfoId取出，并且重新放入
     	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
     	
     	MlfrontPayInfo mlfrontPayInfoIOne = (MlfrontPayInfo) session.getAttribute("mlfrontPayInfoIOne");
