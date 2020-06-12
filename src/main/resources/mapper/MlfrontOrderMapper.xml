@@ -448,7 +448,7 @@
   <!-- selectAll使用中 -->
   <select id="selectMlfrontOrderGetAll" parameterType="com.atguigu.bean.MlfrontOrder" resultMap="BaseResultMap">
     select *
-    from tb_mlfront_order order by order_id desc,order_createTime desc  LIMIT 800
+    from tb_mlfront_order order by order_id desc,order_createTime desc 
   </select>
   
   <!-- selectMlfrontOrderByDate使用中 -->
