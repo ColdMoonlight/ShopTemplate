@@ -252,7 +252,7 @@
   <!-- selectAll使用中 -->
   <select id="selectMlfrontCartGetAll" parameterType="com.atguigu.bean.MlfrontCart" resultMap="BaseResultMap">
     select *
-    from tb_mlfront_cart order by cart_id desc
+    from tb_mlfront_cart order by cart_id desc LIMIT 800
   </select>
    <!-- selectMlfrontCartByDate使用中 -->
    <select id="selectMlfrontCartByDate" parameterType="com.atguigu.bean.MlfrontCart" resultMap="BaseResultMap">
