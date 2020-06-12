@@ -9,7 +9,7 @@
   <script src="${APP_PATH }/static/common/swiper/swiper.min.js"></script>
   <script src="${APP_PATH }/static/m/js/zepto.min.js"></script>
   <script>
-	  if (navigator.language.toLocaleLowerCase().indexOf('zh') > -1) window.location.href = "https://www.baidu.com";
+	  //if (navigator.language.toLocaleLowerCase().indexOf('zh') > -1) window.location.href = "https://www.baidu.com";
 	  $.fn.prevAll = function(selector){
 		  var prevEls = [];
 		  var el = this[0];

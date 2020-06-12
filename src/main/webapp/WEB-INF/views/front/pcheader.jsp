@@ -34,7 +34,7 @@
 	<!-- Global site tag (gtag.js) - Google Analytics 测试-->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148326913-1"></script>
 	<script>
-		if (navigator.language.toLocaleLowerCase().indexOf('zh') > -1) window.location.href = "https://www.baidu.com";
+		//if (navigator.language.toLocaleLowerCase().indexOf('zh') > -1) window.location.href = "https://www.baidu.com";
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
