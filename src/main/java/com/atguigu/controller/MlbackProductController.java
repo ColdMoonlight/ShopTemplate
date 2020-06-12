@@ -466,7 +466,7 @@ public class MlbackProductController {
 			mlbackProductOne = mlbackProductResList.get(0);
 		}
 		//System.out.println("操作说明：查询-mlbackProductOne:"+mlbackProductOne);
-		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne);
+		return Msg.success().add("resMsg", "查单个产品详情完毕").add("mlbackProductOne", mlbackProductOne);
 	}
 	
 	/**
