@@ -536,7 +536,7 @@ public class PaypalController {
 	 * 4.0.1更新失败所需修改的表
 	 * 注释原因:失败之后更新的状态，payinfo与orderinfo的信息都为0,未支付也是0,所以需要修改
 	 * */
-    private void toUpdatePayInfoFail(HttpSession session) {
+//    private void toUpdatePayInfoFail(HttpSession session) {
 //    	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
 //    	//修改支付单状态
 //    	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
@@ -563,7 +563,7 @@ public class PaypalController {
 //		//执行更新
 //		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderResOne);
 //		
-	}
+//	}
 
     /**
 	 * 99.0.1读取getPayInfo参数
@@ -689,6 +689,8 @@ public class PaypalController {
 		mlfrontPayInfoNew.setPayinfoId(payinfoId);
 		List<MlfrontPayInfo> MlfrontPayInfoList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoNew);
 		MlfrontPayInfo mlfrontPayInfoIOne = MlfrontPayInfoList.get(0);
+		//从中取出payOid
+		Integer PayOid = mlfrontPayInfoIOne.getPayinfoId();
 		mlfrontPayInfoIOne.setPayinfoStatus(1);//付款成功
 		mlfrontPayInfoIOne.setPayinfoPlatformserialcode(payerId);
 		String nowTime = DateUtil.strTime14s();
@@ -717,6 +719,7 @@ public class PaypalController {
 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoIOne);
 		session.setAttribute("mlfrontPayInfoIOne", mlfrontPayInfoIOne);
 		session.setAttribute("payinfoIdStr", payinfoIdStr);
+		session.setAttribute("orderId", PayOid);
 		
 	}
     
