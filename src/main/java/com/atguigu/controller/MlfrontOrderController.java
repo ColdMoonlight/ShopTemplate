@@ -388,7 +388,7 @@ public class MlfrontOrderController {
 		updateCart(mlfrontOrder);
 		//5.0发起支付
 		Integer isSuccess = 0;//返回0，跳支付成功页面;返回1，跳支付失败页面
-		return Msg.success().add("resMsg", "更新成功").add("isSuccess", isSuccess);
+		return Msg.success().add("resMsg", "更新成功").add("isSuccess", isSuccess).add("payinfoId", payinfoId).add("orderId", orderIdFinally);
 	}
 
 	/**

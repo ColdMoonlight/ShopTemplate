@@ -80,7 +80,10 @@ public class PaypalController {
      * paypal/mpay
      * */
     @RequestMapping(method = RequestMethod.GET, value = "mpay")
-    public String pay(HttpServletRequest request,HttpSession session){
+    public String pay(HttpServletRequest request,HttpSession session,@RequestParam(value = "payinfoId") Integer payinfoId){
+    	
+    	session.setAttribute("payinfoId", payinfoId);
+    	
     	System.out.println("into**********/paypal/mpay**********");
     	//99.0.1,准备支付前,从session中读取getPayInfo参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
