@@ -192,9 +192,9 @@ public class PaypalService {
 	}
 
 	private String getOnemoney(Integer skuNum, String money) {
-		//System.out.println("paypalService中的:getOnemoney"+money+",skuNum:"+skuNum);
+		System.out.println("paypalService中的:getOnemoney"+money+",skuNum:"+skuNum);
 		Double moneyAll = new Double(money);
-		//System.out.println("paypalService中的Double moneyAll = new Double(money)+moneyAll:"+moneyAll);
+		System.out.println("paypalService中的Double moneyAll = new Double(money)+moneyAll:"+moneyAll);
 		Double oneM = moneyAll/skuNum;
 		String Onemoney = String.format("%.2f", oneM);
 		return Onemoney;
