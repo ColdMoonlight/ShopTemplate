@@ -412,7 +412,7 @@ public class PaypalController {
     	
     	//判断是否客户第一次成功页面执行
     	Integer ifFirstSuccesspage = (Integer) session.getAttribute("ifFirstSuccesspage");
-    	if(ifFirstSuccesspage==null){
+    	if(ifFirstSuccesspage==null||ifFirstSuccesspage==0){
     		//如果这个字段不存在,第一次来
     		ifFirstSuccesspage = 0;
     		session.setAttribute("ifFirstSuccesspage", ifFirstSuccesspage);
@@ -725,7 +725,7 @@ public class PaypalController {
     
     /**
      * 
-     * 99.2.1wap端处理toUpdatePayInfoSuccess
+     * 99.2.1wap/pc端处理toUpdatePayInfoSuccess
      * @param payment 
      * */
 	private void toUpdatePayInfoSuccess(HttpSession session, String payerId, String paymentId) {
