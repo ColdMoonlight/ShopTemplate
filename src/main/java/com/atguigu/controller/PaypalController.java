@@ -690,7 +690,7 @@ public class PaypalController {
 		List<MlfrontPayInfo> MlfrontPayInfoList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoNew);
 		MlfrontPayInfo mlfrontPayInfoIOne = MlfrontPayInfoList.get(0);
 		//从中取出payOid
-		Integer PayOid = mlfrontPayInfoIOne.getPayinfoId();
+		Integer PayOid = mlfrontPayInfoIOne.getPayinfoOid();
 		mlfrontPayInfoIOne.setPayinfoStatus(1);//付款成功
 		mlfrontPayInfoIOne.setPayinfoPlatformserialcode(payerId);
 		String nowTime = DateUtil.strTime14s();
@@ -739,9 +739,11 @@ public class PaypalController {
 		
 		//修改order单状态
     	Integer orderId = (Integer) session.getAttribute("orderId");
-//    	if(orderId==null||orderId.equals("")){
-//    		orderId = mlfrontPayInfoIOne.getPayinfoOid();
-//    	}
+    	System.out.println("orderId:"+orderId);
+    	if(orderId==null||orderId.equals("")){
+    		orderId = mlfrontPayInfoIOne.getPayinfoOid();
+    	}
+    	System.out.println("orderId:"+orderId);
 //    	Integer orderId = mlfrontPayInfoIOne.getPayinfoOid();
 		//封装req
 		MlfrontOrder mlfrontOrderPayReq = new MlfrontOrder();
