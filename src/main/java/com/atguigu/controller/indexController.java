@@ -19,10 +19,10 @@ public class indexController {
 		
 		String requestHeader = request.getHeader("user-agent");
 		if(isMobileDevice(requestHeader)){
-			System.out.println("使用手机浏览器");
+			//System.out.println("使用手机浏览器");
 			return "mfront/index";//手机首页
 		}else{
-			System.out.println("使用web浏览器");
+			//System.out.println("使用web浏览器");
 			return "front/index";//PC首页
 		}
 	}
@@ -42,7 +42,7 @@ public class indexController {
             return false;//pc
         requestHeader = requestHeader.toLowerCase();
         for(int i=0;i<deviceArray.length;i++){
-        	System.out.println("deviceArray[i]:"+deviceArray[i]);
+        	//System.out.println("deviceArray[i]:"+deviceArray[i]);
             if(requestHeader.indexOf(deviceArray[i])>0){
                 return true;//移动
             }
