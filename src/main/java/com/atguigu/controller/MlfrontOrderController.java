@@ -791,15 +791,15 @@ public class MlfrontOrderController {
 		Integer addressId = mlfrontOrderRes.getAddressinfoId();
 		
 		//10.1向afterShip官方发送物流添加按钮
-		try {
-			//向物流中插入物流单号，订单号，Item,价格，
-			String resultStr =  shipInformation.addTrackingNumberIntoAfterShip(orderLogisticsname,orderLogisticsnumber,payinfoPlateNum);
-			System.out.println(resultStr);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("物流中插入物流单号--有异常");
-			System.out.println(e.getMessage());
-		}
+//		try {
+//			//向物流中插入物流单号，订单号，Item,价格，
+//			String resultStr =  shipInformation.addTrackingNumberIntoAfterShip(orderLogisticsname,orderLogisticsnumber,payinfoPlateNum);
+//			System.out.println(resultStr);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("物流中插入物流单号--有异常");
+//			System.out.println(e.getMessage());
+//		}
 		
 		//10.2
 		sendLogisticsnumberEmail(addressId,orderLogisticsid,orderLogisticsname,orderLogisticsnumber,orderId,payInfoId);
