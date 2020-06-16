@@ -236,7 +236,7 @@ public class EmailUtilshtmlCustomer {
             msg.setSentDate(new Date());
             //调用Transport的send方法去发送邮件
             Transport.send(msg);
-            //System.out.println("给"+to+"客户,发送邮件完毕,"+"邮件内容为"+message);
+            System.out.println("给"+to+"客户,发送邮件完毕,"+"邮件内容为"+content);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -312,7 +312,7 @@ public class EmailUtilshtmlCustomer {
             msg.setSentDate(new Date());
             //调用Transport的send方法去发送邮件
             Transport.send(msg);
-            //System.out.println("给"+to+"客户,发送邮件完毕,"+"邮件内容为"+content);
+            System.out.println("给"+to+"客户,发送邮件完毕,"+"邮件内容为"+content);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -377,7 +377,7 @@ public class EmailUtilshtmlCustomer {
             msg.setSentDate(new Date());
             //调用Transport的send方法去发送邮件
             Transport.send(msg);
-            //System.out.println("给"+to+"客户,发送邮件完毕,"+"邮件内容为"+content);
+            System.out.println("给"+to+"客户,发送邮件完毕,"+"邮件内容为"+content);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -437,7 +437,7 @@ public class EmailUtilshtmlCustomer {
             msg.setSentDate(new Date());
             //调用Transport的send方法去发送邮件
             Transport.send(msg);
-            //System.out.println("给"+to+"客户,发送邮件完毕,"+"邮件内容为"+content);
+            System.out.println("给"+to+"客户,发送邮件完毕,"+"邮件内容为"+content);
         } catch (Exception e) {
             e.printStackTrace();
         }
