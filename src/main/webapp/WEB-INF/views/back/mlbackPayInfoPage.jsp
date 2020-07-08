@@ -615,7 +615,8 @@
 					'<option value ="7">DPEX</option>' +
 					'<option value ="8">华磊</option>' +
 					'<option value ="9">EMS</option>' +
-					'<option value ="10">其他(联系技术人员添加)</option>' +
+					'<option value ="10">DHL_eCommerce</option>' +
+					'<option value ="11">其他(联系技术人员添加)</option>' +
 					// '<option value ="挂号">挂号</option>' +
 					// '<option value ="中国邮政挂号小包">天天</option>' +
 					'</select>' +
