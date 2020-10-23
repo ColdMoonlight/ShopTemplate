@@ -8,6 +8,7 @@ https://www.fashionnova.com
 https://www.nadula.com/
 https://www.klaiyihair.com/
 https://www.unice.com/
+https://www.tinashehair.com/
 ```
 
 
