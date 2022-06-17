@@ -240,7 +240,7 @@
         <dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.25</version>
+			<version>1.2.83</version>
 		</dependency>
 		<!-- 第三方登录插件库,github地址https://github.com/justauth/JustAuth -->
 	</dependencies>
